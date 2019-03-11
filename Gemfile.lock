@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    benchmark-ips (2.7.2)
     get_process_mem (0.2.1)
     memory_profiler (0.9.12)
     ruby-prof (0.17.0)
@@ -10,6 +11,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  benchmark-ips
   get_process_mem
   memory_profiler
   ruby-prof

@@ -1,2 +1,5 @@
-data_large.txt
-result.json
+/files/data/*
+/tmp/*
+
+# Mac finder artifacts
+.DS_Store

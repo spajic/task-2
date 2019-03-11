@@ -90,10 +90,10 @@ def create_report(source_file, target_file)
   File.write(target_file, "#{report.to_json}\n")
 end
 
-time = Benchmark.realtime do
-  create_report('data_large.txt', 'result.json')
-end
-puts "Execution time: #{time.round(2)}"
+# time = Benchmark.realtime do
+#   create_report('data_large.txt', 'result.json')
+# end
+# puts "Execution time: #{time.round(2)}"
 
 class TaskTest < Minitest::Test
   def test_result
