@@ -1,0 +1,22 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    get_process_mem (0.2.1)
+    memory_profiler (0.9.12)
+    ruby-prof (0.17.0)
+    stackprof (0.2.12)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  get_process_mem
+  memory_profiler
+  ruby-prof
+  stackprof
+
+RUBY VERSION
+   ruby 2.5.3p105
+
+BUNDLED WITH
+   1.17.1
