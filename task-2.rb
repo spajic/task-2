@@ -3,6 +3,7 @@
 require 'json'
 require 'pry'
 require 'date'
+require 'ruby-progressbar'
 
 class User
   attr_reader :attributes, :sessions, :browsers, :time
@@ -22,7 +23,7 @@ class User
       browsers: browsers.join(', '),
       usedIE: browsers.any? { |b| b =~ /INTERNET EXPLORER/ },
       alwaysUsedChrome: browsers.uniq.all? { |b| b =~ /CHROME/ },
-      dates: sessions.map { |s| s[:date] }.map! { |d| Date.iso8601(d) }.sort! { |x, y| y <=> x }
+      dates: sessions.map { |s| s[:date] }.sort! { |x, y| y <=> x }
     }
   end
 end
@@ -55,12 +56,17 @@ def collect_stats_from_users(report, users_objects)
 end
 
 def work(file_name)
+  GC.disable
   file_lines = File.read(file_name).split("\n")
+
+  # progressbar = ProgressBar.create(total: file_lines.count, format: '%a, %J, %E %B')
 
   users = {}
   sessions = {}
 
   file_lines.each do |line|
+    # progressbar.increment
+
     cols = line.split(',')
     users[cols[1]] = parse_user(cols) if cols[0] == 'user'
 
