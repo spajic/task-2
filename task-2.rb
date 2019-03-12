@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-require 'json'
+# require 'json'
 require 'pry'
 require 'date'
+require 'oj'
 require 'ruby-progressbar'
 
 class User
@@ -112,7 +113,9 @@ def work(file_name)
   collect_stats_from_users(report, users_objects)
 
   File.open('result.json', 'w') do |file|
-    file.write(report.to_json)
+    # file.write(report.to_json)
+    # binding.pry
+    file.write(Oj.dump(report, mode: :compat))
     file.write("\n")
   end
 end
