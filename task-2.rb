@@ -1,7 +1,6 @@
+require 'set'
 require 'json'
 require 'date'
-require 'minitest/autorun'
-require 'benchmark'
 
 IE_PATTERN = /^INTERNET EXPLORER/.freeze
 CHROME_PATTERN = /^CHROME/.freeze
@@ -32,7 +31,7 @@ end
 def create_report(source_file, target_file)
   users = []
   sessions_by_users = {}
-  unique_browsers = []
+  unique_browsers = SortedSet.new
   total_sessions = 0
 
   File.open(source_file, 'r').each do |line|
@@ -43,7 +42,7 @@ def create_report(source_file, target_file)
     sessions_by_users[session[:user_id]] ||= []
     sessions_by_users[session[:user_id]] << session
     browser = session[:browser].upcase!
-    unique_browsers << browser unless unique_browsers.include?(browser)
+    unique_browsers << browser
     total_sessions += 1
   end
 
@@ -65,9 +64,9 @@ def create_report(source_file, target_file)
   report = {}
 
   report[:totalUsers] = users.count
-  report[:uniqueBrowsersCount] = unique_browsers.count
+  report[:uniqueBrowsersCount] = unique_browsers.size
   report[:totalSessions] = total_sessions
-  report[:allBrowsers] = unique_browsers.sort!.join(COMMA)
+  report[:allBrowsers] = unique_browsers.to_a.join(COMMA)
   report[:usersStats] = {}
 
   until users.empty?
@@ -88,24 +87,4 @@ def create_report(source_file, target_file)
   end
 
   File.write(target_file, "#{report.to_json}\n")
-end
-
-# time = Benchmark.realtime do
-#   create_report('data_large.txt', 'result.json')
-# end
-# puts "Execution time: #{time.round(2)}"
-
-class TaskTest < Minitest::Test
-  def test_result
-    create_report('files/fixtures/data.txt', 'files/fixtures/result.json')
-
-    expected_report = File.read('files/fixtures/expected_report.json')
-    actual_report = File.read('files/fixtures/result.json')
-
-    assert_equal expected_report, actual_report
-  end
-
-  def teardown
-    File.unlink('files/fixtures/result.json')
-  end
 end
