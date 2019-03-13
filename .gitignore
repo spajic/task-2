@@ -1,0 +1,9 @@
+.ruby-version
+
+.byebug_history
+
+*.txt
+*.html
+*.json
+
+tools
