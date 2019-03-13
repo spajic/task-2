@@ -13,9 +13,10 @@ SESSION = 'session'.freeze
 COMMA = ','.freeze
 
 class User
-  attr_reader :attributes, :sessions, :browsers, :time
+  attr_reader :attributes, :sessions, :browsers, :time, :key
 
   def initialize(attributes:, sessions:)
+    @key = "#{attributes[:first_name]} #{attributes[:last_name]}"
     @attributes = attributes
     @sessions = sessions
     @browsers = sessions.map { |s| s[:browser] }.sort! { |x, y| x <=> y }
@@ -24,7 +25,7 @@ class User
 
   def stats
     {
-      sessionsCount: sessions.count,
+      sessionsCount: sessions.length,
       totalTime: "#{time.sum} min.",
       longestSession: "#{time.max} min.",
       browsers: browsers.join(', '),
@@ -36,7 +37,7 @@ class User
 end
 
 def parse_user(users, fields)
-  users[fields[1]] = {
+  users[fields[1].to_i] = {
     first_name: fields[2],
     last_name: fields[3],
     age: fields[4]
@@ -44,21 +45,22 @@ def parse_user(users, fields)
   users
 end
 
-def parse_session(session)
-  {
-    user_id: session[1],
-    session_id: session[2],
-    browser: session[3].upcase!,
-    time: session[4].to_i,
-    date: session[5]
+def parse_session(sessions, fields)
+  id = fields[1].to_i
+  sessions[id] ||= []
+  sessions[id] << {
+    session_id: fields[2],
+    browser: fields[3].upcase!,
+    time: fields[4].to_i,
+    date: fields[5]
   }
+  sessions
 end
 
 def collect_stats_from_users(report, users_objects)
   users_objects.each do |user|
-    user_key = "#{user.attributes[:first_name]} #{user.attributes[:last_name]}"
-    report['usersStats'][user_key] ||= {}
-    report['usersStats'][user_key] = user.stats
+    report['usersStats'][user.key] ||= {}
+    report['usersStats'][user.key] = user.stats
   end
 end
 
@@ -83,14 +85,22 @@ def work(file_name)
     # users[cols[1]] = parse_user(cols) if line.start_with?(USER) # if cols[0] == 'user'
     # line.start_with?(USER)
     # binding.pry
-    parse_user(users, cols) if cols[0].start_with?(USER)
-    # binding.pry
-    # next unless cols[0] == 'session'
-    next unless cols[0].start_with?(SESSION)
+    case cols[0]
+    when USER
+      parse_user(users, cols)
+    when SESSION
+      parse_session(sessions, cols)
+    end
+    # parse_user(users, cols) if cols[0] == USER
+    # # binding.pry
+    # # next unless cols[0] == 'session'
+    # # next unless cols[0] == SESSION
 
-    id = cols[1]
-    sessions[id] ||= []
-    sessions[id] << parse_session(cols)
+    # parse_session(sessions, cols) if cols[0] == SESSION
+
+    # id = cols[1]
+    # sessions[id] ||= []
+    # sessions[id] << parse_session(cols)
   end
 
   # Отчёт в json
@@ -114,9 +124,9 @@ def work(file_name)
   unique_browsers = all_sessions.map { |s| s[:browser] }.uniq!
 
   report = {}
-  report['totalUsers'] = users.keys.count
-  report['uniqueBrowsersCount'] = unique_browsers.count
-  report['totalSessions'] = all_sessions.count
+  report['totalUsers'] = users.keys.length
+  report['uniqueBrowsersCount'] = unique_browsers.length
+  report['totalSessions'] = all_sessions.length
   report['allBrowsers'] = unique_browsers.sort! { |x, y| x <=> y }.join(COMMA)
   report['usersStats'] = {}
 
@@ -128,8 +138,6 @@ def work(file_name)
   collect_stats_from_users(report, users_objects)
 
   File.open('result.json', 'w') do |file|
-    # file.write(report.to_json)
-    # binding.pry
     file.write(Oj.dump(report, mode: :compat))
     file.write("\n")
   end
