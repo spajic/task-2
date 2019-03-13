@@ -88,6 +88,41 @@ Calculating -------------------------------------
 Process 1 MB of data      9.537  (±10.5%) i/s -     47.000  in   5.044435s
 ```
 
+![CallStack](img/call_stack_1.png)
+
+
+
+## 3. Array#split
+
+
+## 3. User#stats
+30%
+### 3.1. sort!
+Больше всего времени занимает операция `sort!`
+Заменил на
+```ruby
+sort! { |x, y| x <=> y }
+```
+Получил незначительный прирост производительности **9,8 ips**
+
+### 3.2. Regexp
+1. Зафризил константы браузеров
+```ruby
+IE = /INTERNET EXPLORER/.freeze
+CHROME = /CHROME/.freeze
+```
+и заменил
+```ruby
+usedIE: browsers.any? { |b| b =~ IE },
+alwaysUsedChrome: browsers.uniq.all? { |b| b =~ CHROME },
+```
+на метод `match?
+```ruby
+usedIE: browsers.any? { |b| b.match?(IE) },
+alwaysUsedChrome: browsers.uniq.all? { |b| b.match?(CHROME) },
+```
+Получил еще незначительный прирост производительности **10,1 ips**
+
 ## Результаты
 В результате проделанной оптимизации наконец удалось обработать файл с данными.
 Удалось улучшить метрику системы с **~3.268 ips до **
