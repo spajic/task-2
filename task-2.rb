@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# require 'json'
 require 'pry'
 require 'date'
 require 'oj'
 require 'ruby-progressbar'
+require 'set'
 
 IE = /INTERNET EXPLORER/.freeze
 CHROME = /CHROME/.freeze
@@ -13,11 +13,10 @@ SESSION = 'session'.freeze
 COMMA = ','.freeze
 
 class User
-  attr_reader :attributes, :sessions, :browsers, :time, :key
+  attr_reader :sessions, :browsers, :time, :key
 
   def initialize(attributes:, sessions:)
     @key = "#{attributes[:first_name]} #{attributes[:last_name]}"
-    @attributes = attributes
     @sessions = sessions
     @browsers = sessions.map { |s| s[:browser] }.sort! { |x, y| x <=> y }
     @time = sessions.map { |s| s[:time] }
@@ -57,50 +56,24 @@ def parse_session(sessions, fields)
   sessions
 end
 
-def collect_stats_from_users(report, users_objects)
-  users_objects.each do |user|
-    report['usersStats'][user.key] ||= {}
-    report['usersStats'][user.key] = user.stats
-  end
-end
-
 def work(file_name)
-  GC.disable
-  # IO.foreach()
+  # GC.disable
   file_lines = File.read(file_name).split("\n")
 
   # progressbar = ProgressBar.create(total: file_lines.count, format: '%a, %J, %E %B')
 
   users = {}
   sessions = {}
-  # IO.foreach(file_name)
-  # File.read(file_name).each_line do |line|
   file_lines.each do |line|
-    # binding.pry
     # progressbar.increment
-
-    # line.start_with?(USER)
-
     cols = line.split(COMMA)
-    # users[cols[1]] = parse_user(cols) if line.start_with?(USER) # if cols[0] == 'user'
-    # line.start_with?(USER)
-    # binding.pry
+
     case cols[0]
     when USER
       parse_user(users, cols)
     when SESSION
       parse_session(sessions, cols)
     end
-    # parse_user(users, cols) if cols[0] == USER
-    # # binding.pry
-    # # next unless cols[0] == 'session'
-    # # next unless cols[0] == SESSION
-
-    # parse_session(sessions, cols) if cols[0] == SESSION
-
-    # id = cols[1]
-    # sessions[id] ||= []
-    # sessions[id] << parse_session(cols)
   end
 
   # Отчёт в json
@@ -130,12 +103,11 @@ def work(file_name)
   report['allBrowsers'] = unique_browsers.sort! { |x, y| x <=> y }.join(COMMA)
   report['usersStats'] = {}
 
-  # Статистика по пользователям
-  users_objects = users.each.with_object([]) do |(user_id, attrs), arr|
-    arr << User.new(attributes: attrs, sessions: sessions[user_id])
+  users.each do |user_id, attrs|
+    user = User.new(attributes: attrs, sessions: sessions[user_id])
+    report['usersStats'][user.key] ||= {}
+    report['usersStats'][user.key] = user.stats
   end
-
-  collect_stats_from_users(report, users_objects)
 
   File.open('result.json', 'w') do |file|
     file.write(Oj.dump(report, mode: :compat))
