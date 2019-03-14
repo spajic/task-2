@@ -4,7 +4,6 @@ require 'pry'
 require 'date'
 require 'oj'
 require 'ruby-progressbar'
-require 'set'
 
 IE = /INTERNET EXPLORER/.freeze
 CHROME = /CHROME/.freeze
@@ -59,12 +58,12 @@ end
 def work(file_name)
   file_lines = File.read(file_name).split("\n")
 
-  # progressbar = ProgressBar.create(total: file_lines.length, format: '%a, %J, %E %B')
+  progressbar = ProgressBar.create(total: file_lines.length, format: '%a, %J, %E %B')
 
   users = {}
   sessions = {}
   file_lines.each do |line|
-    # progressbar.increment
+    progressbar.increment
     cols = line.split(COMMA)
 
     case cols[0]
