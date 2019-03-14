@@ -114,7 +114,78 @@ File.write(target_file, report.to_json)
 На новом дереве этот узел не отображается, в списке он ушел далеко вниз.
 ![new_call_tree](https://ucarecdn.com/eadd7fb6-25c5-483b-88e7-f7f976e1620f/ScreenShot20190314at234514.png)
 
-Метрика после этого изменения выросла до *5 i/s*
+Метрика после этого изменения выросла до **5 i/s**
+
+### Оптимизация №3
+
+Построила отчёт `CallStack` с помощью ruby-prof.
+На нем видно, что после большого цикла `IO#each` (который пока не понятно как оптимизировать), 
+идет вызов метода `Array#map` (более 17% времени).
+При более детальном рассмотрении стало понятно, что все вызовы этого метода сосредоточены в одном месте:
+```
+until users.empty?
+    user = users.shift
+    user_sessions = sessions_by_users.delete(user[:id]) || []
+    sessions_duration = user_sessions.map { |s| s[:time].to_i }
+    browsers = user_sessions.map { |s| s[:browser] }
+    
+    report[:usersStats][user[:full_name]] = {
+        sessionsCount: user_sessions.count,
+        totalTime: "#{sessions_duration.sum} min.",
+        longestSession: "#{sessions_duration.max} min.",
+        browsers: browsers.sort!.join(DELIMITER),
+        usedIE: browsers.any? { |b| b =~ IE_PATTERN },
+        alwaysUsedChrome: browsers.all? { |b| b =~ CHROME_PATTERN },
+        dates: user_sessions.map { |s| Date.strptime(s[:date], '%Y-%m-%d') }.sort!.reverse!.map!(&:iso8601)
+    }
+end
+```
+
+Тут `#map` фигурирует трижды, и все три раза для одного и того же массива `user_sessions`. 
+Я подумала, что можно пройтись по массиву один раз и достать все нужные данные сразу. 
+А вместо промежуточных массивов `sessions_duration` и `browsers` аккумулировать нужные срезы в одном объекте – хэше.
+
+```
+until users.empty?
+    user = users.shift
+    user_sessions = sessions_by_users.delete(user[:id]) || []
+    sessions_stats = {
+      total_duration: 0,
+      max_duration: 0,
+      browsers: [],
+      dates: [],
+      length: user_sessions.length
+    }
+
+    until user_sessions.empty?
+      session = user_sessions.shift
+      time = session[:time].to_i
+
+      sessions_stats[:total_duration] += time
+      sessions_stats[:max_duration] = time if sessions_stats[:max_duration] < time
+      sessions_stats[:browsers] << session[:browser]
+      sessions_stats[:dates] << Date.strptime(session[:date], '%Y-%m-%d')
+    end
+
+    report[:usersStats][user[:name]] = {
+      sessionsCount: sessions_stats[:length],
+      totalTime: "#{sessions_stats[:total_duration]} min.",
+      longestSession: "#{sessions_stats[:max_duration]} min.",
+      browsers: sessions_stats[:browsers].sort!.join(DELIMITER),
+      usedIE: sessions_stats[:browsers].any? { |b| b =~ IE_PATTERN },
+      alwaysUsedChrome: sessions_stats[:browsers].all? { |b| b =~ CHROME_PATTERN },
+      dates: sessions_stats[:dates].sort!.reverse!.map!(&:iso8601)
+    }
+  end
+```
+
+Как изменился отчёт, можно увидеть ниже:
+
+Before | After
+------ | -----
+![stack_before](https://ucarecdn.com/6f271373-b78a-4f61-8b6f-b87370913253/ScreenShot20190315at003138.png) | ![stack_after](https://ucarecdn.com/3ec9ad92-1e2c-4001-b15c-de7ff3bd93da/ScreenShot20190315at003157.png)
+
+К сожалению, метрика выросла незначительно – **5.2 i/s**. Но откатывать изменения я не стала.
 
 ## Результаты
 ...

@@ -72,17 +72,32 @@ def create_report(source_file, target_file)
   until users.empty?
     user = users.shift
     user_sessions = sessions_by_users.delete(user[:id]) || []
-    sessions_duration = user_sessions.map { |s| s[:time].to_i }
-    browsers = user_sessions.map { |s| s[:browser] }
+    sessions_stats = {
+      total_duration: 0,
+      max_duration: 0,
+      browsers: [],
+      dates: [],
+      length: user_sessions.length
+    }
+
+    until user_sessions.empty?
+      session = user_sessions.shift
+      time = session[:time].to_i
+
+      sessions_stats[:total_duration] += time
+      sessions_stats[:max_duration] = time if sessions_stats[:max_duration] < time
+      sessions_stats[:browsers] << session[:browser]
+      sessions_stats[:dates] << Date.strptime(session[:date], '%Y-%m-%d')
+    end
 
     report[:usersStats][user[:name]] = {
-      sessionsCount: user_sessions.count,
-      totalTime: "#{sessions_duration.sum} min.",
-      longestSession: "#{sessions_duration.max} min.",
-      browsers: browsers.sort!.join(DELIMITER),
-      usedIE: browsers.any? { |b| b =~ IE_PATTERN },
-      alwaysUsedChrome: browsers.all? { |b| b =~ CHROME_PATTERN },
-      dates: user_sessions.map { |s| Date.strptime(s[:date], '%Y-%m-%d') }.sort!.reverse!.map!(&:iso8601)
+      sessionsCount: sessions_stats[:length],
+      totalTime: "#{sessions_stats[:total_duration]} min.",
+      longestSession: "#{sessions_stats[:max_duration]} min.",
+      browsers: sessions_stats[:browsers].sort!.join(DELIMITER),
+      usedIE: sessions_stats[:browsers].any? { |b| b =~ IE_PATTERN },
+      alwaysUsedChrome: sessions_stats[:browsers].all? { |b| b =~ CHROME_PATTERN },
+      dates: sessions_stats[:dates].sort!.reverse!.map!(&:iso8601)
     }
   end
 
