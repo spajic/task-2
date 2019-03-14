@@ -4,6 +4,7 @@ GEM
     benchmark-ips (2.7.2)
     get_process_mem (0.2.1)
     memory_profiler (0.9.12)
+    oj (3.7.1)
     ruby-prof (0.17.0)
     stackprof (0.2.12)
 
@@ -14,6 +15,7 @@ DEPENDENCIES
   benchmark-ips
   get_process_mem
   memory_profiler
+  oj
   ruby-prof
   stackprof
 

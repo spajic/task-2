@@ -1,5 +1,5 @@
 require 'set'
-require 'json'
+require 'oj'
 require 'date'
 
 IE_PATTERN = /^INTERNET EXPLORER/.freeze
@@ -13,7 +13,7 @@ def parse_user(user)
   fields = user.split(COMMA)
   {
     id: fields[1],
-    full_name: "#{fields[2]} #{fields[3]}"
+    name: "#{fields[2]} #{fields[3]}".to_sym
   }
 end
 
@@ -75,7 +75,7 @@ def create_report(source_file, target_file)
     sessions_duration = user_sessions.map { |s| s[:time].to_i }
     browsers = user_sessions.map { |s| s[:browser] }
 
-    report[:usersStats][user[:full_name]] = {
+    report[:usersStats][user[:name]] = {
       sessionsCount: user_sessions.count,
       totalTime: "#{sessions_duration.sum} min.",
       longestSession: "#{sessions_duration.max} min.",
@@ -86,5 +86,5 @@ def create_report(source_file, target_file)
     }
   end
 
-  File.write(target_file, "#{report.to_json}\n")
+  Oj.to_file(target_file, report, mode: :wab)
 end
