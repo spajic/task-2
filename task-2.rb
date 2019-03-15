@@ -141,3 +141,5 @@ def work(file)
 
   File.write('result.json', "#{report.to_json}\n")
 end
+
+work('data/data_250k.txt')
