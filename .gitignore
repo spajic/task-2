@@ -1,0 +1,5 @@
+/files/data/*
+/tmp/*
+
+# Mac finder artifacts
+.DS_Store
