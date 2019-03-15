@@ -87,7 +87,7 @@ def create_report(source_file, target_file)
       sessions_stats[:total_duration] += time
       sessions_stats[:max_duration] = time if sessions_stats[:max_duration] < time
       sessions_stats[:browsers] << session[:browser]
-      sessions_stats[:dates] << Date.strptime(session[:date], '%Y-%m-%d')
+      sessions_stats[:dates] << session[:date].chomp!
     end
 
     report[:usersStats][user[:name]] = {
@@ -97,7 +97,7 @@ def create_report(source_file, target_file)
       browsers: sessions_stats[:browsers].sort!.join(DELIMITER),
       usedIE: sessions_stats[:browsers].any? { |b| b =~ IE_PATTERN },
       alwaysUsedChrome: sessions_stats[:browsers].all? { |b| b =~ CHROME_PATTERN },
-      dates: sessions_stats[:dates].sort!.reverse!.map!(&:iso8601)
+      dates: sessions_stats[:dates].sort!.reverse!
     }
   end
 
