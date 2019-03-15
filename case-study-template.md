@@ -68,16 +68,53 @@ rss after work: 37 MB
 Finish in 0.21
 Process 0.5Mb:        6.5 i/s
 
+
 ### collect_stats_from_users вызывается 7 раз и занимает 62%, в нем 30% приходится на Date.parse
 Измерения: ruby-prof, режим walltime, CallStackPrinter
 Вывод: Выбор неоптимального метода
 Действия: замена на Date.strf
 Результат:
 rss after work: 36 MB
-Finish in 0.16
+Finish in 0.17
 Process 0.5Mb:        9.1 i/s
 
-## Результаты
+### parse_file занимает 30% памяти
+Измерения: ruby-prof, режим memory, CallTreePrinter
+Вывод: Каждый раз для пользователей создается новый массив
+Действия: замена слияния массивов на push элемента
+Результат:
+rss after work: 34 MB
+Finish in 0.15
+Process 0.5Mb:        9.1 i/s
+
+### create_users_objects занимет 30% памяти
+Измерения: ruby-prof, режим memory, CallTreePrinter
+Вывод: Лишнее создание объектов
+Действия: удаление создания User
+Результат: время обработки файла 500кб, уменьшилось с 0.19 сек  до 0.16 сек, rss уменьшилось с 31мб до 27мб
+rss after work: 33 MB
+Finish in 0.14
+Process 0.5Mb:        9.3 i/s
+
+
+### В методе parse_file дочерние методы parse_session и parse_user занимают около 30-40% памяти
+Измерения: ruby-prof, режим memory, CallTreePrinter
+Вывод: Неоптимальная структура данных
+Действия: Hash заменен на Struct
+Результат:
+rss after work: 34 MB
+Finish in 0.14
+Process 0.5Mb:        9.6 i/s
+
+### Method to_json занимал 15% памяти
+Измерения: ruby-prof, режим memory, CallTreePrinter
+Вывод: Неоптималльная библотека
+Действия: Замена на oj
+Результат:
+rss after work: 34 MB
+Finish in 0.12
+Process 0.5Mb:       11.5 i/s
+
 В результате проделанной оптимизации наконец удалось обработать файл с данными.
 Удалось улучшить метрику системы с *того, что у вас было в начале, до того, что получилось в конце*
 
