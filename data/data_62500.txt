@@ -1644,4 +1644,3 @@ session,263,0,Firefox 43,16,2019-02-04
 session,263,1,Chrome 5,57,2017-03-26
 session,263,2,Firefox 49,66,2017-08-18
 session,263,3,Chrome 3,103,2017-12-06
-user,264,Stanton,Margareta,11

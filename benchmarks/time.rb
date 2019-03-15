@@ -7,7 +7,7 @@ end
 
 time = Benchmark.realtime do
   puts  "rss before work: #{print_memory_usage}"
-  work
+  work('data/data_500k.txt')
   puts  "rss after work: #{print_memory_usage}"
 end
 
