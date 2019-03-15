@@ -2,8 +2,8 @@ require 'set'
 require 'oj'
 require 'date'
 
-IE_PATTERN = /^INTERNET EXPLORER/.freeze
-CHROME_PATTERN = /^CHROME/.freeze
+IE_PATTERN = 'INTERNET EXPLORER'.freeze
+CHROME_PATTERN = 'CHROME'.freeze
 COMMA = ','.freeze
 DELIMITER = ', '.freeze
 USER_ROW_MARK = 'user'.freeze
@@ -95,8 +95,8 @@ def create_report(source_file, target_file)
       totalTime: "#{sessions_stats[:total_duration]} min.",
       longestSession: "#{sessions_stats[:max_duration]} min.",
       browsers: sessions_stats[:browsers].sort!.join(DELIMITER),
-      usedIE: sessions_stats[:browsers].any? { |b| b =~ IE_PATTERN },
-      alwaysUsedChrome: sessions_stats[:browsers].all? { |b| b =~ CHROME_PATTERN },
+      usedIE: sessions_stats[:browsers].any? { |b| b.start_with?(IE_PATTERN) },
+      alwaysUsedChrome: sessions_stats[:browsers].all? { |b| b.start_with?(CHROME_PATTERN) },
       dates: sessions_stats[:dates].sort!.reverse!
     }
   end
