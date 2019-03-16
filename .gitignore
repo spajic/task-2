@@ -1,0 +1,5 @@
+# не версионируем вывод программы
+/data.txt
+/result.json
+data_large.txt
+/tmp
