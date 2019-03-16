@@ -1,7 +1,7 @@
 require './task-2.rb'
 require 'ruby-prof'
 
-RubyProf.measure_mode = RubyProf::Memory
+RubyProf.measure_mode = RubyProf::WALL_TIME
 
 result = RubyProf.profile do
   work('data/data_250k.txt', disable_gc: true)
