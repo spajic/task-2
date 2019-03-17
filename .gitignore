@@ -1,0 +1,4 @@
+/profiling/results/*
+/samples/data_*
+/test/data.txt
+/test/result.json
