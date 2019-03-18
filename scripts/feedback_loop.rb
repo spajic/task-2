@@ -6,9 +6,7 @@ require_relative '../task-2.rb'
 class TestMe < Minitest::Test
   REAL_JSON_FILE_PATH = 'data/report_result.json'
   
-
   def test_result
-
     initial_data_file = 'data/test_data/data.txt'
     expected_report_file_path = 'data/test_data/expected_result.json'
     

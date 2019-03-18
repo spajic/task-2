@@ -19,7 +19,9 @@ In order to track metrics dependency on the amount of data, we will use script t
 files, where files sizes are: 0.25MB, o.5MB and 1MB.
 For measuring this metric we will use `scripts/asymptotics.rb` script.
 
-Results of these measurments are the following:
+We will use benchmark and benchmark/ips
+
+Results of these measurments for `benchmark/ips` (iterations per seconds) are the following:
 
 ```
 Calculating -------------------------------------
@@ -35,6 +37,21 @@ Comparison:
 
 As we can see from the above calculations the when we iterate the file of 0.5MB, we receive almost 4 times slower iterations per seconds metric comparing to the 0.25MB size file. Processing 1MB file is approximately 29 times slower. Therefore, we can observe that increasing file size in 2 times, will cause dramatic increase in processing time.
 
+Results of these measurments using `Benchmark.realtime` are the following:
+
+```
+data/data_025mb.txt
+Finish in 0.85
+data/data_05mb.txt
+Finish in 4.8
+data/data_1mb.txt
+Finish in 27.48
+```
+
+## Initial metrics
+I decided to work with 1MB file where initial i/s is 0.039 and realtime processint is approximately 27 seconds.
+
+
 ## Гарантия корректности работы оптимизированной программы
 Программа поставлялась с тестом. Выполнение этого теста позволяет не допустить изменения логики программы при оптимизации.
 
@@ -45,8 +62,31 @@ As we can see from the above calculations the when we iterate the file of 0.5MB,
 
 ## Вникаем в детали системы, чтобы найти 20% точек роста
 Для того, чтобы найти "точки роста" для оптимизации я воспользовался *инструментами, которыми вы воспользовались*
+- benchmark and benchmark/ips
+- ruby-prof gem (flat)
 
-Вот какие проблемы удалось найти и решить
+## Initial Measurements
+
+Вот какие проблемы удалось найти и решить:
+
+From RubyProf::Flat report, we can identify 2 main problems:
+```
+%self      total      self      wait     child     calls  name
+ 94.07     29.643    29.643     0.000     0.000     3875   Array#select
+
+  2.98     31.432     0.938     0.000    30.494    25408  *Array#each
+```
+ %self - The percentage of time spent in this method, derived from self_time/total_time
+  total - The time spent in this method and its children.
+  self  - The time spent in this method.
+  wait  - amount of time this method waited for other threads
+  child - The time spent in this method's children.
+  calls - The number of times this method was called.
+  name  - The name of the method.
+
+We can see that `#select` method on array is calld 3875 times and time spent in this method is 29.6
+On the other hand, `#each` method is called 25408 time and most of the time is spent in this method's children.
+
 
 ### Ваша находка №1
 О вашей находке №1

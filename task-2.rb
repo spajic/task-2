@@ -44,6 +44,7 @@ def collect_stats_from_users(report, users_objects, &block)
 end
 
 def work(file, target_json)
+  # byebug
   file_lines = File.read(file).split("\n")
 
   users = []
@@ -69,7 +70,7 @@ def work(file, target_json)
   #     - Хоть раз использовал IE? +
   #     - Всегда использовал только Хром? +
   #     - даты сессий в порядке убывания через запятую +
-
+  
   report = {}
 
   report[:totalUsers] = users.count

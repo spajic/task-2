@@ -2,12 +2,16 @@ GEM
   remote: https://rubygems.org/
   specs:
     benchmark-ips (2.7.2)
+    byebug (11.0.0)
+    ruby-prof (0.17.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   benchmark-ips
+  byebug
+  ruby-prof
 
 RUBY VERSION
    ruby 2.5.3p105
