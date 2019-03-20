@@ -63,13 +63,14 @@ I decided to work with 1MB file where initial i/s is 0.039 and realtime processi
 ## Вникаем в детали системы, чтобы найти 20% точек роста
 Для того, чтобы найти "точки роста" для оптимизации я воспользовался *инструментами, которыми вы воспользовались*
 - benchmark and benchmark/ips
-- ruby-prof gem (flat)
+- ruby-prof gem (`RubyProf::Flat`), `WALL_TIME` 
+- ruby-prof gem (`GraphHtmlPrinter`), `WALL_TIME`
 
 ## Initial Measurements
 
 Вот какие проблемы удалось найти и решить:
 
-From RubyProf::Flat report, we can identify 2 main problems:
+From `RubyProf::Flat` report, we can identify 2 main problems:
 ```
 %self      total      self      wait     child     calls  name
  94.07     29.643    29.643     0.000     0.000     3875   Array#select
@@ -87,9 +88,26 @@ From RubyProf::Flat report, we can identify 2 main problems:
 We can see that `#select` method on array is calld 3875 times and time spent in this method is 29.6
 On the other hand, `#each` method is called 25408 time and most of the time is spent in this method's children.
 
+Based on the `GraphHtmlPrinter` report we observe same results, 
+where starting from line 100 there is a memory consuming code:
+
+```
+users.each do |user|
+  attributes = user
+  user_sessions = sessions.select { |session| session['user_id'] == user['id'] }
+  user_object = User.new(attributes: attributes, sessions: user_sessions)
+  users_objects = users_objects + [user_object]
+end
+```
+
+[ruby_prof_graph](screenshots/ruby_prof_graph_1.png)
+
+
 
 ### Ваша находка №1
-О вашей находке №1
+
+
+
 
 ### Ваша находка №2
 О вашей находке №2
