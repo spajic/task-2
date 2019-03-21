@@ -217,6 +217,50 @@ However, from `Callees` graph we can see that we should also pay attention to
 ### Ваша находка №2
 О вашей находке №2
 
+For getting unique values we can use `Set` class.
+According to documentation `Set implements a collection of unordered values with no duplicates.` This help us to get rid of `#fill_unique_browsers` method where we used `Enumerable#all`. This method was called from `each loop` which is now not necessary to use.
+It also helped us to get rid of som `map` methods for getting `report['allBrowsers']`
+
+We were able to remove:
+```
+uniqueBrowsers = []
+  sessions.each do |session|
+    uniqueBrowsers = fill_unique_browsers(session, uniqueBrowsers)
+  end
+```
+
+and use `Set` during reading each line of file:
+```
+unique_browsers = Set.new([])
+browser = session['browser'].upcase!
+unique_browsers.add(browser)
+```
+
+This change didn't really improve `brnchmark/ips` metrics:
+```
+Calculating -------------------------------------
+      Process 0.25Mb      6.623  (±15.1%) i/s -     33.000  in   5.032015s
+       Process 0.5Mb      2.900  (± 0.0%) i/s -     15.000  in   5.185387s
+         Process 1Mb      0.739  (± 0.0%) i/s -      4.000  in   5.442805s
+
+Comparison:
+      Process 0.25Mb:        6.6 i/s
+       Process 0.5Mb:        2.9 i/s - 2.28x  slower
+         Process 1Mb:        0.7 i/s - 8.96x  slower
+```
+
+`Benchmark.realtime` presented the following:
+```
+Finish in 0.17
+data/data_05mb.txt
+Finish in 0.45
+data/data_1mb.txt
+Finish in 1.48
+```
+
+As we can see time for processing 1MB file went down from 1.62 to 1.48 only.
+Therefore, this was minor improvement and we should really focus on `collect_stats_from_users` method.
+
 ### Ваша находка №X
 О вашей находке №X
 

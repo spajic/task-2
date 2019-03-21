@@ -1,7 +1,7 @@
 # Deoptimized version of homework task
 
 require 'json'
-
+require 'set'
 require 'date'
 require 'byebug'
 
@@ -50,19 +50,20 @@ def fill_user_objects(user, user_sessions, users_objects)
   user_object
 end
 
-def fill_unique_browsers(session, uniqueBrowsers)
+def fill_unique_browsers(session, unique_browsers)
   browser = session['browser']
-  uniqueBrowsers += [browser] if uniqueBrowsers.all? { |b| b != browser }
-  uniqueBrowsers
+  unique_browsers += [browser] if unique_browsers.all? { |b| b != browser }
+  unique_browsers
 end
 
 def work(file, target_json)
   # byebug
   file_lines = File.read(file).split("\n")
-
+  report = {}
   users = []
   sessions = []
   user_sessions = {}
+  unique_browsers = Set.new([])
 
   file_lines.each do |line|
     cols = line.split(',')
@@ -73,6 +74,8 @@ def work(file, target_json)
     sessions = sessions + [session] 
     user_sessions[session['user_id']] ||= []
     user_sessions[session['user_id']] << session
+    browser = session['browser'].upcase!
+    unique_browsers.add(browser)
   end
 
   # Отчёт в json
@@ -90,27 +93,15 @@ def work(file, target_json)
   #     - Всегда использовал только Хром? +
   #     - даты сессий в порядке убывания через запятую +
   
-  report = {}
+  
 
   report[:totalUsers] = users.count
 
-  # Подсчёт количества уникальных браузеров
-  uniqueBrowsers = []
-  sessions.each do |session|
-    uniqueBrowsers = fill_unique_browsers(session, uniqueBrowsers)
-  end
-
-  report['uniqueBrowsersCount'] = uniqueBrowsers.count
+  report['uniqueBrowsersCount'] = unique_browsers.size
 
   report['totalSessions'] = sessions.count
 
-  report['allBrowsers'] =
-    sessions
-      .map { |s| s['browser'] }
-      .map { |b| b.upcase }
-      .sort
-      .uniq
-      .join(',')
+  report['allBrowsers'] = unique_browsers.sort.join(',')
 
   # Статистика по пользователям
   users_objects = []
