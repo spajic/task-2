@@ -29,9 +29,17 @@ def graph_profile
 end
 
 def callstack_profile
+  run_profiler do |result|
+    printer = RubyProf::CallStackPrinter.new(result)
+    printer.print(File.open("#{OUTPUT_DIR}/ruby_prof_callstack.html", "w+"))
+  end
 end
 
 def calltree_profile
+  run_profiler do |result|
+    printer = RubyProf::CallTreePrinter.new(result)
+    printer.print(path: OUTPUT_DIR, profile: 'profile')
+  end
 end
 
 
@@ -41,5 +49,7 @@ def run_profiler
   yield result
 end
 
-flat_profile
-graph_profile
+# flat_profile
+# graph_profile
+# callstack_profile
+calltree_profile

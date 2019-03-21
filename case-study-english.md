@@ -100,15 +100,120 @@ users.each do |user|
 end
 ```
 
-[ruby_prof_graph](screenshots/ruby_prof_graph_1.png)
+[ruby_prof_graph_1](screenshots/ruby_prof_graph_1.png)
 
-
+Based on the screenshot from `CallStackPrinter`, we can see that `select` is our method to look at
+[ruby_prof_callstack_1](screenshots/ruby_prof_callstack_1.png)
 
 ### Ваша находка №1
+In order to retreive all sessions for user it was decided to create a `user_sessions` hash right during the reading of the file with keys equal to `user_id` and value equal to the array of sessions corresponding to each user.
+
+```
+file_lines.each do |line|
+  cols = line.split(',')
+  
+  users << parse_user(line) if cols[0] == 'user'
+  next unless cols[0] == 'session'
+  session = parse_session(line) 
+  sessions = sessions + [session] 
+  user_sessions[session['user_id']] ||= []
+  user_sessions[session['user_id']] << session
+end
+```
+
+Results of these measurments for `benchmark/ips` (iterations per seconds) are the following:
+```
+Calculating -------------------------------------
+      Process 0.25Mb      4.979  (± 0.0%) i/s -     25.000  in   5.070887s
+       Process 0.5Mb      2.064  (± 0.0%) i/s -     11.000  in   5.383638s
+         Process 1Mb      0.696  (± 0.0%) i/s -      4.000  in   5.755144s
+
+Comparison:
+      Process 0.25Mb:        5.0 i/s
+       Process 0.5Mb:        2.1 i/s - 2.41x  slower
+         Process 1Mb:        0.7 i/s - 7.15x  slower
+```
+
+Results of these measurments using `Benchmark.realtime` are the following:
+```
+
+data/data_025mb.txt
+Finish in 0.2
+data/data_05mb.txt
+Finish in 0.51
+data/data_1mb.txt
+Finish in 1.62
+```
+
+Just based on the above reports we can see that processing file was much faster after this refactoring.
+
+#### Redults from RubyProf::FlatProfiler
+Main work is happening in the following methods:
+- `Array#each from collect_stats_from_users`
+- ` String#split` from `Object#parse_user` and `Object#parse_session`
+- `Array#map` from many places in `Object#work`
+- `<Class::Date>#parse`
+- `Object#parse_session` where `split(',')` method is executed
+- `Regexp#match`
+- `Hash#to_json`
+- `Hash#merge`
+```
+ %self      total      self      wait     child     calls  name
+ 50.75      1.831     0.970     0.000     0.861    25408  *Array#each
+    called from:
+      Object#work (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=61)
+      Object#collect_stats_from_users (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=39)
+
+  8.23      0.157     0.157     0.000     0.000    50797   String#split
+    called from:
+      Object#work (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=61)
+      Object#parse_user (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=18)
+      Object#parse_session (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=28)
+
+  5.24      0.282     0.100     0.000     0.182    42627   Array#map
+    called from:
+      Object#work (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=61)
+
+  4.04      0.152     0.077     0.000     0.075    21523   <Class::Date>#parse
+
+  1.86      0.090     0.036     0.000     0.054    21523   Object#parse_session
+    defined at:
+      txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=28
+
+  1.80      0.034     0.034     0.000     0.000    43046   Regexp#match
+
+  1.16      0.049     0.022     0.000     0.026        1   JSON::Ext::Generator::GeneratorMethods::Hash#to_json
+
+  1.13      0.022     0.022     0.000     0.000    27125   Hash#merge
+  ```
 
 
+#### RubyProf::GraphHtmlPrinter
+Similar results are presented from `GraphHtmlPrinter`.
+It's obvious that I we need to remove the amount of `Array#each` calls.
+Most time our is spent in the following methods:
 
+```
+total time  amount of calls method
+0.33	      21523/21523	    Object#fill_unique_browsers	
+0.28        42625/42627	    Array#map	
+0.09	      21523/21523	    Object#parse_session
+```
+[ruby_prof_graph_2](screenshots/ruby_prof_graph_2.png)
 
+#### RubyProf::CallStackPrinter
+From the screenshot below we can state that methods requiring some improvement are
+- `Object#fill_unique_browsers` where we use `Enumerable#all`
+- `Object#parse_session` where we use `String#split`
+- `Object#collect_stats_from_users` where we user `Array#each`, `Array#map`, `<Class::Date>#parse`, `Regexp#match`
+[ruby_prof_callstack_2](screenshots/ruby_prof_callstack_2.png)
+
+#### RubyProf::CallTreePrinter and Qcachegrind
+Calltree graph below presents same information in regards to which methods have to be be refactored next: 
+[ruby_prof_call_graph](screenshots/ruby_prof_call_tree_graph_2_1.png)
+
+However, from `Callees` graph we can see that we should also pay attention to 
+`sort`, `merge` and `any` methods, maybe they wiil have to be refacotred later.
 ### Ваша находка №2
 О вашей находке №2
 
