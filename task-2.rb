@@ -56,9 +56,9 @@ def work(file = 'data.txt')
   users_objects = []
 
   File.read(file).split("\n").each do |line|
-    next users_objects << process_user_data(line) if line.start_with?('user')
+    next users_objects.push(process_user_data(line)) if line.start_with?('user')
 
-    users_objects.last.sessions << parse_session(line)
+    users_objects.last.sessions.push(parse_session(line))
     next if unique_browsers.include?(users_objects.last.sessions.last['browser'])
 
     unique_browsers << users_objects.last.sessions.last['browser']
