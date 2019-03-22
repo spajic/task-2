@@ -30,6 +30,13 @@ Sort by: self_time
 [Полный текст отчета ](./tools/reports/ruby_prof_graph_allocations_profile.html)
 
 ### Построить и проанализировать отчёт ruby-prof в режиме CallStack
+Еще раз проанализируем этим отчетом затрачиваемое время выполнения (режим wall_time)
+
+![ruby-prof в режиме CallStack](./tools/reports/RubyProfCallStack.png "ruby-prof в режиме CallStack")
+
+А из этого отчета, получается, что самый долгий метод это `collect_stats_from_users`, что идет в разрез с выводами из отчета 1!
+
+[Полный текст отчета ](./tools/reports/ruby_prof_stack_printer_allocations_profile.html)
 
 ### Построить и проанализировать отчёт ruby-prof в режиме CallTree c визуализацией в QCachegrind
 

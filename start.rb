@@ -10,25 +10,33 @@ def start_ruby_prof
   end
 end
 
+# Отчет 1
+# RubyProf.measure_mode = RubyProf::WALL_TIME
+# result = start_ruby_prof
+
+# printer = RubyProf::FlatPrinter.new(result)
+# printer.print(File.open("ruby_prof_flat_allocations_profile.txt", "w+"))
+
+# Отчет 2
+# RubyProf.measure_mode = RubyProf::CPU_TIME
+# result = start_ruby_prof
+
+# printer = RubyProf::GraphHtmlPrinter.new(result)
+# printer.print(File.open("ruby_prof_graph_allocations_profile.html", "w+"), :min_percent => 10)
+
+# Отчет 3
 RubyProf.measure_mode = RubyProf::WALL_TIME
 result = start_ruby_prof
 
-printer = RubyProf::FlatPrinter.new(result)
-printer.print(File.open("ruby_prof_flat_allocations_profile.txt", "w+"))
-# printer.print(STDOUT)
+printer = RubyProf::CallStackPrinter.new(result)
+printer.print(File.open("ruby_prof_stack_printer_allocations_profile.html", "w+"))
+
+# Отчет 4
 
 # printer = RubyProf::DotPrinter.new(result)
 # printer.print(File.open("ruby_prof_allocations_profile.dot", "w+"))
 #
-RubyProf.measure_mode = RubyProf::CPU_TIME
-result = start_ruby_prof
 
-printer = RubyProf::GraphHtmlPrinter.new(result)
-printer.print(File.open("ruby_prof_graph_allocations_profile.html", "w+"), :min_percent => 10)
-#
-# # printer = RubyProf::CallStackPrinter.new(result)
-# # printer.print(File.open("ruby_prof_stack_printer_allocations_profile.sp", "w+"))
-#
 # RubyProf.measure_mode = RubyProf::MEMORY
 # printer = RubyProf::CallTreePrinter.new(result)
 # printer.print(:path => ".", :profile => 'profile', :min_percent => 2)
