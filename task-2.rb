@@ -86,15 +86,11 @@ def work(file_name = 'data.txt')
 
   # Подсчёт количества уникальных браузеров
   uniqueBrowsers = []
+
   sessions.each do |session|
     browser = session['browser']
-    uniqueBrowsers += [browser] if uniqueBrowsers.all? { |b| b != browser }
+    uniqueBrowsers << browser unless uniqueBrowsers.include?(browser)
   end
-
-  # sessions.each do |session|
-  #   browser = session['browser']
-  #   uniqueBrowsers << browser unless uniqueBrowsers.include?(browser)
-  # end
 
   report['uniqueBrowsersCount'] = uniqueBrowsers.count
 
