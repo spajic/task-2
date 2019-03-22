@@ -4,6 +4,7 @@ require 'json'
 require 'pry'
 require 'date'
 require 'ruby-progressbar'
+require 'oj'
 
 IE_REGEX = /INTERNET EXPLORER/i.freeze
 NOT_CHROME_REGEX = /(?<!chrome)\s\d+/i.freeze
@@ -80,7 +81,7 @@ def work(file_name = 'data.txt')
 
   report = {}
 
-  report[:totalUsers] = users.count
+  report['totalUsers'] = users.count
 
   # Подсчёт количества уникальных браузеров
   uniqueBrowsers = []
@@ -90,11 +91,11 @@ def work(file_name = 'data.txt')
     uniqueBrowsers << browser unless uniqueBrowsers.include?(browser)
   end
 
-  report[:uniqueBrowsersCount] = uniqueBrowsers.count
+  report['uniqueBrowsersCount'] = uniqueBrowsers.count
 
-  report[:totalSessions] = sessions.count
+  report['totalSessions'] = sessions.count
 
-  report[:allBrowsers] =
+  report['allBrowsers'] =
     sessions
       .map { |s| s[:browser] }
       .map { |b| b.upcase }
@@ -112,7 +113,7 @@ def work(file_name = 'data.txt')
     users_objects = users_objects + [user_object]
   end
 
-  report[:usersStats] = users_objects.each.with_object({}) do |user, hash|
+  report['usersStats'] = users_objects.each.with_object({}) do |user, hash|
     user_key = "#{user.attributes[:first_name]} #{user.attributes[:last_name]}"
 
     longest_session = user.sessions.max { |a,b| a[:time].to_i <=> b[:time].to_i }
@@ -120,21 +121,24 @@ def work(file_name = 'data.txt')
 
     hash[user_key] = {
       # Собираем количество сессий по пользователям
-      sessionsCount: user.sessions.count,
+      'sessionsCount' => user.sessions.count,
       # Собираем количество времени по пользователям
-      totalTime: "#{user.sessions.sum { |s| s[:time].to_i }} min.",
+      'totalTime' => "#{user.sessions.sum { |s| s[:time].to_i }} min.",
       # Выбираем самую длинную сессию пользователя
-      longestSession: "#{longest_session[:time]} min.",
+      'longestSession' => "#{longest_session[:time]} min.",
       # Браузеры пользователя через запятую
-      browsers: user_browsers,
+      'browsers' => user_browsers,
       # Хоть раз использовал IE?
-      usedIE: user_browsers.match?(IE_REGEX),
+      'usedIE' => user_browsers.match?(IE_REGEX),
       # Всегда использовал только Chrome?
-      alwaysUsedChrome: !user_browsers.match?(NOT_CHROME_REGEX),
+      'alwaysUsedChrome' => !user_browsers.match?(NOT_CHROME_REGEX),
       # Даты сессий через запятую в обратном порядке в формате iso8601
-      dates: user.sessions.map { |s| Date.iso8601(s[:date]) }.sort.reverse_each.with_object([]) { |d, arr| arr << d }
+      'dates' => user.sessions.map { |s| Date.iso8601(s[:date]).to_s }.sort.reverse_each.with_object([]) { |d, arr| arr << d }
     }
   end
 
-  File.write('result.json', "#{report.to_json}\n")
+  File.open('result.json', 'w') do |f|
+    f.write(Oj.dump(report, mode: :object))
+    f.write("\n")
+  end
 end
