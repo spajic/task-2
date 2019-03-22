@@ -1,0 +1,410 @@
+events: wall_time
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=IO::^write
+0 713
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=String::to_s
+0 3745
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=String::encode
+0 19914
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Symbol::to_s
+0 3
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Hash::keys
+0 1522
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=JSON/Ext/Generator/State::initialize_copy
+0 1
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Kernel::dup
+0 3
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Kernel::initialize_dup
+calls=1 142
+142 2
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=JSON/Ext/Generator/GeneratorMethods/Hash::to_json
+0 20582
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Kernel::dup
+calls=1 142
+142 5
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Hash::keys
+calls=2438 142
+142 1522
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Symbol::to_s
+calls=1 142
+142 3
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=String::encode
+calls=40366 142
+142 19914
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=String::to_s
+calls=19492 142
+142 3745
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Date::iso8601
+0 10356
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Array::reverse
+0 744
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Date::<=>
+0 4812
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Integer::div
+0 3783
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=String::[]=
+0 6791
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=MatchData::end
+0 2567
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=MatchData::begin
+0 12716
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Regexp::match
+0 26905
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=String::gsub!
+0 16812
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Date::^parse
+0 67185
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=String::gsub!
+calls=13564 139
+139 16812
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Regexp::match
+calls=27128 139
+139 26905
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=MatchData::begin
+calls=13564 139
+139 12716
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=MatchData::end
+calls=13564 139
+139 2567
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=String::[]=
+calls=13564 139
+139 6791
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Integer::div
+calls=13564 139
+139 3783
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Array::any?
+0 8489
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=String::upcase
+calls=7071 129
+129 2285
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Array::max
+0 694
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Integer::to_s
+0 1249
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Array::sum
+0 491
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=String::to_i
+0 5631
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Hash::initialize_copy
+0 18439
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Kernel::initialize_dup
+0 5557
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Hash::initialize_copy
+calls=17052 41
+41 18439
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=JSON/Ext/Generator/State::initialize_copy
+calls=1 142
+142 1
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Hash::merge
+0 14111
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Kernel::initialize_dup
+calls=17052 41
+41 23995
+
+fl=/home/stas/projects/ruby/perf/task-2/task-2.rb
+fn=Object::collect_stats_from_users
+37 14
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Array::each
+calls=7 38
+38 375802
+
+fl=/home/stas/projects/ruby/perf/task-2/task-2.rb
+fn=User::initialize
+10 4464
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Class::new
+0 21556
+cfl=/home/stas/projects/ruby/perf/task-2/task-2.rb
+cfn=User::initialize
+calls=2436 101
+101 4464
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Array::select
+0 18774943
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Array::join
+0 2833
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Array::uniq
+0 1023
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Array::sort
+0 16076
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Date::<=>
+calls=23815 139
+139 4812
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=String::upcase
+0 10891
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Array::map
+0 83659
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=String::upcase
+calls=13564 90
+90 3483
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=String::to_i
+calls=27128 119
+119 5631
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=String::upcase
+calls=13564 124
+124 3869
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Date::^parse
+calls=13564 139
+139 136759
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Date::iso8601
+calls=13564 139
+139 10356
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Enumerable::all?
+0 25286
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Array::each
+calls=13564 80
+80 261000
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Array::each
+calls=2436 134
+134 5894
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Array::count
+0 579
+
+fl=/home/stas/projects/ruby/perf/task-2/task-2.rb
+fn=Object::parse_session
+26 34369
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=String::split
+calls=13564 27
+27 43754
+
+fl=/home/stas/projects/ruby/perf/task-2/task-2.rb
+fn=Object::parse_user
+16 4328
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=String::split
+calls=2436 17
+17 4629
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=Array::each
+0 355346
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=String::split
+calls=16000 52
+52 47659
+cfl=/home/stas/projects/ruby/perf/task-2/task-2.rb
+cfn=Object::parse_user
+calls=2436 53
+53 8958
+cfl=/home/stas/projects/ruby/perf/task-2/task-2.rb
+cfn=Object::parse_session
+calls=13564 54
+54 78123
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Enumerable::all?
+calls=13564 80
+80 284859
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Array::select
+calls=2436 100
+100 18774943
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Class::new
+calls=2436 101
+101 26021
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Array::count
+calls=2436 109
+109 574
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Hash::merge
+calls=17052 139
+139 38106
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Array::map
+calls=26796 139
+139 229293
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Array::sum
+calls=2436 114
+114 491
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Integer::to_s
+calls=4872 119
+119 1249
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Array::max
+calls=2436 119
+119 694
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Array::sort
+calls=4872 139
+139 13698
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Array::join
+calls=2436 124
+124 2807
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Array::any?
+calls=2436 129
+129 10773
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Enumerable::all?
+calls=2436 134
+134 7322
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Array::reverse
+calls=2436 139
+139 744
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=String::upcase
+calls=3126 134
+134 1255
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=String::split
+0 103494
+
+fl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+fn=IO::^read
+0 369
+
+fl=/home/stas/projects/ruby/perf/task-2/task-2.rb
+fn=Object::work
+45 670
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=IO::^read
+calls=1 46
+46 369
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=String::split
+calls=1 46
+46 7452
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Array::each
+calls=3 98
+98 19505856
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Array::count
+calls=3 85
+85 5
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Array::map
+calls=2 87
+87 14464
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Array::sort
+calls=1 87
+87 7190
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Array::uniq
+calls=1 87
+87 1023
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=Array::join
+calls=1 87
+87 26
+cfl=/home/stas/projects/ruby/perf/task-2/task-2.rb
+cfn=Object::collect_stats_from_users
+calls=7 138
+138 375816
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=JSON/Ext/Generator/GeneratorMethods/Hash::to_json
+calls=1 142
+142 45771
+cfl=/home/stas/projects/ruby/perf/task-2/ruby_runtime
+cfn=IO::^write
+calls=1 142
+142 713
+
+fl=/home/stas/projects/ruby/perf/task-2/rubyprof/call_tree.rb
+fn=[global]::[no method]
+7 26
+cfl=/home/stas/projects/ruby/perf/task-2/task-2.rb
+cfn=Object::work
+calls=1 7
+7 19959355
+

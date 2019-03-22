@@ -1,0 +1,5 @@
+*.txt
+result.json
+massif.out.*
+rubyprof/*.txt
+rubyprof/*.html
