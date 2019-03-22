@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Deoptimized version of homework task
 
 require 'json'
@@ -10,6 +12,7 @@ IE_REGEX = /INTERNET EXPLORER/i.freeze
 NOT_CHROME_REGEX = /(?<!chrome)\s\d+/i.freeze
 SESSION_PREF = 'session,'
 USER_PREF = 'user,'
+ISO8601_REGEX = /^\d\d\d\d-\d\d-\d\d$/.freeze
 
 class User
   attr_reader :attributes, :sessions
@@ -43,8 +46,6 @@ def work(file_name = 'data.txt')
   # total_lines = %x[cat #{file_name} | wc -l].to_i
   # progressbar = ProgressBar.create(title: 'Parse file', total: total_lines, format: '%a |%b>>%i| %p%% %t')
 
-  file_lines = File.read(file_name).split("\n")
-
   users = []
   sessions = []
   grouped_sessions = {}
@@ -62,6 +63,7 @@ def work(file_name = 'data.txt')
       grouped_sessions[session[:user_id]] ||= []
       grouped_sessions[session[:user_id]] << session
     end
+    # progressbar.increment
   end
 
   # Отчёт в json
@@ -92,16 +94,8 @@ def work(file_name = 'data.txt')
   end
 
   report['uniqueBrowsersCount'] = uniqueBrowsers.count
-
   report['totalSessions'] = sessions.count
-
-  report['allBrowsers'] =
-    sessions
-      .map { |s| s[:browser] }
-      .map { |b| b.upcase }
-      .sort
-      .uniq
-      .join(',')
+  report['allBrowsers'] = uniqueBrowsers.map(&:upcase).sort.join(',')
 
   # Статистика по пользователям
   users_objects = []
@@ -110,7 +104,7 @@ def work(file_name = 'data.txt')
     attributes = user
     user_sessions = grouped_sessions[user[:id]]
     user_object = User.new(attributes: attributes, sessions: user_sessions)
-    users_objects = users_objects + [user_object]
+    users_objects << user_object
   end
 
   report['usersStats'] = users_objects.each.with_object({}) do |user, hash|
@@ -133,12 +127,14 @@ def work(file_name = 'data.txt')
       # Всегда использовал только Chrome?
       'alwaysUsedChrome' => !user_browsers.match?(NOT_CHROME_REGEX),
       # Даты сессий через запятую в обратном порядке в формате iso8601
-      'dates' => user.sessions.map { |s| Date.iso8601(s[:date]).to_s }.sort.reverse_each.with_object([]) { |d, arr| arr << d }
+      'dates' => user.sessions.map do |s|
+        s[:date].match?(/^\d\d\d\d-\d\d-\d\d$/) ? s[:date].chomp : Date.iso8601(s[:date]).to_s
+      end.sort.reverse_each.with_object([]) { |d, arr| arr << d }
     }
   end
 
   File.open('result.json', 'w') do |f|
-    f.write(Oj.dump(report, mode: :object))
+    f.write(Oj.dump(report))
     f.write("\n")
   end
 end

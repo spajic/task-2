@@ -22,6 +22,8 @@ if File.exist?('ips.result')
   system("cat ips.result")
 end
 
+GC.disable
+
 puts "*** Result ***"
 result = Benchmark.ips do |bench|
   bench.report("Process #{target} lines") do
