@@ -9,4 +9,9 @@ end
 
 GC.disable
 printer = RubyProf::FlatPrinter.new(result)
-printer.print(File.open("rubyprof/flat.txt", "w+"))
+
+if ENV['RUBYPROF'] == 'STDOUT'
+  printer.print(STDOUT)
+else
+  printer.print(File.open("rubyprof/flat.txt", "w+"))
+end

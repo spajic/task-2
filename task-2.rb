@@ -91,6 +91,11 @@ def work(file_name = 'data.txt')
     uniqueBrowsers += [browser] if uniqueBrowsers.all? { |b| b != browser }
   end
 
+  # sessions.each do |session|
+  #   browser = session['browser']
+  #   uniqueBrowsers << browser unless uniqueBrowsers.include?(browser)
+  # end
+
   report['uniqueBrowsersCount'] = uniqueBrowsers.count
 
   report['totalSessions'] = sessions.count

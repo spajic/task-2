@@ -9,4 +9,4 @@ end
 
 GC.disable
 printer = RubyProf::CallStackPrinter.new(result)
-printer.print(File.open("rubyprof/call_stack.html", "w+"))
+printer.print(File.open("rubyprof/call_stack_#{Time.now.to_i}.html", "w+"))

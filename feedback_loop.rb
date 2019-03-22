@@ -17,10 +17,22 @@ target = 16_000
 
 populate(target)
 
-Benchmark.ips do |bench|
+if File.exist?('ips.result')
+  puts "*** Previous result ***"
+  system("cat ips.result")
+end
+
+puts "*** Result ***"
+result = Benchmark.ips do |bench|
   bench.report("Process #{target} lines") do
     work("data_#{target}.txt")
   end
 end
+
+_stdout = $stdout
+$stdout = StringIO.new
+result.entries.each(&:display)
+File.open('ips.result', 'w') { |file| file << $stdout.string }
+$stdout = _stdout
 
 require './task_test'
