@@ -35,7 +35,7 @@ def parse_session(session)
     'session_id' => fields[2],
     'browser' => fields[3].upcase,
     'time' => fields[4].to_i,
-    'date' => Date.strptime(fields[5]).iso8601
+    'date' => fields[5]
   }
 end
 
