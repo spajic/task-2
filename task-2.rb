@@ -51,7 +51,7 @@ def process_user_data(line)
   User.new(attributes: parse_user(line), sessions: [])
 end
 
-def work(file = 'data.txt')
+def work(file = 'data/data_large.txt', disable_gc: false)
   unique_browsers = []
   users_objects = []
 

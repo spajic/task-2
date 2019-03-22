@@ -5,7 +5,8 @@ require 'zlib'
 DATA = {
   '1MB' => 1_048_576,
   '4MB' => 4_194_304,
-  '10MB' => 10_485_760
+  '10MB' => 10_485_760,
+  'large' => nil
 }.freeze
 
 DIR = 'data'.freeze
@@ -23,6 +24,7 @@ end
 
 def create_data(result = ungz_file)
   DATA.each do |name, size|
+    size ||= result.size
     result.pos = 0
     copied = 0
     target = File.open("#{DIR}/data_#{name}.txt", 'w+')
