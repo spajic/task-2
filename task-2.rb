@@ -4,6 +4,7 @@ require 'date'
 require 'minitest/autorun'
 require 'benchmark'
 require 'memory_profiler'
+require 'set'
 
 class User
   attr_reader :attributes, :sessions
@@ -52,7 +53,8 @@ def process_user_data(line)
 end
 
 def work(file = 'data/data_large.txt', disable_gc: false)
-  unique_browsers = []
+  # unique_browsers = []
+  unique_browsers = SortedSet.new
   users_objects = []
 
   File.read(file).split("\n").each do |line|
@@ -87,7 +89,7 @@ def work(file = 'data/data_large.txt', disable_gc: false)
 
   report['totalSessions'] = users_objects.flat_map(&:sessions).count
 
-  report['allBrowsers'] = unique_browsers.sort.join(',')
+  report['allBrowsers'] = unique_browsers.to_a.join(',')
 
   report['usersStats'] = {}
 
