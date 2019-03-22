@@ -3,6 +3,7 @@
 require 'json'
 require 'pry'
 require 'date'
+require 'ruby-progressbar'
 
 class User
   attr_reader :attributes, :sessions
@@ -43,6 +44,9 @@ def collect_stats_from_users(report, users_objects, &block)
 end
 
 def work(file_name = 'data.txt')
+  total_lines = %x[cat #{file_name} | wc -l].to_i
+  progressbar = ProgressBar.create(title: 'Parse file', total: total_lines, format: '%a |%b>>%i| %p%% %t')
+
   file_lines = File.read(file_name).split("\n")
 
   users = []
@@ -52,6 +56,7 @@ def work(file_name = 'data.txt')
     cols = line.split(',')
     users = users + [parse_user(line)] if cols[0] == 'user'
     sessions = sessions + [parse_session(line)] if cols[0] == 'session'
+    progressbar.increment
   end
 
   # Отчёт в json
