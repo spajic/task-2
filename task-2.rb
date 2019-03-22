@@ -5,6 +5,7 @@ require 'minitest/autorun'
 require 'benchmark'
 require 'memory_profiler'
 require 'set'
+require 'oj'
 
 class User
   attr_reader :attributes, :sessions
@@ -83,7 +84,7 @@ def work(file = 'data/data_large.txt', disable_gc: false)
 
   report = {}
 
-  report[:totalUsers] = users_objects.count
+  report['totalUsers'] = users_objects.count
 
   report['uniqueBrowsersCount'] = unique_browsers.count
 
@@ -107,5 +108,5 @@ def work(file = 'data/data_large.txt', disable_gc: false)
     }
   end
 
-  File.write('result.json', "#{report.to_json}\n")
+  Oj.to_file('result.json', report)
 end
