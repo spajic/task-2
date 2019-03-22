@@ -3,3 +3,4 @@ result.json
 massif.out.*
 rubyprof/*.txt
 rubyprof/*.html
+.DS_Store

@@ -34,6 +34,10 @@ Process with 8000 lines:        0.3 i/s - 20.94x  slower
 Process with 16000 lines:        0.1 i/s - 89.20x  slower
 ```
 
+А также изучим график из Valigrind
+
+![Valgrind Before](/png/valgr_before.png)
+
 ## Гарантия корректности работы оптимизированной программы
 Программа поставлялась с тестом. Выполнение этого теста позволяет не допустить изменения логики программы при оптимизации.
 
@@ -59,9 +63,13 @@ Process with 16000 lines:        0.1 i/s - 89.20x  slower
 ```
 
 ### Режим Graph
-### Режим CallStack
-### Режим CallTree
+![Graph](/png/ruby_prof_graph.png)
 
+### Режим CallStack
+![CallStack](/png/call_stack.png)
+
+### Режим CallTree
+![CallTree](/png/call_tree.png)
 
 Вот какие проблемы удалось найти и решить
 
