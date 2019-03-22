@@ -39,6 +39,16 @@ Sort by: self_time
 [Полный текст отчета ](./tools/reports/ruby_prof_stack_printer_allocations_profile.html)
 
 ### Построить и проанализировать отчёт ruby-prof в режиме CallTree c визуализацией в QCachegrind
+Еще раз проанализируем этим отчетом затрачиваемое время выполнения (режим wall_time)
+
+![ruby-prof в режиме QCachegrind-1](./tools/reports/RubyProfQCachegrind-1.png "ruby-prof в режиме QCachegrind")
+
+А из этого отчета, получается, что самый долгий метод это `parse_file` и дальше цепочка замедляющих его вызовов выглядит как `Array#each` -> `calc_stat `
+
+![ruby-prof в режиме QCachegrind-2](./tools/reports/RubyProfQCachegrind-2.png "ruby-prof в режиме QCachegrind")
+
+[Сырые данные отчета ](./tools/reports/profile.callgrind.out.59260)
+
 
 ### Профилировать работающий процесс rbspy
 

@@ -25,17 +25,21 @@ end
 # printer.print(File.open("ruby_prof_graph_allocations_profile.html", "w+"), :min_percent => 10)
 
 # Отчет 3
+# RubyProf.measure_mode = RubyProf::WALL_TIME
+# result = start_ruby_prof
+
+# printer = RubyProf::CallStackPrinter.new(result)
+# printer.print(File.open("ruby_prof_stack_printer_allocations_profile.html", "w+"))
+
+# Отчет 4
 RubyProf.measure_mode = RubyProf::WALL_TIME
 result = start_ruby_prof
 
-printer = RubyProf::CallStackPrinter.new(result)
-printer.print(File.open("ruby_prof_stack_printer_allocations_profile.html", "w+"))
-
-# Отчет 4
+printer = RubyProf::CallTreePrinter.new(result)
+printer.print(:path => ".", :profile => 'profile', :min_percent => 2)
 
 # printer = RubyProf::DotPrinter.new(result)
 # printer.print(File.open("ruby_prof_allocations_profile.dot", "w+"))
-#
 
 # RubyProf.measure_mode = RubyProf::MEMORY
 # printer = RubyProf::CallTreePrinter.new(result)
