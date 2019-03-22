@@ -44,19 +44,25 @@ def collect_stats_from_users(report, users_objects, &block)
 end
 
 def work(file_name = 'data.txt')
-  total_lines = %x[cat #{file_name} | wc -l].to_i
-  progressbar = ProgressBar.create(title: 'Parse file', total: total_lines, format: '%a |%b>>%i| %p%% %t')
+  # total_lines = %x[cat #{file_name} | wc -l].to_i
+  # progressbar = ProgressBar.create(title: 'Parse file', total: total_lines, format: '%a |%b>>%i| %p%% %t')
 
   file_lines = File.read(file_name).split("\n")
 
   users = []
   sessions = []
+  grouped_sessions = {}
 
   file_lines.each do |line|
     cols = line.split(',')
     users = users + [parse_user(line)] if cols[0] == 'user'
-    sessions = sessions + [parse_session(line)] if cols[0] == 'session'
-    progressbar.increment
+    if cols[0] == 'session'
+      session = parse_session(line)
+      sessions = sessions << session
+      grouped_sessions[session['user_id']] ||= []
+      grouped_sessions[session['user_id']] << session
+    end
+    # progressbar.increment
   end
 
   # Отчёт в json
@@ -102,7 +108,7 @@ def work(file_name = 'data.txt')
 
   users.each do |user|
     attributes = user
-    user_sessions = sessions.select { |session| session['user_id'] == user['id'] }
+    user_sessions = grouped_sessions[user['id']]
     user_object = User.new(attributes: attributes, sessions: user_sessions)
     users_objects = users_objects + [user_object]
   end
