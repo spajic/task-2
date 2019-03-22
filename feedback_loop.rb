@@ -26,6 +26,7 @@ GC.disable
 
 puts "*** Result ***"
 result = Benchmark.ips do |bench|
+  bench.config(stats: :bootstrap, confidence: 99)
   bench.report("Process #{target} lines") do
     work("data_#{target}.txt")
   end

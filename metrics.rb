@@ -20,6 +20,7 @@ end
 lines_nums.each { |lines_num| populate(lines_num) }
 
 Benchmark.ips do |bench|
+  bench.config(stats: :bootstrap, confidence: 99)
   bench.warmup = 0
 
   lines_nums.each do |lines_num|
