@@ -94,9 +94,11 @@ Calculating -------------------------------------
 * Подозрение на вложенный цикл: `all?` в `each`
 
 ### Вторая итерация
-* Метод `collect_stats_from_users` занимает 60% времени. [CallStack](http://htmlpreview.github.io/?https://github.com/StanisLove/task-2/blob/optimization/rubyprof/call_stack_1553284084.html)
+* Метод `collect_stats_from_users` занимает 60% времени. [CallStack](http://htmlpreview.github.io/?https://github.com/stanislove/task-2/blob/optimization/rubyprof/call_stack_1553284084.html)
 
-### Ваша находка №X
+### Третья итерация
+* Попробовать оптимизировать методы `parse_user` и `parse_session`. [Предпосылки](http://htmlpreview.github.io/?https://github.com/stanislove/task-2/blob/optimization/rubyprof/call_stack_1553285252.html)
+
 О вашей находке №X
 
 ## Результаты
