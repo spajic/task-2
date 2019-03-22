@@ -37,12 +37,12 @@ def parse_session(session)
 end
 
 def collect_stats_from_users(report, users_objects)
-  progressbar = ProgressBar.create(total: users_objects.count, title: 'Colculate stats:')
+  # progressbar = ProgressBar.create(total: users_objects.count, title: 'Colculate stats:')
   users_objects.each do |user|
     user_key = user.full_name
     report['usersStats'][user_key] = {}
     report['usersStats'][user_key] = calc_stat(user)
-    progressbar.increment
+    # progressbar.increment
   end
 end
 
@@ -66,7 +66,6 @@ def sessions_count(user)
 end
 
 def time_from_sesions(user)
-  # binding.pry
   user.sessions.map {|s| s['time'].to_i }
 end
 
@@ -102,14 +101,14 @@ def parse_file(file)
   users = []
   sessions = []
 
-  lines_count = `wc -l #{file}`.strip.split(' ')[0].to_i
-  progressbar = ProgressBar.create(total: lines_count, title: 'Read data from file:')
+  # lines_count = `wc -l #{file}`.strip.split(' ')[0].to_i
+  # progressbar = ProgressBar.create(total: lines_count, title: 'Read data from file:')
 
   File.readlines(file).each do |line|
     cols = line.split(',')
     users << parse_user(line) if cols[0] == 'user'
     sessions << parse_session(line) if cols[0] == 'session'
-    progressbar.increment
+    # progressbar.increment
   end
   [users, sessions]
 end
@@ -117,17 +116,17 @@ end
 def count_browsers(sessions)
   browsers = []
 
-  progressbar = ProgressBar.create(total: sessions.count, title: 'Count uniq browsers:')
+  # progressbar = ProgressBar.create(total: sessions.count, title: 'Count uniq browsers:')
   sessions.each do |session|
     browsers << session['browser']
-    progressbar.increment
+    # progressbar.increment
   end
   browsers.uniq
 end
 
 def create_users_objects(users, sessions_by_user)
   users_objects = []
-  progressbar = ProgressBar.create(total: users.count, title: 'Create users:')
+  # progressbar = ProgressBar.create(total: users.count, title: 'Create users:')
   users.each do |user|
     attributes = user
     id = user['id']
@@ -135,7 +134,7 @@ def create_users_objects(users, sessions_by_user)
     user_sessions = sessions_by_user[id]
     user_object = User.new(attributes: attributes, sessions: user_sessions, id: id, full_name: full_name)
     users_objects << user_object
-    progressbar.increment
+    # progressbar.increment
   end
   users_objects
 end
@@ -179,10 +178,10 @@ def work(file='data.txt')
 
   report['totalSessions'] = sessions.count
 
-  find_all_browsers_time = Benchmark.realtime do
+  # find_all_browsers_time = Benchmark.realtime do
     report['allBrowsers'] = find_all_browsers(sessions)
-  end.round(4)
-  puts "find_all_browsers Takes #{find_all_browsers_time} sec"
+  # end.round(4)
+  # puts "find_all_browsers Takes #{find_all_browsers_time} sec"
 
 
   sessions_by_user = sessions.group_by{|h| h["user_id"]}

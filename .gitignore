@@ -3,3 +3,5 @@
 /result.json
 data_large.txt
 /tmp
+
+.DS_Store
