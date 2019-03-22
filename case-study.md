@@ -93,8 +93,8 @@ Calculating -------------------------------------
 * Большую часть процессорного времени занимает `select` вложенный в `each`
 * Подозрение на вложенный цикл: `all?` в `each`
 
-### Ваша находка №2
-О вашей находке №2
+### Вторая итерация
+* Метод `collect_stats_from_users` занимает 60% времени. [CallStack](http://htmlpreview.github.io/?https://github.com/StanisLove/task-2/blob/optimization/rubyprof/call_stack_1553284084.html)
 
 ### Ваша находка №X
 О вашей находке №X

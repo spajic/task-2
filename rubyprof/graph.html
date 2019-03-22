@@ -1,0 +1,2390 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <style media="all" type="text/css">
+    table {
+      border-collapse: collapse;
+      border: 1px solid #CCC;
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+      font-size: 9pt;
+      line-height: normal;
+      width: 100%;
+    }
+
+    th {
+      text-align: center;
+      border-top: 1px solid #FB7A31;
+      border-bottom: 1px solid #FB7A31;
+      background: #FFC;
+      padding: 0.3em;
+      border-left: 1px solid silver;
+    }
+
+    tr.break td {
+      border: 0;
+      border-top: 1px solid #FB7A31;
+      padding: 0;
+      margin: 0;
+    }
+
+    tr.method td {
+      font-weight: bold;
+    }
+
+    td {
+      padding: 0.3em;
+    }
+
+    td:first-child {
+      width: 190px;
+      }
+
+    td {
+      border-left: 1px solid #CCC;
+      text-align: center;
+    }
+
+    .method_name {
+      text-align: left;
+    }
+
+    tfoot td {
+      text-align: left;
+    }
+  </style>
+  </head>
+  <body>
+    <h1>Profile Report: wall_time</h1>
+    <!-- Threads Table -->
+    <table>
+      <tr>
+        <th>Thread ID</th>
+        <th>Fiber ID</th>
+        <th>Total Time</th>
+      </tr>
+
+      <tr>
+        <td>47113216659260</td>
+        <td><a href="#47113216602220">47113216602220</a></td>
+        <td>19.653270959854126</td>
+      </tr>
+
+    </table>
+    <!-- Methods Tables -->
+
+      <h2><a name="47113216602220">Thread 47113216659260, Fiber: 47113216602220</a></h2>
+      <table>
+        <thead>
+          <tr>
+            <th>%Total</th>
+            <th>%Self</th>
+            <th>Total</th>
+            <th>Self</th>
+            <th>Wait</th>
+            <th>Child</th>
+            <th>Calls</th>
+            <th class="method_name">Name</th>
+            <th>Line</th>
+          </tr>
+        </thead>
+        <tbody>
+
+               <!-- Parents -->
+
+               <tr class="method">
+                 <td>100.00%</td>
+                 <td>0.00%</td>
+                 <td>19.65</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>19.65</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="[global]_[no method]_47113216602220">
+                      [global]#[no method]
+                   </a>
+                 </td>
+                 <td><a href="file:///home/stas/projects/ruby/perf/task-2/rubyprof/graph.rb#7" title="/home/stas/projects/ruby/perf/task-2/rubyprof/graph.rb:7">7</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>19.65</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>19.65</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_work_47113216602220">Object#work</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/rubyprof/graph.rb#7" title="/home/stas/projects/ruby/perf/task-2/rubyprof/graph.rb:7">7</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>19.65</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>19.65</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#[global]_[no method]_47113216602220">[global]#[no method]</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/rubyprof/graph.rb#7" title="/home/stas/projects/ruby/perf/task-2/rubyprof/graph.rb:7">7</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>100.00%</td>
+                 <td>0.00%</td>
+                 <td>19.65</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>19.65</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="Object_work_47113216602220">
+                      Object#work
+                   </a>
+                 </td>
+                 <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#45" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:45">45</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>19.16</td>
+                   <td>0.25</td>
+                   <td>0.00</td>
+                   <td>18.91</td>
+                   <td>3/16010</td>
+                   <td class="method_name"><a href="#Array_each_47113216602220">Array#each</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#98" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:98">98</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.42</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.42</td>
+                   <td>7/7</td>
+                   <td class="method_name"><a href="#Object_collect_stats_from_users_47113216602220">Object#collect_stats_from_users</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#138" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:138">138</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.04</td>
+                   <td>0.02</td>
+                   <td>0.00</td>
+                   <td>0.02</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#JSON__Ext__Generator__GeneratorMethods__Hash_to_json_47113216602220">JSON::Ext::Generator::GeneratorMethods::Hash#to_json</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#142" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:142">142</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2/26798</td>
+                   <td class="method_name"><a href="#Array_map_47113216602220">Array#map</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#87" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:87">87</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/32001</td>
+                   <td class="method_name"><a href="#String_split_47113216602220">String#split</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#46" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:46">46</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/4873</td>
+                   <td class="method_name"><a href="#Array_sort_47113216602220">Array#sort</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#87" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:87">87</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Array_uniq_47113216602220">Array#uniq</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#87" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:87">87</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#_Class__IO__write_47113216602220">&lt;Class::IO&gt;#write</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#142" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:142">142</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#_Class__IO__read_47113216602220">&lt;Class::IO&gt;#read</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#46" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:46">46</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/2437</td>
+                   <td class="method_name"><a href="#Array_join_47113216602220">Array#join</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#87" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:87">87</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>3/2439</td>
+                   <td class="method_name"><a href="#Array_count_47113216602220">Array#count</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#85" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:85">85</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.28</td>
+                   <td>0.28</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>16000/16010</td>
+                   <td class="method_name"><a href="#Enumerable_all__47113216602220">Enumerable#all?</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.42</td>
+                   <td>0.09</td>
+                   <td>0.00</td>
+                   <td>0.32</td>
+                   <td>7/16010</td>
+                   <td class="method_name"><a href="#Object_collect_stats_from_users_47113216602220">Object#collect_stats_from_users</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#38" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:38">38</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>19.16</td>
+                   <td>0.25</td>
+                   <td>0.00</td>
+                   <td>18.91</td>
+                   <td>3/16010</td>
+                   <td class="method_name"><a href="#Object_work_47113216602220">Object#work</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#98" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:98">98</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>99.61%</td>
+                 <td>1.73%</td>
+                 <td>19.58</td>
+                 <td>0.34</td>
+                 <td>0.00</td>
+                 <td>19.24</td>
+                 <td>16010</td>
+                 <td class="method_name">
+                   <a name="Array_each_47113216602220">
+                     *Array#each
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>18.48</td>
+                   <td>18.48</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2436/2436</td>
+                   <td class="method_name"><a href="#Array_select_47113216602220">Array#select</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.29</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.28</td>
+                   <td>16000/16000</td>
+                   <td class="method_name"><a href="#Enumerable_all__47113216602220">Enumerable#all?</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.24</td>
+                   <td>0.09</td>
+                   <td>0.00</td>
+                   <td>0.16</td>
+                   <td>26796/26798</td>
+                   <td class="method_name"><a href="#Array_map_47113216602220">Array#map</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.07</td>
+                   <td>0.03</td>
+                   <td>0.00</td>
+                   <td>0.04</td>
+                   <td>13564/13564</td>
+                   <td class="method_name"><a href="#Object_parse_session_47113216602220">Object#parse_session</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.05</td>
+                   <td>0.05</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>16000/32001</td>
+                   <td class="method_name"><a href="#String_split_47113216602220">String#split</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.05</td>
+                   <td>0.02</td>
+                   <td>0.00</td>
+                   <td>0.03</td>
+                   <td>17052/17052</td>
+                   <td class="method_name"><a href="#Hash_merge_47113216602220">Hash#merge</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.03</td>
+                   <td>0.02</td>
+                   <td>0.00</td>
+                   <td>0.01</td>
+                   <td>2436/2436</td>
+                   <td class="method_name"><a href="#Class_new_47113216602220">Class#new</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.01</td>
+                   <td>4872/4873</td>
+                   <td class="method_name"><a href="#Array_sort_47113216602220">Array#sort</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.01</td>
+                   <td>2436/2436</td>
+                   <td class="method_name"><a href="#Object_parse_user_47113216602220">Object#parse_user</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2436/2436</td>
+                   <td class="method_name"><a href="#Array_any__47113216602220">Array#any?</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>4872/4872</td>
+                   <td class="method_name"><a href="#Integer_to_s_47113216602220">Integer#to_s</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2436/2437</td>
+                   <td class="method_name"><a href="#Array_join_47113216602220">Array#join</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>3126/37325</td>
+                   <td class="method_name"><a href="#String_upcase_47113216602220">String#upcase</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2436/2436</td>
+                   <td class="method_name"><a href="#Array_reverse_47113216602220">Array#reverse</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2436/2436</td>
+                   <td class="method_name"><a href="#Array_max_47113216602220">Array#max</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2436/2436</td>
+                   <td class="method_name"><a href="#Array_sum_47113216602220">Array#sum</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2436/2439</td>
+                   <td class="method_name"><a href="#Array_count_47113216602220">Array#count</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>18.48</td>
+                   <td>18.48</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2436/2436</td>
+                   <td class="method_name"><a href="#Array_each_47113216602220">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>94.01%</td>
+                 <td>94.01%</td>
+                 <td>18.48</td>
+                 <td>18.48</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>2436</td>
+                 <td class="method_name">
+                   <a name="Array_select_47113216602220">
+                      Array#select
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.42</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.42</td>
+                   <td>7/7</td>
+                   <td class="method_name"><a href="#Object_work_47113216602220">Object#work</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#138" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:138">138</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>2.12%</td>
+                 <td>0.00%</td>
+                 <td>0.42</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.42</td>
+                 <td>7</td>
+                 <td class="method_name">
+                   <a name="Object_collect_stats_from_users_47113216602220">
+                      Object#collect_stats_from_users
+                   </a>
+                 </td>
+                 <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#37" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:37">37</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.42</td>
+                   <td>0.09</td>
+                   <td>0.00</td>
+                   <td>0.32</td>
+                   <td>7/16010</td>
+                   <td class="method_name"><a href="#Array_each_47113216602220">Array#each</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#38" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:38">38</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.29</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.28</td>
+                   <td>16000/16000</td>
+                   <td class="method_name"><a href="#Array_each_47113216602220">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>1.46%</td>
+                 <td>0.04%</td>
+                 <td>0.29</td>
+                 <td>0.01</td>
+                 <td>0.00</td>
+                 <td>0.28</td>
+                 <td>16000</td>
+                 <td class="method_name">
+                   <a name="Enumerable_all__47113216602220">
+                      Enumerable#all?
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.28</td>
+                   <td>0.28</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>16000/16010</td>
+                   <td class="method_name"><a href="#Array_each_47113216602220">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2/26798</td>
+                   <td class="method_name"><a href="#Object_work_47113216602220">Object#work</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#87" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:87">87</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.24</td>
+                   <td>0.09</td>
+                   <td>0.00</td>
+                   <td>0.16</td>
+                   <td>26796/26798</td>
+                   <td class="method_name"><a href="#Array_each_47113216602220">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>1.30%</td>
+                 <td>0.49%</td>
+                 <td>0.26</td>
+                 <td>0.10</td>
+                 <td>0.00</td>
+                 <td>0.16</td>
+                 <td>26798</td>
+                 <td class="method_name">
+                   <a name="Array_map_47113216602220">
+                      Array#map
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.13</td>
+                   <td>0.07</td>
+                   <td>0.00</td>
+                   <td>0.07</td>
+                   <td>13564/13564</td>
+                   <td class="method_name"><a href="#_Class__Date__parse_47113216602220">&lt;Class::Date&gt;#parse</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>13564/13564</td>
+                   <td class="method_name"><a href="#Date_iso8601_47113216602220">Date#iso8601</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>27128/37325</td>
+                   <td class="method_name"><a href="#String_upcase_47113216602220">String#upcase</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>27128/27128</td>
+                   <td class="method_name"><a href="#String_to_i_47113216602220">String#to_i</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.13</td>
+                   <td>0.07</td>
+                   <td>0.00</td>
+                   <td>0.07</td>
+                   <td>13564/13564</td>
+                   <td class="method_name"><a href="#Array_map_47113216602220">Array#map</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.68%</td>
+                 <td>0.33%</td>
+                 <td>0.13</td>
+                 <td>0.07</td>
+                 <td>0.00</td>
+                 <td>0.07</td>
+                 <td>13564</td>
+                 <td class="method_name">
+                   <a name="_Class__Date__parse_47113216602220">
+                      &lt;Class::Date&gt;#parse
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.03</td>
+                   <td>0.03</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>27128/27128</td>
+                   <td class="method_name"><a href="#Regexp_match_47113216602220">Regexp#match</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.02</td>
+                   <td>0.02</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>13564/13564</td>
+                   <td class="method_name"><a href="#String_gsub!_47113216602220">String#gsub!</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>13564/13564</td>
+                   <td class="method_name"><a href="#MatchData_begin_47113216602220">MatchData#begin</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>13564/13564</td>
+                   <td class="method_name"><a href="#String_[]__47113216602220">String#[]=</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>13564/13564</td>
+                   <td class="method_name"><a href="#Integer_div_47113216602220">Integer#div</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>13564/13564</td>
+                   <td class="method_name"><a href="#MatchData_end_47113216602220">MatchData#end</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2436/32001</td>
+                   <td class="method_name"><a href="#Object_parse_user_47113216602220">Object#parse_user</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#17" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:17">17</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/32001</td>
+                   <td class="method_name"><a href="#Object_work_47113216602220">Object#work</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#46" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:46">46</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.04</td>
+                   <td>0.04</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>13564/32001</td>
+                   <td class="method_name"><a href="#Object_parse_session_47113216602220">Object#parse_session</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#27" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:27">27</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.05</td>
+                   <td>0.05</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>16000/32001</td>
+                   <td class="method_name"><a href="#Array_each_47113216602220">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.52%</td>
+                 <td>0.52%</td>
+                 <td>0.10</td>
+                 <td>0.10</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>32001</td>
+                 <td class="method_name">
+                   <a name="String_split_47113216602220">
+                      String#split
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.07</td>
+                   <td>0.03</td>
+                   <td>0.00</td>
+                   <td>0.04</td>
+                   <td>13564/13564</td>
+                   <td class="method_name"><a href="#Array_each_47113216602220">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.35%</td>
+                 <td>0.16%</td>
+                 <td>0.07</td>
+                 <td>0.03</td>
+                 <td>0.00</td>
+                 <td>0.04</td>
+                 <td>13564</td>
+                 <td class="method_name">
+                   <a name="Object_parse_session_47113216602220">
+                      Object#parse_session
+                   </a>
+                 </td>
+                 <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#26" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:26">26</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.04</td>
+                   <td>0.04</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>13564/32001</td>
+                   <td class="method_name"><a href="#String_split_47113216602220">String#split</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#27" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:27">27</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.05</td>
+                   <td>0.02</td>
+                   <td>0.00</td>
+                   <td>0.03</td>
+                   <td>17052/17052</td>
+                   <td class="method_name"><a href="#Array_each_47113216602220">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.24%</td>
+                 <td>0.10%</td>
+                 <td>0.05</td>
+                 <td>0.02</td>
+                 <td>0.00</td>
+                 <td>0.03</td>
+                 <td>17052</td>
+                 <td class="method_name">
+                   <a name="Hash_merge_47113216602220">
+                      Hash#merge
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.03</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.02</td>
+                   <td>17052/17053</td>
+                   <td class="method_name"><a href="#Kernel_initialize_dup_47113216602220">Kernel#initialize_dup</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.04</td>
+                   <td>0.02</td>
+                   <td>0.00</td>
+                   <td>0.02</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_work_47113216602220">Object#work</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#142" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:142">142</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.22%</td>
+                 <td>0.10%</td>
+                 <td>0.04</td>
+                 <td>0.02</td>
+                 <td>0.00</td>
+                 <td>0.02</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="JSON__Ext__Generator__GeneratorMethods__Hash_to_json_47113216602220">
+                      JSON::Ext::Generator::GeneratorMethods::Hash#to_json
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.02</td>
+                   <td>0.02</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>40366/40366</td>
+                   <td class="method_name"><a href="#String_encode_47113216602220">String#encode</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>19492/19492</td>
+                   <td class="method_name"><a href="#String_to_s_47113216602220">String#to_s</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2438/2438</td>
+                   <td class="method_name"><a href="#Hash_keys_47113216602220">Hash#keys</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Kernel_dup_47113216602220">Kernel#dup</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Symbol_to_s_47113216602220">Symbol#to_s</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/17053</td>
+                   <td class="method_name"><a href="#Kernel_dup_47113216602220">Kernel#dup</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.03</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.02</td>
+                   <td>17052/17053</td>
+                   <td class="method_name"><a href="#Hash_merge_47113216602220">Hash#merge</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.14%</td>
+                 <td>0.03%</td>
+                 <td>0.03</td>
+                 <td>0.01</td>
+                 <td>0.00</td>
+                 <td>0.02</td>
+                 <td>17053</td>
+                 <td class="method_name">
+                   <a name="Kernel_initialize_dup_47113216602220">
+                      Kernel#initialize_dup
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.02</td>
+                   <td>0.02</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>17052/17052</td>
+                   <td class="method_name"><a href="#Hash_initialize_copy_47113216602220">Hash#initialize_copy</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#JSON__Ext__Generator__State_initialize_copy_47113216602220">JSON::Ext::Generator::State#initialize_copy</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.03</td>
+                   <td>0.03</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>27128/27128</td>
+                   <td class="method_name"><a href="#_Class__Date__parse_47113216602220">&lt;Class::Date&gt;#parse</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.13%</td>
+                 <td>0.13%</td>
+                 <td>0.03</td>
+                 <td>0.03</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>27128</td>
+                 <td class="method_name">
+                   <a name="Regexp_match_47113216602220">
+                      Regexp#match
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.03</td>
+                   <td>0.02</td>
+                   <td>0.00</td>
+                   <td>0.01</td>
+                   <td>2436/2436</td>
+                   <td class="method_name"><a href="#Array_each_47113216602220">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.13%</td>
+                 <td>0.10%</td>
+                 <td>0.03</td>
+                 <td>0.02</td>
+                 <td>0.00</td>
+                 <td>0.01</td>
+                 <td>2436</td>
+                 <td class="method_name">
+                   <a name="Class_new_47113216602220">
+                      Class#new
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2436/2436</td>
+                   <td class="method_name"><a href="#User_initialize_47113216602220">User#initialize</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.02</td>
+                   <td>0.02</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>17052/17052</td>
+                   <td class="method_name"><a href="#Kernel_initialize_dup_47113216602220">Kernel#initialize_dup</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.11%</td>
+                 <td>0.11%</td>
+                 <td>0.02</td>
+                 <td>0.02</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>17052</td>
+                 <td class="method_name">
+                   <a name="Hash_initialize_copy_47113216602220">
+                      Hash#initialize_copy
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/4873</td>
+                   <td class="method_name"><a href="#Object_work_47113216602220">Object#work</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#87" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:87">87</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.01</td>
+                   <td>4872/4873</td>
+                   <td class="method_name"><a href="#Array_each_47113216602220">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.10%</td>
+                 <td>0.07%</td>
+                 <td>0.02</td>
+                 <td>0.01</td>
+                 <td>0.00</td>
+                 <td>0.01</td>
+                 <td>4873</td>
+                 <td class="method_name">
+                   <a name="Array_sort_47113216602220">
+                      Array#sort
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>23815/23815</td>
+                   <td class="method_name"><a href="#Date_____47113216602220">Date#&lt;=&gt;</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.02</td>
+                   <td>0.02</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>40366/40366</td>
+                   <td class="method_name"><a href="#JSON__Ext__Generator__GeneratorMethods__Hash_to_json_47113216602220">JSON::Ext::Generator::GeneratorMethods::Hash#to_json</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.10%</td>
+                 <td>0.10%</td>
+                 <td>0.02</td>
+                 <td>0.02</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>40366</td>
+                 <td class="method_name">
+                   <a name="String_encode_47113216602220">
+                      String#encode
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.02</td>
+                   <td>0.02</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>13564/13564</td>
+                   <td class="method_name"><a href="#_Class__Date__parse_47113216602220">&lt;Class::Date&gt;#parse</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.08%</td>
+                 <td>0.08%</td>
+                 <td>0.02</td>
+                 <td>0.02</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>13564</td>
+                 <td class="method_name">
+                   <a name="String_gsub!_47113216602220">
+                      String#gsub!
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>13564/13564</td>
+                   <td class="method_name"><a href="#_Class__Date__parse_47113216602220">&lt;Class::Date&gt;#parse</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.06%</td>
+                 <td>0.06%</td>
+                 <td>0.01</td>
+                 <td>0.01</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>13564</td>
+                 <td class="method_name">
+                   <a name="MatchData_begin_47113216602220">
+                      MatchData#begin
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>13564/13564</td>
+                   <td class="method_name"><a href="#Array_map_47113216602220">Array#map</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.06%</td>
+                 <td>0.06%</td>
+                 <td>0.01</td>
+                 <td>0.01</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>13564</td>
+                 <td class="method_name">
+                   <a name="Date_iso8601_47113216602220">
+                      Date#iso8601
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>3126/37325</td>
+                   <td class="method_name"><a href="#Array_each_47113216602220">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>7071/37325</td>
+                   <td class="method_name"><a href="#Array_any__47113216602220">Array#any?</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>27128/37325</td>
+                   <td class="method_name"><a href="#Array_map_47113216602220">Array#map</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.06%</td>
+                 <td>0.06%</td>
+                 <td>0.01</td>
+                 <td>0.01</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>37325</td>
+                 <td class="method_name">
+                   <a name="String_upcase_47113216602220">
+                      String#upcase
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.01</td>
+                   <td>2436/2436</td>
+                   <td class="method_name"><a href="#Array_each_47113216602220">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.05%</td>
+                 <td>0.03%</td>
+                 <td>0.01</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.01</td>
+                 <td>2436</td>
+                 <td class="method_name">
+                   <a name="Object_parse_user_47113216602220">
+                      Object#parse_user
+                   </a>
+                 </td>
+                 <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#16" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:16">16</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2436/32001</td>
+                   <td class="method_name"><a href="#String_split_47113216602220">String#split</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#17" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:17">17</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2436/2436</td>
+                   <td class="method_name"><a href="#Array_each_47113216602220">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.04%</td>
+                 <td>0.03%</td>
+                 <td>0.01</td>
+                 <td>0.01</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>2436</td>
+                 <td class="method_name">
+                   <a name="Array_any__47113216602220">
+                      Array#any?
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>7071/37325</td>
+                   <td class="method_name"><a href="#String_upcase_47113216602220">String#upcase</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>13564/13564</td>
+                   <td class="method_name"><a href="#_Class__Date__parse_47113216602220">&lt;Class::Date&gt;#parse</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.04%</td>
+                 <td>0.04%</td>
+                 <td>0.01</td>
+                 <td>0.01</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>13564</td>
+                 <td class="method_name">
+                   <a name="String_[]__47113216602220">
+                      String#[]=
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>27128/27128</td>
+                   <td class="method_name"><a href="#Array_map_47113216602220">Array#map</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.03%</td>
+                 <td>0.03%</td>
+                 <td>0.01</td>
+                 <td>0.01</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>27128</td>
+                 <td class="method_name">
+                   <a name="String_to_i_47113216602220">
+                      String#to_i
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2436/2436</td>
+                   <td class="method_name"><a href="#Class_new_47113216602220">Class#new</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.03%</td>
+                 <td>0.03%</td>
+                 <td>0.01</td>
+                 <td>0.01</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>2436</td>
+                 <td class="method_name">
+                   <a name="User_initialize_47113216602220">
+                      User#initialize
+                   </a>
+                 </td>
+                 <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#10" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:10">10</a></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>23815/23815</td>
+                   <td class="method_name"><a href="#Array_sort_47113216602220">Array#sort</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.03%</td>
+                 <td>0.03%</td>
+                 <td>0.01</td>
+                 <td>0.01</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>23815</td>
+                 <td class="method_name">
+                   <a name="Date_____47113216602220">
+                      Date#&lt;=&gt;
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>13564/13564</td>
+                   <td class="method_name"><a href="#_Class__Date__parse_47113216602220">&lt;Class::Date&gt;#parse</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.02%</td>
+                 <td>0.02%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>13564</td>
+                 <td class="method_name">
+                   <a name="Integer_div_47113216602220">
+                      Integer#div
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>19492/19492</td>
+                   <td class="method_name"><a href="#JSON__Ext__Generator__GeneratorMethods__Hash_to_json_47113216602220">JSON::Ext::Generator::GeneratorMethods::Hash#to_json</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.02%</td>
+                 <td>0.02%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>19492</td>
+                 <td class="method_name">
+                   <a name="String_to_s_47113216602220">
+                      String#to_s
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>4872/4872</td>
+                   <td class="method_name"><a href="#Array_each_47113216602220">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.02%</td>
+                 <td>0.02%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>4872</td>
+                 <td class="method_name">
+                   <a name="Integer_to_s_47113216602220">
+                      Integer#to_s
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/2437</td>
+                   <td class="method_name"><a href="#Object_work_47113216602220">Object#work</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#87" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:87">87</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2436/2437</td>
+                   <td class="method_name"><a href="#Array_each_47113216602220">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.02%</td>
+                 <td>0.02%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>2437</td>
+                 <td class="method_name">
+                   <a name="Array_join_47113216602220">
+                      Array#join
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>13564/13564</td>
+                   <td class="method_name"><a href="#_Class__Date__parse_47113216602220">&lt;Class::Date&gt;#parse</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.01%</td>
+                 <td>0.01%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>13564</td>
+                 <td class="method_name">
+                   <a name="MatchData_end_47113216602220">
+                      MatchData#end
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2438/2438</td>
+                   <td class="method_name"><a href="#JSON__Ext__Generator__GeneratorMethods__Hash_to_json_47113216602220">JSON::Ext::Generator::GeneratorMethods::Hash#to_json</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.01%</td>
+                 <td>0.01%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>2438</td>
+                 <td class="method_name">
+                   <a name="Hash_keys_47113216602220">
+                      Hash#keys
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_work_47113216602220">Object#work</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#87" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:87">87</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.01%</td>
+                 <td>0.01%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="Array_uniq_47113216602220">
+                      Array#uniq
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_work_47113216602220">Object#work</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#142" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:142">142</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="_Class__IO__write_47113216602220">
+                      &lt;Class::IO&gt;#write
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2436/2436</td>
+                   <td class="method_name"><a href="#Array_each_47113216602220">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>2436</td>
+                 <td class="method_name">
+                   <a name="Array_reverse_47113216602220">
+                      Array#reverse
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2436/2436</td>
+                   <td class="method_name"><a href="#Array_each_47113216602220">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>2436</td>
+                 <td class="method_name">
+                   <a name="Array_max_47113216602220">
+                      Array#max
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2436/2436</td>
+                   <td class="method_name"><a href="#Array_each_47113216602220">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>2436</td>
+                 <td class="method_name">
+                   <a name="Array_sum_47113216602220">
+                      Array#sum
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>3/2439</td>
+                   <td class="method_name"><a href="#Object_work_47113216602220">Object#work</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#85" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:85">85</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>2436/2439</td>
+                   <td class="method_name"><a href="#Array_each_47113216602220">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>2439</td>
+                 <td class="method_name">
+                   <a name="Array_count_47113216602220">
+                      Array#count
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_work_47113216602220">Object#work</a></td>
+                   <td><a href="file:///home/stas/projects/ruby/perf/task-2/task-2.rb#46" title="/home/stas/projects/ruby/perf/task-2/task-2.rb:46">46</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="_Class__IO__read_47113216602220">
+                      &lt;Class::IO&gt;#read
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#JSON__Ext__Generator__GeneratorMethods__Hash_to_json_47113216602220">JSON::Ext::Generator::GeneratorMethods::Hash#to_json</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="Kernel_dup_47113216602220">
+                      Kernel#dup
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/17053</td>
+                   <td class="method_name"><a href="#Kernel_initialize_dup_47113216602220">Kernel#initialize_dup</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#JSON__Ext__Generator__GeneratorMethods__Hash_to_json_47113216602220">JSON::Ext::Generator::GeneratorMethods::Hash#to_json</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="Symbol_to_s_47113216602220">
+                      Symbol#to_s
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Kernel_initialize_dup_47113216602220">Kernel#initialize_dup</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="JSON__Ext__Generator__State_initialize_copy_47113216602220">
+                      JSON::Ext::Generator::State#initialize_copy
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="9">* indicates recursively called methods</td>
+          </tr>
+        </tfoot>
+      </table>
+
+  </body>
+</html>
