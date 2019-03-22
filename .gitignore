@@ -1,0 +1,4 @@
+*.txt
+result.json
+massif.out.*
+.DS_Store
