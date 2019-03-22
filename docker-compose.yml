@@ -1,0 +1,10 @@
+version: '2.1'
+
+services:
+  ruby:
+    image: ruby-optimization
+    build: .
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=${IP}:0
