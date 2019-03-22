@@ -4,6 +4,8 @@ require 'minitest/autorun'
 require 'byebug'
 require 'ruby-prof'
 require 'benchmark'
+require 'oj'
+require 'ruby-progressbar'
 
 class User
   attr_reader :attributes, :sessions
@@ -26,7 +28,7 @@ def parse_session(session)
     session_id: session[2],
     browser: session[3].upcase!,
     time: session[4].to_i,
-    date: session[5]
+    date: session[5].chomp!
   }
 end
 
@@ -83,11 +85,14 @@ def work(file_path)
       'browsers' => users_browsers.sort!.join(', '),
       'usedIE' => ie_count.positive?,
       'alwaysUsedChrome' => chrome_count == users_browsers.size,
-      'dates' => user.sessions.map { |s| Date.parse(s[:date]).iso8601 }.sort!.reverse!
+      'dates' => user.sessions.map { |s| s[:date] }.sort!.reverse!
     }
   end
 
-  File.write('result.json', "#{report.to_json}\n")
+  File.open('result.json', 'w') do |file|
+    file.write(Oj.dump(report, mode: :compat))
+    file.write("\n")
+  end
 end
 
 class TestMe < Minitest::Test
@@ -104,7 +109,7 @@ class TestMe < Minitest::Test
   end
 end
 
-# filename = ENV['DATA'] || 'data/data_05mb.txt'
-# GC.disable if ENV['DATA']
-# puts Process.pid
-# work(filename)
+filename = ENV['DATA'] || 'data/data_large.txt'
+GC.disable if ENV['DATA']
+puts Process.pid
+work(filename)
