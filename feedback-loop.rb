@@ -1,21 +1,28 @@
 require './task-2.rb'
 require 'benchmark/ips'
+require 'minitest/autorun'
 
-def reevaluate_metric
-  Benchmark.ips do |bench|
-    bench.report("Process 1 MB of data") do
-      work('data/data_1MB.txt')
+class Test < Minitest::Test
+  def setup
+    File.write('result.json', '')
+  end
+
+  def test_result
+    Benchmark.ips do |bench|
+      bench.report("Process 1 MB of data") do
+        work('data/data_1MB.txt')
+      end
     end
   end
-end
 
-def test_correctness
-  File.write('result.json', '')
-  work('fixtures/data.txt')
-  expected_result = File.read('fixtures/expected_result.json')
-  passed = expected_result == File.read('result.json')
-  passed ? puts('PASSED') : puts('!!! TEST FAILED !!!')
-end
+  def test_correctness
+    work('fixtures/data.txt')
+    expected_result = File.read('fixtures/expected_result.json')
+    assert_equal expected_result, File.read('result.json')
+  end
 
-reevaluate_metric
-test_correctness
+  def test_time
+    result = Benchmark.realtime { work('data/data_1MB.txt') }
+    assert(result.round(2) < 0.2)
+  end
+end

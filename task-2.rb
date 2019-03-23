@@ -1,11 +1,9 @@
 require 'json'
 require 'pry'
-require 'date'
-require 'minitest/autorun'
 require 'benchmark'
-require 'memory_profiler'
 require 'set'
 require 'oj'
+require 'progress_bar'
 
 class User
   attr_reader :attributes, :sessions
@@ -53,8 +51,7 @@ def process_user_data(line)
   User.new(attributes: parse_user(line), sessions: [])
 end
 
-def work(file = 'data/data_large.txt', disable_gc: false)
-  # unique_browsers = []
+def work(file = 'data/data_large.txt', disable_gc: false, progress: false)
   unique_browsers = SortedSet.new
   users_objects = []
 
@@ -94,7 +91,10 @@ def work(file = 'data/data_large.txt', disable_gc: false)
 
   report['usersStats'] = {}
 
+  bar = ProgressBar.new(users_objects.size)
+
   collect_stats_from_users(report, users_objects) do |user|
+    bar.increment! if progress
     tme = user.sessions.map { |s| s['time'] }
     brw = user.sessions.map { |s| s['browser'] }
     {
