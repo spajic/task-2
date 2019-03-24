@@ -58,7 +58,15 @@ I decided to work with 1MB file where initial i/s is 0.039 and realtime processi
 ## Feedback-Loop
 Для того, чтобы иметь возможность быстро проверять гипотезы я выстроил эффективный `feedback-loop`, который позволил мне получать обратную связь по эффективности сделанных изменений за *время, которое у вас получилось*
 
-Вот как я построил `feedback_loop`: *как вы построили feedback_loop*
+Вот как я построил `feedback_loop`:
+
+
+1. Create a relatively small file(1 MB)
+2. Make a code change
+3. Check if the change passes in the code
+4. If the test passes, check if the metrics have metrics
+5. If the test does not read, see item 1.
+6. If metrics are acceptable, push to GitHub
 
 ## Вникаем в детали системы, чтобы найти 20% точек роста
 Для того, чтобы найти "точки роста" для оптимизации я воспользовался *инструментами, которыми вы воспользовались*
@@ -100,10 +108,10 @@ users.each do |user|
 end
 ```
 
-[ruby_prof_graph_1](screenshots/ruby_prof_graph_1.png)
+![ruby_prof_graph_1](screenshots/ruby_prof_graph_1.png)
 
 Based on the screenshot from `CallStackPrinter`, we can see that `select` is our method to look at
-[ruby_prof_callstack_1](screenshots/ruby_prof_callstack_1.png)
+![ruby_prof_callstack_1](screenshots/ruby_prof_callstack_1.png)
 
 ### Ваша находка №1
 In order to retreive all sessions for user it was decided to create a `user_sessions` hash right during the reading of the file with keys equal to `user_id` and value equal to the array of sessions corresponding to each user.
@@ -199,18 +207,18 @@ total time  amount of calls method
 0.28        42625/42627	    Array#map	
 0.09	      21523/21523	    Object#parse_session
 ```
-[ruby_prof_graph_2](screenshots/ruby_prof_graph_2.png)
+![ruby_prof_graph_2](screenshots/ruby_prof_graph_2.png)
 
 #### RubyProf::CallStackPrinter
 From the screenshot below we can state that methods requiring some improvement are
 - `Object#fill_unique_browsers` where we use `Enumerable#all`
 - `Object#parse_session` where we use `String#split`
 - `Object#collect_stats_from_users` where we user `Array#each`, `Array#map`, `<Class::Date>#parse`, `Regexp#match`
-[ruby_prof_callstack_2](screenshots/ruby_prof_callstack_2.png)
+![ruby_prof_callstack_2](screenshots/ruby_prof_callstack_2.png)
 
 #### RubyProf::CallTreePrinter and Qcachegrind
 Calltree graph below presents same information in regards to which methods have to be be refactored next: 
-[ruby_prof_call_graph](screenshots/ruby_prof_call_tree_graph_2_1.png)
+![ruby_prof_call_graph](screenshots/ruby_prof_call_tree_graph_2_1.png)
 
 However, from `Callees` graph we can see that we should also pay attention to 
 `sort`, `merge` and `any` methods, maybe they wiil have to be refacotred later.
@@ -260,6 +268,23 @@ Finish in 1.48
 
 As we can see time for processing 1MB file went down from 1.62 to 1.48 only.
 Therefore, this was minor improvement and we should really focus on `collect_stats_from_users` method.
+
+
+#### Rbspy
+Based on the fact that result are not very different I decided to check data from from additional tools like rbspy.
+
+# % self  % total  name
+#  82.93   100.00  block in work - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb
+#  13.41   100.00  <c function> - unknown
+#   3.66    10.98  parse_session - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb
+#   0.00   100.00  work - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb
+#   0.00   100.00  <main> - scripts/rbspy_prof.rb
+
+
+Here is a `rbspy flamegraph` where we can observe that results do not contradict other reports. Some of the top functions being run are:
+- `collect_stats_from_users` (22.3%) 
+- block `file_lines` where each line of the file is being iterated and transformed (69.78%)
+![Rbspy flamegraph](screenshots/rbspy-2019-03-21-RyXF9SdEYu.flamegraph.svg)
 
 ### Ваша находка №X
 О вашей находке №X
