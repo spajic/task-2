@@ -5,6 +5,15 @@ require 'json'
 require 'pry'
 require 'date'
 require 'ruby-progressbar'
+require 'slop'
+
+@opts = Slop.parse do |o|
+  o.bool '-p', '--progressbar', 'enable progressbar'
+  o.on '--version', 'print the version' do
+    puts Slop::VERSION
+    exit
+  end
+end
 
 class User
   attr_reader :attributes, :sessions, :id, :full_name
@@ -36,13 +45,13 @@ def parse_session(session)
   }
 end
 
-def collect_stats_from_users(report, users_objects)
-  # progressbar = ProgressBar.create(total: users_objects.count, title: 'Colculate stats:')
+def collect_stats_from_users(report, users_objects, opts)
+  progressbar = ProgressBar.create(total: users_objects.count, title: 'Colculate stats:') if opts&.progressbar?
   users_objects.each do |user|
     user_key = user.full_name
     report['usersStats'][user_key] = {}
     report['usersStats'][user_key] = calc_stat(user)
-    # progressbar.increment
+    progressbar.increment if opts&.progressbar?
   end
 end
 
@@ -97,36 +106,38 @@ def dates(user)
   user.sessions.map{|s| s['date'].tr("\n", '') }.sort.reverse
 end
 
-def parse_file(file)
+def parse_file(file, opts)
   users = []
   sessions = []
 
-  # lines_count = `wc -l #{file}`.strip.split(' ')[0].to_i
-  # progressbar = ProgressBar.create(total: lines_count, title: 'Read data from file:')
+  if opts&.progressbar?
+    lines_count = `wc -l #{file}`.strip.split(' ')[0].to_i
+    progressbar = ProgressBar.create(total: lines_count, title: 'Read data from file:')
+  end
 
   File.readlines(file).each do |line|
     cols = line.split(',')
     users << parse_user(line) if cols[0] == 'user'
     sessions << parse_session(line) if cols[0] == 'session'
-    # progressbar.increment
+    progressbar.increment if opts&.progressbar?
   end
   [users, sessions]
 end
 
-def count_browsers(sessions)
+def count_browsers(sessions, opts)
   browsers = []
 
-  # progressbar = ProgressBar.create(total: sessions.count, title: 'Count uniq browsers:')
+  progressbar = ProgressBar.create(total: sessions.count, title: 'Count uniq browsers:') if opts&.progressbar?
   sessions.each do |session|
     browsers << session['browser']
-    # progressbar.increment
+    progressbar.increment if opts&.progressbar?
   end
   browsers.uniq
 end
 
-def create_users_objects(users, sessions_by_user)
+def create_users_objects(users, sessions_by_user, opts)
   users_objects = []
-  # progressbar = ProgressBar.create(total: users.count, title: 'Create users:')
+  progressbar = ProgressBar.create(total: users.count, title: 'Create users:') if opts&.progressbar?
   users.each do |user|
     attributes = user
     id = user['id']
@@ -134,7 +145,7 @@ def create_users_objects(users, sessions_by_user)
     user_sessions = sessions_by_user[id]
     user_object = User.new(attributes: attributes, sessions: user_sessions, id: id, full_name: full_name)
     users_objects << user_object
-    # progressbar.increment
+    progressbar.increment if opts&.progressbar?
   end
   users_objects
 end
@@ -148,9 +159,9 @@ def find_all_browsers(sessions)
     .join(',')
 end
 
-def work(file='data.txt')
-
-  users, sessions = parse_file(file)
+def work(file='data.txt', opts=nil)
+  opts = @opts
+  users, sessions = parse_file(file, opts)
 
   # Отчёт в json
   #   - Сколько всего юзеров +
@@ -172,26 +183,22 @@ def work(file='data.txt')
   report[:totalUsers] = users.count
 
   # Подсчёт количества уникальных браузеров
-  uniqueBrowsers = count_browsers(sessions)
+  uniqueBrowsers = count_browsers(sessions, opts)
 
   report['uniqueBrowsersCount'] = uniqueBrowsers.count
 
   report['totalSessions'] = sessions.count
 
-  # find_all_browsers_time = Benchmark.realtime do
-    report['allBrowsers'] = find_all_browsers(sessions)
-  # end.round(4)
-  # puts "find_all_browsers Takes #{find_all_browsers_time} sec"
-
+  report['allBrowsers'] = find_all_browsers(sessions)
 
   sessions_by_user = sessions.group_by{|h| h["user_id"]}
   sessions_by_user.default = []
 
-  users_objects = create_users_objects(users, sessions_by_user)
+  users_objects = create_users_objects(users, sessions_by_user, opts)
 
   report['usersStats'] = {}
 
-  collect_stats_from_users(report, users_objects)
+  collect_stats_from_users(report, users_objects, opts)
 
   File.write('result.json', "#{report.to_json}\n")
 end

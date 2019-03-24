@@ -3,6 +3,17 @@ require_relative './task-2'
 require 'benchmark/ips'
 require 'ruby-prof'
 require 'stackprof'
+require 'slop'
+
+opts = Slop.parse do |o|
+  o.bool '-p', '--progressbar', 'enable progressbar'
+  o.on '--version', 'print the version' do
+    puts Slop::VERSION
+    exit
+  end
+end
+
+work('./spec/fixtures/data_medium-10k.txt', opts)
 
 def start_ruby_prof
   RubyProf.profile do
@@ -48,9 +59,11 @@ end
 
 # Отчет 6 rbspy
 # DATA=spec/fixtures/data_large.txt ruby work.rb # запуск долгого процесса
-# sudo /usr/local/bin/rbspy/rbspy record --pid 58587 # подключение к работающему процессу
+# sudo /usr/local/bin/rbspy/rbspy record --pid 65833 # подключение к работающему процессу
 # sudo /usr/local/bin/rbspy/rbspy record ruby my-script.rb # постоение flamegraph
-work('./spec/fixtures/data_large.txt')
+# work('./spec/fixtures/data_large.txt')
+
+start_ruby_prof
 
 
 # result = RubyProf.profile do
