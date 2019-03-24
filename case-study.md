@@ -57,3 +57,7 @@ Sort by: self_time
 ### Добавить в программу ProgressBar
 
 ### Научиться пользоваться Valgrind massif с massif-visualizer. Построить профиль использования памяти для итоговой версии вашей программы и добавить скриншот в PR
+График утилизации памяти при помощи massif-visualizer показывает линейный рост - вот и славно!
+![Valgrind massif с massif-visualizer](./tools/reports/massif-visualizer.png "Valgrind massif с massif-visualizer")
+
+[Сырые данные отчета ](./tools/reports/massif.out.4381)
