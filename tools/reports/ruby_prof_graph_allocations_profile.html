@@ -1,0 +1,924 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <style media="all" type="text/css">
+    table {
+      border-collapse: collapse;
+      border: 1px solid #CCC;
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+      font-size: 9pt;
+      line-height: normal;
+      width: 100%;
+    }
+
+    th {
+      text-align: center;
+      border-top: 1px solid #FB7A31;
+      border-bottom: 1px solid #FB7A31;
+      background: #FFC;
+      padding: 0.3em;
+      border-left: 1px solid silver;
+    }
+
+    tr.break td {
+      border: 0;
+      border-top: 1px solid #FB7A31;
+      padding: 0;
+      margin: 0;
+    }
+
+    tr.method td {
+      font-weight: bold;
+    }
+
+    td {
+      padding: 0.3em;
+    }
+
+    td:first-child {
+      width: 190px;
+      }
+
+    td {
+      border-left: 1px solid #CCC;
+      text-align: center;
+    }
+
+    .method_name {
+      text-align: left;
+    }
+
+    tfoot td {
+      text-align: left;
+    }
+  </style>
+  </head>
+  <body>
+    <h1>Profile Report: cpu_time</h1>
+    <!-- Threads Table -->
+    <table>
+      <tr>
+        <th>Thread ID</th>
+        <th>Fiber ID</th>
+        <th>Total Time</th>
+      </tr>
+
+      <tr>
+        <td>70208069025840</td>
+        <td><a href="#70208065413220">70208065413220</a></td>
+        <td>0.636341</td>
+      </tr>
+
+    </table>
+    <!-- Methods Tables -->
+
+      <h2><a name="70208065413220">Thread 70208069025840, Fiber: 70208065413220</a></h2>
+      <table>
+        <thead>
+          <tr>
+            <th>%Total</th>
+            <th>%Self</th>
+            <th>Total</th>
+            <th>Self</th>
+            <th>Wait</th>
+            <th>Child</th>
+            <th>Calls</th>
+            <th class="method_name">Name</th>
+            <th>Line</th>
+          </tr>
+        </thead>
+        <tbody>
+
+               <!-- Parents -->
+
+               <tr class="method">
+                 <td>100.00%</td>
+                 <td>0.00%</td>
+                 <td>0.64</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.64</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="Object_start_ruby_prof_70208065413220">
+                      Object#start_ruby_prof
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/start.rb&line=9"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/start.rb:9">9</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.64</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.64</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_work_70208065413220">Object#work</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/start.rb&line=9"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/start.rb:9">9</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.64</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.64</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_start_ruby_prof_70208065413220">Object#start_ruby_prof</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/start.rb&line=9"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/start.rb:9">9</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>100.00%</td>
+                 <td>0.08%</td>
+                 <td>0.64</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.64</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="Object_work_70208065413220">
+                      Object#work
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=153"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:153">153</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.25</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.25</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_collect_stats_from_users_70208065413220">Object#collect_stats_from_users</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=194"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:194">194</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.19</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.19</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_parse_file_70208065413220">Object#parse_file</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=153"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:153">153</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.10</td>
+                   <td>0.05</td>
+                   <td>0.00</td>
+                   <td>0.05</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#JSON__Ext__Generator__GeneratorMethods__Hash_to_json_70208065413220">JSON::Ext::Generator::GeneratorMethods::Hash#to_json</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=196"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:196">196</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.05</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.05</td>
+                   <td>1/1</td>
+                   <td class="method_name">Object#find_all_browsers</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=182"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:182">182</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.03</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.03</td>
+                   <td>1/1</td>
+                   <td class="method_name">Object#create_users_objects</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=190"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:190">190</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.01</td>
+                   <td>1/1</td>
+                   <td class="method_name">Enumerable#group_by</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=187"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:187">187</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.01</td>
+                   <td>1/1</td>
+                   <td class="method_name">Object#count_browsers</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=175"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:175">175</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name">&lt;Class::IO&gt;#write</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=196"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:196">196</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>3/1539</td>
+                   <td class="method_name">Array#count</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=179"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:179">179</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name">Hash#default=</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=188"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:188">188</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/5</td>
+                   <td class="method_name">Object#count_browsers</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=120"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:120">120</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/5</td>
+                   <td class="method_name">Enumerable#group_by</td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.03</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.01</td>
+                   <td>1/5</td>
+                   <td class="method_name">Object#create_users_objects</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=130"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:130">130</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.18</td>
+                   <td>0.08</td>
+                   <td>0.00</td>
+                   <td>0.11</td>
+                   <td>1/5</td>
+                   <td class="method_name"><a href="#Object_parse_file_70208065413220">Object#parse_file</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=107"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:107">107</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.25</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.24</td>
+                   <td>1/5</td>
+                   <td class="method_name"><a href="#Object_collect_stats_from_users_70208065413220">Object#collect_stats_from_users</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=41"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:41">41</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>76.27%</td>
+                 <td>19.94%</td>
+                 <td>0.49</td>
+                 <td>0.13</td>
+                 <td>0.00</td>
+                 <td>0.36</td>
+                 <td>5</td>
+                 <td class="method_name">
+                   <a name="Array_each_70208065413220">
+                      Array#each
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.24</td>
+                   <td>0.03</td>
+                   <td>0.00</td>
+                   <td>0.21</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_calc_stat_70208065413220">Object#calc_stat</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.07</td>
+                   <td>0.04</td>
+                   <td>0.00</td>
+                   <td>0.02</td>
+                   <td>8464/8464</td>
+                   <td class="method_name"><a href="#Object_parse_session_70208065413220">Object#parse_session</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.03</td>
+                   <td>0.03</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>10000/20000</td>
+                   <td class="method_name">String#split</td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.01</td>
+                   <td>1536/1536</td>
+                   <td class="method_name">Class#new</td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name">Object#parse_user</td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.25</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.25</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_work_70208065413220">Object#work</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=194"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:194">194</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>38.94%</td>
+                 <td>0.00%</td>
+                 <td>0.25</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.25</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="Object_collect_stats_from_users_70208065413220">
+                      Object#collect_stats_from_users
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=41"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:41">41</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.25</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.24</td>
+                   <td>1/5</td>
+                   <td class="method_name"><a href="#Array_each_70208065413220">Array#each</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=41"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:41">41</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.24</td>
+                   <td>0.03</td>
+                   <td>0.00</td>
+                   <td>0.21</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Array_each_70208065413220">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>37.50%</td>
+                 <td>4.78%</td>
+                 <td>0.24</td>
+                 <td>0.03</td>
+                 <td>0.00</td>
+                 <td>0.21</td>
+                 <td>1536</td>
+                 <td class="method_name">
+                   <a name="Object_calc_stat_70208065413220">
+                      Object#calc_stat
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=50"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:50">50</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.05</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.04</td>
+                   <td>1536/1536</td>
+                   <td class="method_name">Object#dates</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=59"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:59">59</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.05</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.04</td>
+                   <td>1536/1536</td>
+                   <td class="method_name">Object#browsers_list</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=51"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:51">51</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.04</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.04</td>
+                   <td>1536/1536</td>
+                   <td class="method_name">Object#time_from_sesions</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=50"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:50">50</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.02</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.01</td>
+                   <td>1536/1536</td>
+                   <td class="method_name">Object#used_ie</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=52"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:52">52</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name">Object#total_time</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=54"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:54">54</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name">Object#longest_session</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=54"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:54">54</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name">Object#browsers</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=54"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:54">54</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name">Object#sessions_count</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=54"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:54">54</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>460/460</td>
+                   <td class="method_name">Object#always_used_chrome</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=59"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:59">59</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.19</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.19</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_work_70208065413220">Object#work</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=153"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:153">153</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>29.51%</td>
+                 <td>0.00%</td>
+                 <td>0.19</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.19</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="Object_parse_file_70208065413220">
+                      Object#parse_file
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=101"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:101">101</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.18</td>
+                   <td>0.08</td>
+                   <td>0.00</td>
+                   <td>0.11</td>
+                   <td>1/5</td>
+                   <td class="method_name"><a href="#Array_each_70208065413220">Array#each</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=107"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:107">107</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name">&lt;Class::IO&gt;#readlines</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=107"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:107">107</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.04</td>
+                   <td>0.02</td>
+                   <td>0.00</td>
+                   <td>0.01</td>
+                   <td>1536/4610</td>
+                   <td class="method_name">Object#browsers_list</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=81"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:81">81</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.04</td>
+                   <td>0.02</td>
+                   <td>0.00</td>
+                   <td>0.01</td>
+                   <td>1536/4610</td>
+                   <td class="method_name">Object#time_from_sesions</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=69"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:69">69</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.04</td>
+                   <td>0.02</td>
+                   <td>0.00</td>
+                   <td>0.01</td>
+                   <td>1536/4610</td>
+                   <td class="method_name">Object#dates</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=97"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:97">97</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.04</td>
+                   <td>0.03</td>
+                   <td>0.00</td>
+                   <td>0.01</td>
+                   <td>2/4610</td>
+                   <td class="method_name">Object#find_all_browsers</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=143"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:143">143</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>24.17%</td>
+                 <td>16.77%</td>
+                 <td>0.15</td>
+                 <td>0.11</td>
+                 <td>0.00</td>
+                 <td>0.05</td>
+                 <td>4610</td>
+                 <td class="method_name">
+                   <a name="Array_map_70208065413220">
+                      Array#map
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.02</td>
+                   <td>0.02</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>16928/17846</td>
+                   <td class="method_name">String#upcase</td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>8464/8464</td>
+                   <td class="method_name">String#tr</td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>8464/8464</td>
+                   <td class="method_name">String#to_i</td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.10</td>
+                   <td>0.05</td>
+                   <td>0.00</td>
+                   <td>0.05</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_work_70208065413220">Object#work</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=196"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:196">196</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>15.67%</td>
+                 <td>7.84%</td>
+                 <td>0.10</td>
+                 <td>0.05</td>
+                 <td>0.00</td>
+                 <td>0.05</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="JSON__Ext__Generator__GeneratorMethods__Hash_to_json_70208065413220">
+                      JSON::Ext::Generator::GeneratorMethods::Hash#to_json
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.03</td>
+                   <td>0.03</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>25366/25366</td>
+                   <td class="method_name">String#encode</td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>10756/10756</td>
+                   <td class="method_name">String#to_s</td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1538/1538</td>
+                   <td class="method_name">Hash#keys</td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1537/1537</td>
+                   <td class="method_name">Symbol#to_s</td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name">Kernel#dup</td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.07</td>
+                   <td>0.04</td>
+                   <td>0.00</td>
+                   <td>0.02</td>
+                   <td>8464/8464</td>
+                   <td class="method_name"><a href="#Array_each_70208065413220">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>10.51%</td>
+                 <td>7.02%</td>
+                 <td>0.07</td>
+                 <td>0.04</td>
+                 <td>0.00</td>
+                 <td>0.02</td>
+                 <td>8464</td>
+                 <td class="method_name">
+                   <a name="Object_parse_session_70208065413220">
+                      Object#parse_session
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=29"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:29">29</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.02</td>
+                   <td>0.02</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>8464/20000</td>
+                   <td class="method_name">String#split</td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb&line=29"title="/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb:29">29</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="9">* indicates recursively called methods</td>
+          </tr>
+        </tfoot>
+      </table>
+
+  </body>
+</html>

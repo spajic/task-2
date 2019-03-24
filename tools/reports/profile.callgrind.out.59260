@@ -1,0 +1,458 @@
+events: wall_time
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=IO::^write
+0 594
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=String::to_s
+0 1483
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=String::encode
+0 6051
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=Symbol::to_s
+0 301
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=Hash::keys
+0 390
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=JSON/Ext/Generator/State::initialize_copy
+0 1
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=Kernel::initialize_dup
+0 2
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=JSON/Ext/Generator/State::initialize_copy
+calls=1 196
+196 1
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=Kernel::dup
+0 3
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Kernel::initialize_dup
+calls=1 196
+196 3
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=JSON/Ext/Generator/GeneratorMethods/Hash::to_json
+0 8435
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Kernel::dup
+calls=1 196
+196 6
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Hash::keys
+calls=1538 196
+196 390
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Symbol::to_s
+calls=1537 196
+196 301
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=String::encode
+calls=25366 196
+196 6051
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=String::to_s
+calls=10756 196
+196 1483
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=Array::all?
+0 919
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=String::upcase
+calls=918 93
+93 663
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+fn=Object::always_used_chrome
+93 200
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::all?
+calls=460 93
+93 1582
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=Array::reverse
+0 294
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=String::tr
+0 5748
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+fn=Object::dates
+97 958
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::map
+calls=1536 97
+97 10267
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::sort
+calls=1536 97
+97 1287
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::reverse
+calls=1536 97
+97 294
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+fn=Object::browsers
+85 645
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::join
+calls=1536 85
+85 1279
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=Array::max
+0 348
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+fn=Object::longest_session
+77 859
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::max
+calls=1536 77
+77 348
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Integer::to_s
+calls=1536 77
+77 1244
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=Integer::to_s
+0 2366
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=Array::sum
+0 305
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+fn=Object::total_time
+73 2717
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::sum
+calls=1536 73
+73 305
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Integer::to_s
+calls=1536 73
+73 1122
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+fn=Object::sessions_count
+65 646
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::count
+calls=1536 65
+65 234
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=Array::any?
+0 3794
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+fn=Object::used_ie
+89 625
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::any?
+calls=1536 89
+89 3794
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+fn=Object::browsers_list
+81 747
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::map
+calls=1536 81
+81 5775
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::sort
+calls=1536 81
+81 1760
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=String::to_i
+0 1553
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+fn=Object::time_from_sesions
+69 689
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::map
+calls=1536 69
+69 7592
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+fn=Object::calc_stat
+50 6184
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+cfn=Object::time_from_sesions
+calls=1536 50
+50 8281
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+cfn=Object::browsers_list
+calls=1536 51
+51 8282
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+cfn=Object::used_ie
+calls=1536 52
+52 4420
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+cfn=Object::sessions_count
+calls=1536 54
+54 880
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+cfn=Object::total_time
+calls=1536 54
+54 4144
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+cfn=Object::longest_session
+calls=1536 54
+54 2451
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+cfn=Object::browsers
+calls=1536 54
+54 1924
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+cfn=Object::dates
+calls=1536 59
+59 12806
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+cfn=Object::always_used_chrome
+calls=460 59
+59 1782
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+fn=Object::collect_stats_from_users
+41 4
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::each
+calls=1 41
+41 57854
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+fn=User::initialize
+13 992
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=Class::new
+0 893
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+cfn=User::initialize
+calls=1536 135
+135 992
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+fn=Object::create_users_objects
+128 4
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::each
+calls=1 130
+130 3741
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=Hash::default=
+0 4
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=Enumerable::group_by
+0 6
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::each
+calls=1 187
+187 3350
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=Array::join
+0 1297
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=Array::sort
+0 4496
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=String::upcase
+0 5125
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=Array::map
+0 17764
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=String::upcase
+calls=8464 145
+145 1490
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=String::to_i
+calls=8464 69
+69 1553
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=String::upcase
+calls=8464 81
+81 2971
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=String::tr
+calls=8464 97
+97 5748
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+fn=Object::find_all_browsers
+143 7
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::map
+calls=2 143
+143 5892
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::sort
+calls=1 143
+143 1449
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::uniq
+calls=1 143
+143 446
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::join
+calls=1 143
+143 18
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=Array::uniq
+0 1281
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+fn=Object::count_browsers
+117 4
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::each
+calls=1 120
+120 2057
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::uniq
+calls=1 124
+124 835
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=Array::count
+0 238
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+fn=Object::parse_session
+29 7526
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=String::split
+calls=8464 29
+29 17040
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+fn=Object::parse_user
+21 1953
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=String::split
+calls=1536 21
+21 2145
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=String::split
+0 31713
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=Array::each
+0 31614
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=String::split
+calls=10000 108
+108 12527
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+cfn=Object::parse_user
+calls=1536 109
+109 4097
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+cfn=Object::parse_session
+calls=8464 110
+110 24566
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Class::new
+calls=1536 135
+135 1884
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+cfn=Object::calc_stat
+calls=1536 44
+44 51155
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+fn=IO::^readlines
+0 3746
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+fn=Object::parse_file
+101 5
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=IO::^readlines
+calls=1 107
+107 3746
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::each
+calls=1 107
+107 58842
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+fn=Object::work
+153 327
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+cfn=Object::parse_file
+calls=1 153
+153 62593
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Array::count
+calls=3 179
+179 4
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+cfn=Object::count_browsers
+calls=1 175
+175 2896
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+cfn=Object::find_all_browsers
+calls=1 182
+182 7812
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Enumerable::group_by
+calls=1 187
+187 3356
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=Hash::default=
+calls=1 188
+188 4
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+cfn=Object::create_users_objects
+calls=1 190
+190 3745
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+cfn=Object::collect_stats_from_users
+calls=1 194
+194 57858
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=JSON/Ext/Generator/GeneratorMethods/Hash::to_json
+calls=1 196
+196 16667
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/ruby_runtime
+cfn=IO::^write
+calls=1 196
+196 594
+
+fl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/start.rb
+fn=Object::start_ruby_prof
+9 25
+cfl=/Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+cfn=Object::work
+calls=1 9
+9 155855
+
