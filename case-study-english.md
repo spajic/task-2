@@ -273,13 +273,14 @@ Therefore, this was minor improvement and we should really focus on `collect_sta
 #### Rbspy
 Based on the fact that result are not very different I decided to check data from from additional tools like rbspy.
 
-# % self  % total  name
-#  82.93   100.00  block in work - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb
-#  13.41   100.00  <c function> - unknown
-#   3.66    10.98  parse_session - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb
-#   0.00   100.00  work - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb
-#   0.00   100.00  <main> - scripts/rbspy_prof.rb
-
+```
+ % self  % total  name
+  82.93   100.00  block in work - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb
+ 13.41   100.00  <c function> - unknown
+  3.66    10.98  parse_session - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb
+   0.00   100.00  work - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb
+  0.00   100.00  <main> - scripts/rbspy_prof.rb
+```
 
 Here is a `rbspy flamegraph` where we can observe that results do not contradict other reports. Some of the top functions being run are:
 - `collect_stats_from_users` (22.3%) 
