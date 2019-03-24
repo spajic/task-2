@@ -32,11 +32,11 @@ end
 # printer.print(File.open("ruby_prof_stack_printer_allocations_profile.html", "w+"))
 
 # Отчет 4
-RubyProf.measure_mode = RubyProf::WALL_TIME
-result = start_ruby_prof
-
-printer = RubyProf::CallTreePrinter.new(result)
-printer.print(:path => ".", :profile => 'profile', :min_percent => 2)
+# RubyProf.measure_mode = RubyProf::WALL_TIME
+# result = start_ruby_prof
+#
+# printer = RubyProf::CallTreePrinter.new(result)
+# printer.print(:path => ".", :profile => 'profile', :min_percent => 2)
 
 # printer = RubyProf::DotPrinter.new(result)
 # printer.print(File.open("ruby_prof_allocations_profile.dot", "w+"))
@@ -44,6 +44,13 @@ printer.print(:path => ".", :profile => 'profile', :min_percent => 2)
 # RubyProf.measure_mode = RubyProf::MEMORY
 # printer = RubyProf::CallTreePrinter.new(result)
 # printer.print(:path => ".", :profile => 'profile', :min_percent => 2)
+
+
+# Отчет 6 rbspy
+# DATA=spec/fixtures/data_large.txt ruby work.rb # запуск долгого процесса
+# sudo /usr/local/bin/rbspy/rbspy record --pid 58587 # подключение к работающему процессу
+# sudo /usr/local/bin/rbspy/rbspy record ruby my-script.rb # постоение flamegraph
+work('./spec/fixtures/data_large.txt')
 
 
 # result = RubyProf.profile do
