@@ -51,8 +51,41 @@ Sort by: self_time
 
 
 ### Профилировать работающий процесс rbspy
+Результат профилирования работающей программы выглядит вот так
+```
+# sudo rbspy record --pid 66589
+Time since start: 46s. Press Ctrl+C to stop.
+Summary of profiling data so far:
+% self  % total  name
+ 68.70   100.00  <c function> - unknown
+  6.66     7.85  block in create_users_objects - /Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+  6.07    31.39  calc_stat - /Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+  3.58    10.17  parse_session - /Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+  2.58     3.58  block in dates - /Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+  1.97    19.18  block in parse_file - /Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+  1.91     5.42  block in find_all_browsers - /Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+  1.52     1.52  block in work - /Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+  1.47     2.02  block in used_ie - /Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+  1.39     1.39  block in count_browsers - /Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+  1.13    32.52  block in collect_stats_from_users - /Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+  0.87     1.15  parse_user - /Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+  0.48     1.43  block in browsers_list - /Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+  0.33     0.78  block in time_from_sesions - /Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+  0.30     0.30  initialize - /Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+  0.28     0.28  block in always_used_chrome - /Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+  0.17    11.66  dates - /Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+  0.17     1.67  time_from_sesions - /Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+  0.15     0.37  longest_session - /Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+  0.11     5.48  browsers - /Users/vikont/RoR_Project/thinknetica/RailsOptimization/task-2/task-2.rb
+Wrote raw data to /Users/vikont/.cache/rbspy/records/rbspy-2019-03-24-6UxKcbpDNr.raw.gz
+Writing formatted output to /Users/vikont/.cache/rbspy/records/rbspy-2019-03-24-6eLtsXXH6Z.flamegraph.svg
+```
 
 ### Построить и проанализировать отчёт flamegraph с помощью rbspy
+График дает данные, не противоречащие с отчетом  ruby-prof в режиме CallStack, которые мы получили выше.
+![rbspy flamegraph](./tools/reports/rbspy-flamegraph.png "rbspy flamegraph")
+
+[Сырые данные отчета ](./tools/reports/rbspy-2019-03-24-tr8u1tpfx8.flamegraph.svg)
 
 ### Добавить в программу ProgressBar
 
