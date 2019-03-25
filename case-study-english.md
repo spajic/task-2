@@ -287,8 +287,191 @@ Here is a `rbspy flamegraph` where we can observe that results do not contradict
 - block `file_lines` where each line of the file is being iterated and transformed (69.78%)
 ![Rbspy flamegraph](screenshots/rbspy-2019-03-21-RyXF9SdEYu.flamegraph.svg)
 
-### Ваша находка №X
-О вашей находке №X
+### Ваша находка №3
+Next optimization I decided to do for `collect_stats_from_users` method because I identified it to be the biggest problem spot among others.
+I avoided calling this method 7 times where we saw iteration inside other iteration (user object and user_sessions array)
+
+I removed all code that called this method, for instance:
+```
+collect_stats_from_users(report, users_objects) do |user|
+  { 'totalTime' => user_sessions[user.attributes['id']].map {|s| s['time']}.map {|t| t.to_i}.sum.to_s + ' min.' }
+end
+```
+
+The refactored code looks like:
+```
+def collect_stats_from_users(report, users_objects, progress: false, progress_bar: nil)
+  users_objects.each do |user|
+    progress_bar.increment if progress
+    user_key = "#{user.attributes[:first_name]}" + ' ' + "#{user.attributes[:last_name]}"
+    report[:usersStats][user_key] ||= {}
+
+    # amount of sessions by user
+    report[:usersStats][user_key][:sessionsCount] = count_sessions(user)
+
+    # amount of time by user
+    report[:usersStats][user_key][:totalTime] = session_time(user)
+
+    # the longest session per user
+    report[:usersStats][user_key][:longestSession] = user_longest_session(user)
+
+    # user's browsers
+    report[:usersStats][user_key][:browsers] = user_browsers(user)
+
+    # used IE?
+    report[:usersStats][user_key][:usedIE] = used_ie?(user)
+
+    # always use chrome?
+    report[:usersStats][user_key][:alwaysUsedChrome] = always_use_chrome?(user)
+
+    report[:usersStats][user_key][:dates] = user_sessions_dates(user)
+    report[:usersStats][user_key]
+  end
+end
+```
+
+Other spots I refactored were :
+- changing string keys in hashes to symbols
+- add `start_with?` method instead of splitting columns during reading each file line.
+
+The above optimization showed the following results:
+
+### Benchmark
+The results of `Benchmark.realtime` were as follows:
+
+```
+data/data_025mb.txt
+Finish in 0.09
+data/data_05mb.txt
+Finish in 0.19
+data/data_1mb.txt
+Finish in 0.39
+```
+
+Processing 1MB file is 3.8 times faster comparing to previous optimization(1.48s)
+
+The results of `Benchmark.ips` were as follows:
+
+```
+Calculating -------------------------------------
+      Process 0.25Mb      9.853  (±20.3%) i/s -     48.000  in   5.089442s
+       Process 0.5Mb      4.643  (± 0.0%) i/s -     23.000  in   5.012045s
+         Process 1Mb      2.653  (± 0.0%) i/s -     14.000  in   5.286535s
+
+Comparison:
+      Process 0.25Mb:        9.9 i/s
+       Process 0.5Mb:        4.6 i/s - 2.12x  slower
+         Process 1Mb:        2.7 i/s - 3.71x  slower
+```
+As we can see from the above calculations the when we iterate the file of 0.5MB, we receive around 2 times slower iterations per seconds metric comparing to the 0.25MB size file. Processing 1MB file is approximately 3.7 times slower. 
+Calculations show us great improvement of the program in terms of time processing.
+
+
+#### Results from RubyProf::FlatProfiler
+
+From `RubyProf::Flat` report, we can see that the slowest methods are:
+- <Class::Date>#parse 13.97%
+- Array#each 13.60% called from c`ollect_stats_from_users` method
+- Array#map 12.31% called from `user_longest_session, session_time, user_browsers, always_use_chrome?, user_sessions_dates, used_ie?` methods
+- String#split 7.47% called from `parse_user` and `parse_session`
+- Regexp#match 5.96%
+- Hash#to_json  4.23%
+
+```
+
+ %self      total      self      wait     child     calls  name
+ 13.97      0.153     0.078     0.000     0.075    21523   <Class::Date>#parse
+
+ 13.60      0.496     0.076     0.000     0.420     3879  *Array#each
+    called from:
+      Object#work (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=107)
+      Object#collect_stats_from_users (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=42)
+
+ 12.31      0.248     0.069     0.000     0.180    42625   Array#map
+    called from:
+      Object#session_time (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=75)
+      Object#user_longest_session (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=79)
+      Object#user_browsers (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=83)
+      Object#used_ie? (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=87)
+      Object#always_use_chrome? (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=91)
+      Object#user_sessions_dates (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=95)
+
+  7.47      0.042     0.042     0.000     0.000    25399   String#split
+    called from:
+      Object#work (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=107)
+      Object#parse_user (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=20)
+      Object#parse_session (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=30)
+
+  5.96      0.033     0.033     0.000     0.000    43046   Regexp#match
+
+  4.23      0.051     0.024     0.000     0.027        1   JSON::Ext::Generator::GeneratorMethods::Hash#to_json
+
+  4.08      0.051     0.023     0.000     0.028    21523   Object#parse_session
+    defined at:
+      txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=30
+
+  3.35      0.019     0.019     0.000     0.000    64154   String#encode
+
+  2.99      0.017     0.017     0.000     0.000    21523   String#gsub!
+
+  2.26      0.013     0.013     0.000     0.000    21523   MatchData#begin
+
+  2.14      0.014     0.012     0.000     0.002     3875   Array#any?
+    called from:
+      Object#used_ie? (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=87)
+
+  2.14      0.022     0.012     0.000     0.010     7750   Array#sort
+    called from:
+      Object#user_browsers (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=83)
+      Object#user_sessions_dates (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=95)
+
+  2.07      0.012     0.012     0.000     0.000    37710   String#upcase
+
+  2.05      0.011     0.011     0.000     0.000    21523   Date#iso8601
+
+  1.85      0.010     0.010     0.000     0.000    43978   Date#<=>
+```
+
+Based on Flat report it makes sense to pay attention to 
+`map`, `split`, `match` and `to_json` methods
+
+
+#### RubyProf::GraphHtmlPrinter
+From `GraphHtmlPrinter` we can see that slow parts of the code ale located in:
+
+- Array#map
+- <Class::Date>#parse
+- JSON::Ext::Generator::GeneratorMethods::Hash#to_json
+- String#split
+- Regexp#match
+![ruby_prof_graph](screenshots/ruby_prof_graph_3.png)
+
+
+#### RubyProf::CallStackPrinter
+From the screenshot below we can see similar results. The slowest execution paths are in `user_sessions_dates` (`map`, `match` methods) as well as other `map` methods that are called during each `user_object` iteration.
+
+![ruby_prof_graph](screenshots/ruby_prof_callstack_3.png)
+
+#### RubyProf::CallTreePrinter and Qcachegrind
+
+From the graph below we can come to the same conclusion that a lot of time program spends in `user_sessions_dates` method
+
+![ruby_prof_call_tree](screenshots/ruby_prof_call_tree_graph_3.png)
+
+#### Rbspy
+
+After profiling program with rbspy I noticed that it's quite hard to read the flamegraph report.
+However, I was able to identify that around 55% were allocated in `collect_stats_from_users` method which in its turn consisted of 28% from `user_sessions_dates` method.
+
+[rbspy report](screenshots/rbspy-2019-03-25-xpqUSwn2Ni.flamegraph.svg)
+
+
+#### Ruby-ProgressBar
+Once I saw that overall result of processing file was improved, at least time wise, I decided to run progressbar by using `ruby-progressbar` gem. When deciding on how and where to use it it made the most sense to check the processing of `user_obects` for the whole 128MB file. 
+As per the screenshot below it's notable that that process would take around 50seconds for the whole file.
+I found it hard to decide in what place to use progress bar and I think this might require more experiments. Ideally it would be great to see progress bar in each method/block of code that one is interested in.
+
+![ruby-progressbar](screenshots/first_progress_bar_large_data.png)
 
 ## Результаты
 В результате проделанной оптимизации наконец удалось обработать файл с данными.

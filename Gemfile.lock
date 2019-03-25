@@ -4,6 +4,7 @@ GEM
     benchmark-ips (2.7.2)
     byebug (11.0.0)
     ruby-prof (0.17.0)
+    ruby-progressbar (1.10.0)
 
 PLATFORMS
   ruby
@@ -12,6 +13,7 @@ DEPENDENCIES
   benchmark-ips
   byebug
   ruby-prof
+  ruby-progressbar
 
 RUBY VERSION
    ruby 2.5.3p105
