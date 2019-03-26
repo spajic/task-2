@@ -1,5 +1,6 @@
 require 'minitest/spec'
 require 'minitest/autorun'
+require 'benchmark'
 
 require_relative '../task-2.rb'
 
@@ -15,5 +16,11 @@ class TestMe < Minitest::Test
     real_report_result = File.read(REAL_JSON_FILE_PATH)
  
     assert_equal(expected_report_result, real_report_result)
+  end
+
+  def test_time
+
+    time = Benchmark.realtime { work('data/data_1mb.txt', 'data/test_data/outcome_time') }
+    assert(time.round(2) <= 0.3)
   end
 end

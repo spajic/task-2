@@ -1,23 +1,29 @@
 # Deoptimized version of homework task
 
 require 'json'
+require 'oj'
 require 'set'
-require 'date'
+# require 'date'
 require 'byebug'
 require 'ruby-progressbar'
 
 
 class User
-  attr_reader :attributes, :sessions
+  attr_reader :attributes, :sessions, :key
 
   def initialize(attributes:, sessions:)
     @attributes = attributes
     @sessions = sessions
+    @key = "#{attributes[:first_name]}" + ' ' + "#{attributes[:last_name]}"
   end
 end
 
+INTERNET_EXPLORER = 'INTERNET EXPLORER'
+CHROME = 'CHROME'
+COMMA = ','
+
 def parse_user(user)
-  fields = user.split(',')
+  fields = user.split(COMMA)
   parsed_result = {
     id: fields[1],
     first_name: fields[2],
@@ -27,31 +33,31 @@ def parse_user(user)
 end
 
 def parse_session(session)
-  fields = session.split(',')
+  fields = session.split(COMMA)
   parsed_result = {
     user_id: fields[1],
     session_id: fields[2],
-    browser: fields[3],
+    browser: fields[3].upcase!,
     time: fields[4],
     date: fields[5],
   }
 end
 
-
 def collect_stats_from_users(report, users_objects, progress: false, progress_bar: nil)
   users_objects.each do |user|
     progress_bar.increment if progress
-    user_key = "#{user.attributes[:first_name]}" + ' ' + "#{user.attributes[:last_name]}"
+    user_key = "#{user.key}"
     report[:usersStats][user_key] ||= {}
 
+    time_array = user.sessions[user.attributes[:id]].map {|s| s[:time].to_i}
     # amount of sessions by user
     report[:usersStats][user_key][:sessionsCount] = count_sessions(user)
 
     # amount of time by user
-    report[:usersStats][user_key][:totalTime] = session_time(user)
+    report[:usersStats][user_key][:totalTime] = session_time(time_array)
 
     # the longest session per user
-    report[:usersStats][user_key][:longestSession] = user_longest_session(user)
+    report[:usersStats][user_key][:longestSession] = user_longest_session(time_array)
 
     # user's browsers
     report[:usersStats][user_key][:browsers] = user_browsers(user)
@@ -71,28 +77,28 @@ def count_sessions(user)
   user.sessions[user.attributes[:id]].count
 end
 
-def session_time(user)
-  user.sessions[user.attributes[:id]].map {|s| s[:time]}.map {|t| t.to_i}.sum.to_s + ' min.'
+def session_time(time_array)
+  time_array.sum.to_s + ' min.'
 end
 
-def user_longest_session(user)
-  user.sessions[user.attributes[:id]].map {|s| s[:time]}.map {|t| t.to_i}.max.to_s + ' min.'
+def user_longest_session(time_array)
+  time_array.max.to_s + ' min.'
 end
 
 def user_browsers(user)
-  user.sessions[user.attributes[:id]].map {|s| s[:browser]}.map {|b| b.upcase}.sort.join(', ')
+  user.sessions[user.attributes[:id]].map {|s| s[:browser]}.sort.join(', ')
 end
 
 def used_ie?(user)
-  user.sessions[user.attributes[:id]].map{|s| s[:browser]}.any? { |b| b.upcase =~ /INTERNET EXPLORER/ }
+  user.sessions[user.attributes[:id]].map{|s| s[:browser]}.any? { |b| b.include?(INTERNET_EXPLORER) }
 end
 
 def always_use_chrome?(user)
-  user.sessions[user.attributes[:id]].map{|s| s[:browser]}.all? { |b| b.upcase =~ /CHROME/ } 
+  user.sessions[user.attributes[:id]].map{|s| s[:browser]}.all? { |b| b.include?(CHROME) } 
 end
 
 def user_sessions_dates(user)
-  user.sessions[user.attributes[:id]].map{|s| s[:date]}.map {|d| Date.parse(d)}.sort.reverse.map { |d| d.iso8601 }
+  user.sessions[user.attributes[:id]].map!{|s| s[:date]}.sort!.reverse!
 end
 
 def fill_user_objects(user, user_sessions, users_objects)
@@ -118,7 +124,7 @@ def work(file, target_json, progress: false)
     sessions << session
     user_sessions[session[:user_id]] ||= []
     user_sessions[session[:user_id]] << session
-    browser = session[:browser].upcase!
+    browser = session[:browser]
     unique_browsers << browser
   end
 
@@ -164,7 +170,7 @@ def work(file, target_json, progress: false)
 
   # File.write(target_json, "#{report.to_json}\n")
   File.open(target_json,"w") do |f|
-    f.write(report.to_json)
+    f.write(Oj.dump(report, mode: :compat))
   end
 end
 

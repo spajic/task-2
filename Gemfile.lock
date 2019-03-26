@@ -3,6 +3,7 @@ GEM
   specs:
     benchmark-ips (2.7.2)
     byebug (11.0.0)
+    oj (3.7.11)
     ruby-prof (0.17.0)
     ruby-progressbar (1.10.0)
 
@@ -12,6 +13,7 @@ PLATFORMS
 DEPENDENCIES
   benchmark-ips
   byebug
+  oj
   ruby-prof
   ruby-progressbar
 

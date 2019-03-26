@@ -1,18 +1,21 @@
 # Case-study оптимизации
 
-## Актуальная проблема
-В нашем проекте возникла серьёзная проблема.
+# Case-study optimization
 
-Необходимо было обработать файл с данными, чуть больше ста мегабайт.
+## Actual problem
+Our project has a serious problem.
 
-У нас уже была программа на `ruby`, которая умела делать нужную обработку.
+It was necessary to process the data file, a little more than one hundred twenty megabytes (3 million lines).
 
-Она успешно работала на файлах размером пару мегабайт, но для большого файла она работала слишком долго, и не было понятно, закончит ли она вообще работу за какое-то разумное время.
+We already had a program on `ruby` that knew how to do the necessary processing.
 
-Я решил исправить эту проблему, оптимизировав эту программу.
+It worked successfully on files with a size of a couple of megabytes , but for a large file it worked too long, and it wasn’t clear if it would finish the job at all in some reasonable time.
 
-## Формирование метрики
-Для того, чтобы понимать, дают ли мои изменения положительный эффект на быстродействие программы я придумал использовать такую метрику: Amount of iterations per second in files of different sizes.
+I decided to fix this problem by optimizing this program.
+
+## Metric formation
+I decided to work with 1Mb file, but also have smaller files in order to see how data volume impacts the 
+time processing of each file.
 
 ## Анализ зависимости метрики от входных данных
 In order to track metrics dependency on the amount of data, we will use script that checks this metrics in differents
@@ -52,14 +55,14 @@ Finish in 27.48
 I decided to work with 1MB file where initial i/s is 0.039 and realtime processint is approximately 27 seconds.
 
 
-## Гарантия корректности работы оптимизированной программы
-Программа поставлялась с тестом. Выполнение этого теста позволяет не допустить изменения логики программы при оптимизации.
+## Guaranteed correct operation of an optimized program
+The program was provided with the test.
+Running this test will prevent changes to the program logic during optimization.
 
 ## Feedback-Loop
-Для того, чтобы иметь возможность быстро проверять гипотезы я выстроил эффективный `feedback-loop`, который позволил мне получать обратную связь по эффективности сделанных изменений за *время, которое у вас получилось*
-
-Вот как я построил `feedback_loop`:
-
+In order to be able to quickly test hypotheses, I built an effective feedback loop,
+which allowed me to get feedback on the effectiveness of the changes made.
+This is how I built feedback-loop
 
 1. Create a relatively small file(1 MB)
 2. Make a code change
@@ -68,15 +71,19 @@ I decided to work with 1MB file where initial i/s is 0.039 and realtime processi
 5. If the test does not read, see item 1.
 6. If metrics are acceptable, push to GitHub
 
-## Вникаем в детали системы, чтобы найти 20% точек роста
-Для того, чтобы найти "точки роста" для оптимизации я воспользовался *инструментами, которыми вы воспользовались*
+## We delve into the details of the system to find 20% of growth points
+In order to find "growth points" for optimization, I used the following tools:
 - benchmark and benchmark/ips
 - ruby-prof gem (`RubyProf::Flat`), `WALL_TIME` 
 - ruby-prof gem (`GraphHtmlPrinter`), `WALL_TIME`
+- ruby-prof gem (`RubyProf::CallStackPrinter`), `WALL_TIME`
+- ruby-prof gem (`RubyProf::CallTreePrinter`), `WALL_TIME` and `Qcachegrind`
+- gem ruby-progressbar
+- gem rbspy
 
 ## Initial Measurements
 
-Вот какие проблемы удалось найти и решить:
+In order to find certain problems I decided to perform initial measurements
 
 From `RubyProf::Flat` report, we can identify 2 main problems:
 ```
@@ -113,7 +120,7 @@ end
 Based on the screenshot from `CallStackPrinter`, we can see that `select` is our method to look at
 ![ruby_prof_callstack_1](screenshots/ruby_prof_callstack_1.png)
 
-### Ваша находка №1
+### Discovery №1
 In order to retreive all sessions for user it was decided to create a `user_sessions` hash right during the reading of the file with keys equal to `user_id` and value equal to the array of sessions corresponding to each user.
 
 ```
@@ -222,7 +229,8 @@ Calltree graph below presents same information in regards to which methods have 
 
 However, from `Callees` graph we can see that we should also pay attention to 
 `sort`, `merge` and `any` methods, maybe they wiil have to be refacotred later.
-### Ваша находка №2
+
+### Discovery №2
 О вашей находке №2
 
 For getting unique values we can use `Set` class.
@@ -287,7 +295,7 @@ Here is a `rbspy flamegraph` where we can observe that results do not contradict
 - block `file_lines` where each line of the file is being iterated and transformed (69.78%)
 ![Rbspy flamegraph](screenshots/rbspy-2019-03-21-RyXF9SdEYu.flamegraph.svg)
 
-### Ваша находка №3
+### Discovery №3
 Next optimization I decided to do for `collect_stats_from_users` method because I identified it to be the biggest problem spot among others.
 I avoided calling this method 7 times where we saw iteration inside other iteration (user object and user_sessions array)
 
@@ -450,7 +458,7 @@ From `GraphHtmlPrinter` we can see that slow parts of the code ale located in:
 #### RubyProf::CallStackPrinter
 From the screenshot below we can see similar results. The slowest execution paths are in `user_sessions_dates` (`map`, `match` methods) as well as other `map` methods that are called during each `user_object` iteration.
 
-![ruby_prof_graph](screenshots/ruby_prof_callstack_3.png)
+![ruby_prof_callstack](screenshots/ruby_prof_callstack_3.png)
 
 #### RubyProf::CallTreePrinter and Qcachegrind
 
@@ -473,11 +481,201 @@ I found it hard to decide in what place to use progress bar and I think this mig
 
 ![ruby-progressbar](screenshots/first_progress_bar_large_data.png)
 
-## Результаты
-В результате проделанной оптимизации наконец удалось обработать файл с данными.
-Удалось улучшить метрику системы с *того, что у вас было в начале, до того, что получилось в конце*
 
-*Какими ещё результами можете поделиться*
+## Discovery 4
 
-## Защита от регресса производительности
-Для защиты от потери достигнутого прогресса при дальнейших изменениях программы сделано *то, что вы для этого сделали*
+As per requirements we did not have to parse date because we already had same format in.
+
+```
+ user.sessions[user.attributes[:id]].map{|s| s[:date]}.map {|d| Date.parse(d)}.sort.reverse.map { |d| d.iso8601 }
+```
+
+THrefore, this function can be refactored to:
+
+```
+user.sessions[user.attributes[:id]].map!{|s| s[:date]}.sort!.reverse!
+```
+
+If incoming format will change, it would be necessary to find another more efficient way to parse Date. In task one I used the following approach, although I feel it could be improved
+```
+user.sessions.sort_by!{ |s| s[:date] }.reverse!.map!{ |s| Date.iso8601(s[:date]) } 
+```
+
+Replaced REGEX:
+```
+b.upcase =~ /CHROME/
+
+```
+with
+```
+b.include?(CHROME) #CHROME is a Constant
+```
+
+Also used `oj` gem to parse json based on this comparison gist I found https://gist.github.com/aishfenton/480059. 
+Oj gem seemed reasonable to try.
+And I think it's proved to be efficient.
+
+### Benchmark
+
+The results of Benchmark.realtime were as follows:
+
+```
+data/data_025mb.txt
+Finish in 0.04
+data/data_05mb.txt
+Finish in 0.1
+data/data_1mb.txt
+Finish in 0.18
+```
+Processing 1MB file is 2 times faster comparing to previous optimization(0.39s)
+
+The results of Benchmark.ips were as follows:
+```
+Calculating -------------------------------------
+      Process 0.25Mb     27.088  (±11.1%) i/s -    135.000  in   5.030179s
+       Process 0.5Mb     10.326  (± 9.7%) i/s -     52.000  in   5.064479s
+         Process 1Mb      5.973  (± 0.0%) i/s -     30.000  in   5.040117s
+
+Comparison:
+      Process 0.25Mb:       27.1 i/s
+       Process 0.5Mb:       10.3 i/s - 2.62x  slower
+         Process 1Mb:        6.0 i/s - 4.53x  slower
+```
+
+
+As we can see from the above calculations the when we iterate the file of 0.5MB, we receive around 2.6 times slower iterations per seconds metric comparing to the 0.25MB size file. Processing 1MB file is approximately 4.5 times slower. Although the comparison numbers do not seem better at first sight, the amount of iterations per second increased comparing with previous results:
+- from 9.853 to 27.088 for 0.25Mb file
+- from 4.643 to 10.326 for 0.5Mb file
+- from 2.653 to 5.973 for 1Mb file
+
+### Results from RubyProf::FlatProfiler
+
+From RubyProf::Flat report, we can see that the slowest methods are:
+
+- Array#each  23.50% called from collect_stats_from_users method
+- String#split  16.45% called from parse_user and parse_session
+- Object#parse_session  8.74%
+- Array#map  8.53% called from user_browsers, used_ie?, always_use_chrome? methods
+- <Module::Oj>#dump  8.43%
+- Hash#to_json 4.23%
+
+```
+%self      total      self      wait     child     calls  name
+ 23.50      0.265     0.070     0.000     0.194     3879  *Array#each
+    called from:
+      Object#work (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=113)
+      Object#collect_stats_from_users (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=47)
+
+ 16.45      0.049     0.049     0.000     0.000    25399   String#split
+    called from:
+      Object#work (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=113)
+      Object#parse_user (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=26)
+      Object#parse_session (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=36)
+
+  8.74      0.062     0.026     0.000     0.036    21523   Object#parse_session
+    defined at:
+      txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=36
+
+  8.53      0.029     0.025     0.000     0.004    15500   Array#map
+    called from:
+      Object#user_browsers (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=89)
+      Object#used_ie? (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=93)
+      Object#always_use_chrome? (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=97)
+
+  8.43      0.025     0.025     0.000     0.000        1   <Module::Oj>#dump
+
+  3.42      0.010     0.010     0.000     0.000    21523   Set#add
+    defined at:
+      txmt://open?url=file:///Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/set.rb&line=349
+
+  3.06      0.009     0.009     0.000     0.000    50796   String#start_with?
+
+  2.17      0.011     0.006     0.000     0.004     3875   Object#session_time
+    defined at:
+      txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=81
+
+  1.60      0.005     0.005     0.000     0.000     3875   Array#map!
+    called from:
+      Object#user_sessions_dates (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=101)
+
+  1.51      0.015     0.004     0.000     0.010     3875   Object#parse_user
+    defined at:
+      txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=26
+
+  1.49      0.004     0.004     0.000     0.000     3875   User#initialize
+    defined at:
+      txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=15
+
+  1.47      0.004     0.004     0.000     0.000     3875   Array#sort
+    called from:
+      Object#user_browsers (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=89)
+
+  1.47      0.004     0.004     0.000     0.000     7750   Integer#to_s
+    called from:
+      Object#session_time (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=81)
+      Object#user_longest_session (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=85)
+
+  1.34      0.004     0.004     0.000     0.000    21523   String#upcase!
+    called from:
+      Object#parse_session (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=36)
+
+  1.32      0.004     0.004     0.000     0.000     3876   Array#join
+    called from:
+      Object#work (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=113)
+      Object#user_browsers (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=89)
+
+  1.31      0.004     0.004     0.000     0.000    21523   String#to_i
+
+  1.25      0.004     0.004     0.000     0.000    16187   String#include?
+
+  1.22      0.004     0.004     0.000     0.000     3875   Array#sort!
+    called from:
+      Object#user_sessions_dates (txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=101)
+
+  1.20      0.011     0.004     0.000     0.008     3875   Object#fill_user_objects
+    defined at:
+      txmt://open?url=file:///Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb&line=105
+```
+
+
+### RubyProf::GraphHtmlPrinter
+From GraphHtmlPrinter we can see that slow parts of the code are located in:
+- `#collect_stats_from_users` the percentage of time in this method reduced from 65.24% to 36.87% comparing to the previous optimization.
+- `#parse_session` the percentage increased from 9.79% to 19.54%
+- `String#split` takes 14.65%
+- `Array#map` percentage was reduced from 46.39% to 10.54%
+
+![ruby_prof_graph](screenshots/ruby_prof_graph_4.png)
+
+
+### RubyProf::CallStackPrinter
+From the screenshot below we can see similar results. The slowest execution paths are in the following methods:
+- `parse_sessions` where (`String#split`) is used
+- `collect_stats_from_users ` where we use `Object#user_browsers` with `sort, map and join`, `Object#used_ie?` with `any? and map` methods.
+
+![ruby_prof_callstack](screenshots/ruby_prof_callstack_4.png)
+
+
+### RubyProf::CallTreePrinter and Qcachegrind
+From the graph below we can come to the same conclusion that inside `Array#each` most of the methods are equally divided in terms of time
+processing except `#parse_session` method which takes around 21%
+
+
+![ruby_prof_call_tree_graph](screenshots/ruby_prof_call_tree_graph_4.png)
+
+
+### Ruby-ProgressBar
+
+As per the screenshot below it's notable that that process would take around 11 seconds for the whole file. This is huge improvement comparing to 50 seconds from previous optimization.
+
+## Results
+As a result of this optimization, we finally managed to process the data file.
+It was possible to improve the system metric and run 1Mb-sized file in 0.18 seconds and 128Mb-sized file in 11 seconds
+
+## Protection against performance regression
+
+I added minitest to check that processing time of 1Mb file would not exceed 0.3 seconds
+```
+time = Benchmark.realtime { work('data/data_1mb.txt', 'data/test_data/outcome_time') }
+assert(time.round(2) <= 0.3)
+```

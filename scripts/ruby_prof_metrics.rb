@@ -49,7 +49,7 @@ def run_profiler
   yield result
 end
 
-# flat_profile
-# graph_profile
-# callstack_profile
+flat_profile
+graph_profile
+callstack_profile
 calltree_profile
