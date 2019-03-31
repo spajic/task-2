@@ -1,30 +1,27 @@
-### Note
-*Для работы скрипта требуется Ruby 2.4+*
+# Task number 2
 
-# Задание №2
+## Description
+In this task it is necessary to further optimize the task of the 1st week with the use of the profiling tools `CPU` and the explanations made in the 2nd lecture.
 
-## Описание
-В этом задании надо дооптимизировать задание 1й недели с использованием инструментов профилирования `CPU` и разъяснений, сделанных на 2й лекции.
+### What should be done
+- Build and analyze the `ruby-prof` report in the` Flat` mode;
+- Build and analyze the `ruby-prof` report in` Graph` mode;
+- Build and analyze the `ruby-prof` report in` CallStack` mode;
+- Build and analyze the `ruby-prof` report in` CallTree` mode with visualization in `QCachegrind`;
+- To profile the working process `rbspy`;
+- Build and analyze the `flamegraph` report using` rbspy`;
+- Add to the program `ProgressBar`;
+- Learn to use `Valgrind massif` with` massif-visualizer`. Build a memory usage profile for the final version of your program and add a screenshot to `PR`;
+- Write at least the simplest performance test: `assert`, that the execution time of the script is less than the value, which is slightly longer than real, in order not to give false positives;
 
-### Что нужно сделать
-- Построить и проанализировать отчёт `ruby-prof` в режиме `Flat`;
-- Построить и проанализировать отчёт `ruby-prof` в режиме `Graph`;
-- Построить и проанализировать отчёт `ruby-prof` в режиме `CallStack`;
-- Построить и проанализировать отчёт `ruby-prof` в режиме `CallTree` c визуализацией в `QCachegrind`;
-- Профилировать работающий процесс `rbspy`;
-- Построить и проанализировать отчёт `flamegraph` с помощью `rbspy`;
-- Добавить в программу `ProgressBar`;
-- Научиться пользоваться `Valgrind massif` с `massif-visualizer`. Построить профиль использования памяти для итоговой версии вашей программы и добавить скриншот в `PR`;
-- Написать хотя бы самый простой тест на производительность: `assert`, что время выполнения скрипта меньше значения, которое чуть больше реального, чтобы не давать ложных срабатываний;
-
-### Главное
-Нужно потренироваться методично работать по схеме с фидбек-лупом:
-- построили отчёт каким-то из профилировщиков
-- осознали его
-- поняли, какая самая большая точка роста
-- внесли минимальные изменения, чтобы использовать только эту точку роста
-- перестроили отчёт, убедились, что проблема решена
-- вычислили метрику - оценили, как изменение повлияло на метрику
-- записали полученные результаты
-- закоммитились
-- перешли к следующей итерации
+### The main thing
+You need to practice working methodically according to the scheme with feedback loops:
+- built a report by some of the profilers
+- realized it
+- understand what is the biggest growth point
+- made minimal changes to use only this growth point
+- rebuilt the report, make sure that the problem is solved
+- calculated the metric - estimated how change affected the metric
+- recorded the results
+- commit
+- proceed to the next iteration

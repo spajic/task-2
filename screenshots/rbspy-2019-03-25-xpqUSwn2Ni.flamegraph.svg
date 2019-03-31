@@ -1,0 +1,686 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" width="1200" height="406" onload="init(evt)" viewBox="0 0 1200 406" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<!-- Flame graph stack visualization. See https://github.com/brendangregg/FlameGraph for latest version, and http://www.brendangregg.com/flamegraphs.html for examples. -->
+<!-- NOTES:  -->
+<defs >
+	<linearGradient id="background" y1="0" y2="1" x1="0" x2="0" >
+		<stop stop-color="#eeeeee" offset="5%" />
+		<stop stop-color="#eeeeb0" offset="95%" />
+	</linearGradient>
+</defs>
+<style type="text/css">
+	.func_g:hover { stroke:black; stroke-width:0.5; cursor:pointer; }
+</style>
+<script type="text/ecmascript">
+<![CDATA[
+	var details, searchbtn, matchedtxt, svg;
+	function init(evt) {
+		details = document.getElementById("details").firstChild;
+		searchbtn = document.getElementById("search");
+		matchedtxt = document.getElementById("matched");
+		svg = document.getElementsByTagName("svg")[0];
+		searching = 0;
+	}
+
+	// mouse-over for info
+	function s(node) {		// show
+		info = g_to_text(node);
+		details.nodeValue = "Function: " + info;
+	}
+	function c() {			// clear
+		details.nodeValue = ' ';
+	}
+
+	// ctrl-F for search
+	window.addEventListener("keydown",function (e) {
+		if (e.keyCode === 114 || (e.ctrlKey && e.keyCode === 70)) {
+			e.preventDefault();
+			search_prompt();
+		}
+	})
+
+	// functions
+	function find_child(parent, name, attr) {
+		var children = parent.childNodes;
+		for (var i=0; i<children.length;i++) {
+			if (children[i].tagName == name)
+				return (attr != undefined) ? children[i].attributes[attr].value : children[i];
+		}
+		return;
+	}
+	function orig_save(e, attr, val) {
+		if (e.attributes["_orig_"+attr] != undefined) return;
+		if (e.attributes[attr] == undefined) return;
+		if (val == undefined) val = e.attributes[attr].value;
+		e.setAttribute("_orig_"+attr, val);
+	}
+	function orig_load(e, attr) {
+		if (e.attributes["_orig_"+attr] == undefined) return;
+		e.attributes[attr].value = e.attributes["_orig_"+attr].value;
+		e.removeAttribute("_orig_"+attr);
+	}
+	function g_to_text(e) {
+		var text = find_child(e, "title").firstChild.nodeValue;
+		return (text)
+	}
+	function g_to_func(e) {
+		var func = g_to_text(e);
+		// if there's any manipulation we want to do to the function
+		// name before it's searched, do it here before returning.
+		return (func);
+	}
+	function update_text(e) {
+		var r = find_child(e, "rect");
+		var t = find_child(e, "text");
+		var w = parseFloat(r.attributes["width"].value) -3;
+		var txt = find_child(e, "title").textContent.replace(/\([^(]*\)$/,"");
+		t.attributes["x"].value = parseFloat(r.attributes["x"].value) +3;
+
+		// Smaller than this size won't fit anything
+		if (w < 2*12*0.59) {
+			t.textContent = "";
+			return;
+		}
+
+		t.textContent = txt;
+		// Fit in full text width
+		if (/^ *$/.test(txt) || t.getSubStringLength(0, txt.length) < w)
+			return;
+
+		for (var x=txt.length-2; x>0; x--) {
+			if (t.getSubStringLength(0, x+2) <= w) {
+				t.textContent = txt.substring(0,x) + "..";
+				return;
+			}
+		}
+		t.textContent = "";
+	}
+
+	// zoom
+	function zoom_reset(e) {
+		if (e.attributes != undefined) {
+			orig_load(e, "x");
+			orig_load(e, "width");
+		}
+		if (e.childNodes == undefined) return;
+		for(var i=0, c=e.childNodes; i<c.length; i++) {
+			zoom_reset(c[i]);
+		}
+	}
+	function zoom_child(e, x, ratio) {
+		if (e.attributes != undefined) {
+			if (e.attributes["x"] != undefined) {
+				orig_save(e, "x");
+				e.attributes["x"].value = (parseFloat(e.attributes["x"].value) - x - 10) * ratio + 10;
+				if(e.tagName == "text") e.attributes["x"].value = find_child(e.parentNode, "rect", "x") + 3;
+			}
+			if (e.attributes["width"] != undefined) {
+				orig_save(e, "width");
+				e.attributes["width"].value = parseFloat(e.attributes["width"].value) * ratio;
+			}
+		}
+
+		if (e.childNodes == undefined) return;
+		for(var i=0, c=e.childNodes; i<c.length; i++) {
+			zoom_child(c[i], x-10, ratio);
+		}
+	}
+	function zoom_parent(e) {
+		if (e.attributes) {
+			if (e.attributes["x"] != undefined) {
+				orig_save(e, "x");
+				e.attributes["x"].value = 10;
+			}
+			if (e.attributes["width"] != undefined) {
+				orig_save(e, "width");
+				e.attributes["width"].value = parseInt(svg.width.baseVal.value) - (10*2);
+			}
+		}
+		if (e.childNodes == undefined) return;
+		for(var i=0, c=e.childNodes; i<c.length; i++) {
+			zoom_parent(c[i]);
+		}
+	}
+	function zoom(node) {
+		var attr = find_child(node, "rect").attributes;
+		var width = parseFloat(attr["width"].value);
+		var xmin = parseFloat(attr["x"].value);
+		var xmax = parseFloat(xmin + width);
+		var ymin = parseFloat(attr["y"].value);
+		var ratio = (svg.width.baseVal.value - 2*10) / width;
+
+		// XXX: Workaround for JavaScript float issues (fix me)
+		var fudge = 0.0001;
+
+		var unzoombtn = document.getElementById("unzoom");
+		unzoombtn.style["opacity"] = "1.0";
+
+		var el = document.getElementsByTagName("g");
+		for(var i=0;i<el.length;i++){
+			var e = el[i];
+			var a = find_child(e, "rect").attributes;
+			var ex = parseFloat(a["x"].value);
+			var ew = parseFloat(a["width"].value);
+			// Is it an ancestor
+			if (1 == 0) {
+				var upstack = parseFloat(a["y"].value) > ymin;
+			} else {
+				var upstack = parseFloat(a["y"].value) < ymin;
+			}
+			if (upstack) {
+				// Direct ancestor
+				if (ex <= xmin && (ex+ew+fudge) >= xmax) {
+					e.style["opacity"] = "0.5";
+					zoom_parent(e);
+					e.onclick = function(e){unzoom(); zoom(this);};
+					update_text(e);
+				}
+				// not in current path
+				else
+					e.style["display"] = "none";
+			}
+			// Children maybe
+			else {
+				// no common path
+				if (ex < xmin || ex + fudge >= xmax) {
+					e.style["display"] = "none";
+				}
+				else {
+					zoom_child(e, xmin, ratio);
+					e.onclick = function(e){zoom(this);};
+					update_text(e);
+				}
+			}
+		}
+	}
+	function unzoom() {
+		var unzoombtn = document.getElementById("unzoom");
+		unzoombtn.style["opacity"] = "0.0";
+
+		var el = document.getElementsByTagName("g");
+		for(i=0;i<el.length;i++) {
+			el[i].style["display"] = "block";
+			el[i].style["opacity"] = "1";
+			zoom_reset(el[i]);
+			update_text(el[i]);
+		}
+	}
+
+	// search
+	function reset_search() {
+		var el = document.getElementsByTagName("rect");
+		for (var i=0; i < el.length; i++) {
+			orig_load(el[i], "fill")
+		}
+	}
+	function search_prompt() {
+		if (!searching) {
+			var term = prompt("Enter a search term (regexp " +
+			    "allowed, eg: ^ext4_)", "");
+			if (term != null) {
+				search(term)
+			}
+		} else {
+			reset_search();
+			searching = 0;
+			searchbtn.style["opacity"] = "0.1";
+			searchbtn.firstChild.nodeValue = "Search"
+			matchedtxt.style["opacity"] = "0.0";
+			matchedtxt.firstChild.nodeValue = ""
+		}
+	}
+	function search(term) {
+		var re = new RegExp(term);
+		var el = document.getElementsByTagName("g");
+		var matches = new Object();
+		var maxwidth = 0;
+		for (var i = 0; i < el.length; i++) {
+			var e = el[i];
+			if (e.attributes["class"].value != "func_g")
+				continue;
+			var func = g_to_func(e);
+			var rect = find_child(e, "rect");
+			if (rect == null) {
+				// the rect might be wrapped in an anchor
+				// if nameattr href is being used
+				if (rect = find_child(e, "a")) {
+				    rect = find_child(r, "rect");
+				}
+			}
+			if (func == null || rect == null)
+				continue;
+
+			// Save max width. Only works as we have a root frame
+			var w = parseFloat(rect.attributes["width"].value);
+			if (w > maxwidth)
+				maxwidth = w;
+
+			if (func.match(re)) {
+				// highlight
+				var x = parseFloat(rect.attributes["x"].value);
+				orig_save(rect, "fill");
+				rect.attributes["fill"].value =
+				    "rgb(230,0,230)";
+
+				// remember matches
+				if (matches[x] == undefined) {
+					matches[x] = w;
+				} else {
+					if (w > matches[x]) {
+						// overwrite with parent
+						matches[x] = w;
+					}
+				}
+				searching = 1;
+			}
+		}
+		if (!searching)
+			return;
+
+		searchbtn.style["opacity"] = "1.0";
+		searchbtn.firstChild.nodeValue = "Reset Search"
+
+		// calculate percent matched, excluding vertical overlap
+		var count = 0;
+		var lastx = -1;
+		var lastw = 0;
+		var keys = Array();
+		for (k in matches) {
+			if (matches.hasOwnProperty(k))
+				keys.push(k);
+		}
+		// sort the matched frames by their x location
+		// ascending, then width descending
+		keys.sort(function(a, b){
+			return a - b;
+		});
+		// Step through frames saving only the biggest bottom-up frames
+		// thanks to the sort order. This relies on the tree property
+		// where children are always smaller than their parents.
+		var fudge = 0.0001;	// JavaScript floating point
+		for (var k in keys) {
+			var x = parseFloat(keys[k]);
+			var w = matches[keys[k]];
+			if (x >= lastx + lastw - fudge) {
+				count += w;
+				lastx = x;
+				lastw = w;
+			}
+		}
+		// display matched percent
+		matchedtxt.style["opacity"] = "1.0";
+		pct = 100 * count / maxwidth;
+		if (pct == 100)
+			pct = "100"
+		else
+			pct = pct.toFixed(1)
+		matchedtxt.firstChild.nodeValue = "Matched: " + pct + "%";
+	}
+	function searchover(e) {
+		searchbtn.style["opacity"] = "1.0";
+	}
+	function searchout(e) {
+		if (searching) {
+			searchbtn.style["opacity"] = "1.0";
+		} else {
+			searchbtn.style["opacity"] = "0.1";
+		}
+	}
+]]>
+</script>
+<rect x="0.0" y="0" width="1200.0" height="406.0" fill="url(#background)"  />
+<text text-anchor="middle" x="600.00" y="24" font-size="17" font-family="Verdana" fill="rgb(0,0,0)"  >Icicle Graph</text>
+<text text-anchor="" x="10.00" y="389" font-size="12" font-family="Verdana" fill="rgb(0,0,0)" id="details" > </text>
+<text text-anchor="" x="10.00" y="24" font-size="12" font-family="Verdana" fill="rgb(0,0,0)" id="unzoom" onclick="unzoom()" style="opacity:0.0;cursor:pointer" >Reset Zoom</text>
+<text text-anchor="" x="1090.00" y="24" font-size="12" font-family="Verdana" fill="rgb(0,0,0)" id="search" onmouseover="searchover()" onmouseout="searchout()" onclick="search_prompt()" style="opacity:0.1;cursor:pointer" >Search</text>
+<text text-anchor="" x="1090.00" y="389" font-size="12" font-family="Verdana" fill="rgb(0,0,0)" id="matched" > </text>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>block (2 levels) in have_file? - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems/basic_specification.rb line 322 (1 samples, 2.63%)</title><rect x="41.1" y="292" width="31.0" height="15.0" fill="rgb(254,176,10)" rx="2" ry="2" />
+<text text-anchor="" x="44.05" y="302.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >bl..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>all (38 samples, 100%)</title><rect x="10.0" y="36" width="1180.0" height="15.0" fill="rgb(225,181,2)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="46.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>parse_session - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb line 31 (2 samples, 5.26%)</title><rect x="196.3" y="116" width="62.1" height="15.0" fill="rgb(251,177,51)" rx="2" ry="2" />
+<text text-anchor="" x="199.32" y="126.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >parse_..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>block in data - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems/stub_specification.rb line 123 (1 samples, 2.63%)</title><rect x="103.2" y="340" width="31.0" height="15.0" fill="rgb(211,80,29)" rx="2" ry="2" />
+<text text-anchor="" x="106.16" y="350.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >bl..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>block in collect_stats_from_users - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb line 67 (21 samples, 55.26%)</title><rect x="537.9" y="116" width="652.1" height="15.0" fill="rgb(249,216,48)" rx="2" ry="2" />
+<text text-anchor="" x="540.89" y="126.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >block in collect_stats_from_users - /Users/maryna.nogtieva/learning/rails_projects/task-2/..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>used_ie? - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb line 88 (1 samples, 2.63%)</title><rect x="631.1" y="132" width="31.0" height="15.0" fill="rgb(239,224,7)" rx="2" ry="2" />
+<text text-anchor="" x="634.05" y="142.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >us..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>map_stubs - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems/specification.rb line 795 (2 samples, 5.26%)</title><rect x="72.1" y="196" width="62.1" height="15.0" fill="rgb(239,133,51)" rx="2" ry="2" />
+<text text-anchor="" x="75.11" y="206.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >map_st..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>block in map_stubs - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems/specification.rb line 794 (2 samples, 5.26%)</title><rect x="72.1" y="244" width="62.1" height="15.0" fill="rgb(222,111,26)" rx="2" ry="2" />
+<text text-anchor="" x="75.11" y="254.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >block ..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (3 samples, 7.89%)</title><rect x="444.7" y="116" width="93.2" height="15.0" fill="rgb(224,186,52)" rx="2" ry="2" />
+<text text-anchor="" x="447.74" y="126.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c function..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>fill_user_objects - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb line 103 (1 samples, 2.63%)</title><rect x="413.7" y="116" width="31.0" height="15.0" fill="rgb(236,80,43)" rx="2" ry="2" />
+<text text-anchor="" x="416.68" y="126.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >fi..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>contains_requirable_file? - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems/basic_specification.rb line 80 (1 samples, 2.63%)</title><rect x="41.1" y="212" width="31.0" height="15.0" fill="rgb(218,194,52)" rx="2" ry="2" />
+<text text-anchor="" x="44.05" y="222.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >co..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;module:Ext&gt; - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/json/ext.rb line 11 (1 samples, 2.63%)</title><rect x="134.2" y="228" width="31.1" height="15.0" fill="rgb(240,42,4)" rx="2" ry="2" />
+<text text-anchor="" x="137.21" y="238.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;m..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (2 samples, 5.26%)</title><rect x="320.5" y="132" width="62.1" height="15.0" fill="rgb(236,178,28)" rx="2" ry="2" />
+<text text-anchor="" x="323.53" y="142.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c fun..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (1 samples, 2.63%)</title><rect x="631.1" y="148" width="31.0" height="15.0" fill="rgb(246,18,24)" rx="2" ry="2" />
+<text text-anchor="" x="634.05" y="158.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (1 samples, 2.63%)</title><rect x="506.8" y="132" width="31.1" height="15.0" fill="rgb(213,122,16)" rx="2" ry="2" />
+<text text-anchor="" x="509.84" y="142.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;top (required)&gt; - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb line 105 (4 samples, 10.53%)</title><rect x="10.0" y="84" width="124.2" height="15.0" fill="rgb(208,110,5)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="94.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;top (required)..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>work - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb line 169 (32 samples, 84.21%)</title><rect x="196.3" y="68" width="993.7" height="15.0" fill="rgb(247,91,54)" rx="2" ry="2" />
+<text text-anchor="" x="199.32" y="78.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >work - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb line 169</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (1 samples, 2.63%)</title><rect x="693.2" y="148" width="31.0" height="15.0" fill="rgb(249,8,8)" rx="2" ry="2" />
+<text text-anchor="" x="696.16" y="158.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>parse_session - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb line 38 (4 samples, 10.53%)</title><rect x="258.4" y="116" width="124.2" height="15.0" fill="rgb(253,28,19)" rx="2" ry="2" />
+<text text-anchor="" x="261.42" y="126.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >parse_session -..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>require - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems/core_ext/kernel_require.rb line 138 (1 samples, 2.63%)</title><rect x="134.2" y="100" width="31.1" height="15.0" fill="rgb(205,49,53)" rx="2" ry="2" />
+<text text-anchor="" x="137.21" y="110.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >re..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (1 samples, 2.63%)</title><rect x="103.2" y="356" width="31.0" height="15.0" fill="rgb(235,87,17)" rx="2" ry="2" />
+<text text-anchor="" x="106.16" y="366.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>block in find_by_path - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems/specification.rb line 1066 (1 samples, 2.63%)</title><rect x="41.1" y="196" width="31.0" height="15.0" fill="rgb(207,20,17)" rx="2" ry="2" />
+<text text-anchor="" x="44.05" y="206.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >bl..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (1 samples, 2.63%)</title><rect x="693.2" y="180" width="31.0" height="15.0" fill="rgb(227,16,30)" rx="2" ry="2" />
+<text text-anchor="" x="696.16" y="190.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (1 samples, 2.63%)</title><rect x="134.2" y="180" width="31.1" height="15.0" fill="rgb(214,205,23)" rx="2" ry="2" />
+<text text-anchor="" x="137.21" y="190.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>valid? - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems/stub_specification.rb line 209 (2 samples, 5.26%)</title><rect x="72.1" y="292" width="62.1" height="15.0" fill="rgb(217,228,37)" rx="2" ry="2" />
+<text text-anchor="" x="75.11" y="302.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >valid?..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (1 samples, 2.63%)</title><rect x="41.1" y="308" width="31.0" height="15.0" fill="rgb(208,178,51)" rx="2" ry="2" />
+<text text-anchor="" x="44.05" y="318.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (12 samples, 31.58%)</title><rect x="817.4" y="148" width="372.6" height="15.0" fill="rgb(213,107,31)" rx="2" ry="2" />
+<text text-anchor="" x="820.37" y="158.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c function&gt; - unknown line 0</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>block in work - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb line 168 (3 samples, 7.89%)</title><rect x="444.7" y="100" width="93.2" height="15.0" fill="rgb(207,197,24)" rx="2" ry="2" />
+<text text-anchor="" x="447.74" y="110.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >block in wo..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (1 samples, 2.63%)</title><rect x="41.1" y="244" width="31.0" height="15.0" fill="rgb(207,162,23)" rx="2" ry="2" />
+<text text-anchor="" x="44.05" y="254.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>installed_stubs - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems/specification.rb line 785 (2 samples, 5.26%)</title><rect x="72.1" y="180" width="62.1" height="15.0" fill="rgb(243,61,11)" rx="2" ry="2" />
+<text text-anchor="" x="75.11" y="190.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >instal..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (5 samples, 13.16%)</title><rect x="1034.7" y="196" width="155.3" height="15.0" fill="rgb(215,168,37)" rx="2" ry="2" />
+<text text-anchor="" x="1037.74" y="206.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c function&gt; - unkn..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>have_file? - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems/basic_specification.rb line 331 (1 samples, 2.63%)</title><rect x="41.1" y="228" width="31.0" height="15.0" fill="rgb(215,221,40)" rx="2" ry="2" />
+<text text-anchor="" x="44.05" y="238.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >ha..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;module:JSON&gt; - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/json.rb line 63 (1 samples, 2.63%)</title><rect x="134.2" y="148" width="31.1" height="15.0" fill="rgb(242,24,5)" rx="2" ry="2" />
+<text text-anchor="" x="137.21" y="158.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;m..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>parse_user - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb line 27 (1 samples, 2.63%)</title><rect x="382.6" y="116" width="31.1" height="15.0" fill="rgb(250,118,40)" rx="2" ry="2" />
+<text text-anchor="" x="385.63" y="126.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >pa..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (2 samples, 5.26%)</title><rect x="72.1" y="228" width="62.1" height="15.0" fill="rgb(209,137,1)" rx="2" ry="2" />
+<text text-anchor="" x="75.11" y="238.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c fun..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;top (required)&gt; - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/gems/2.5.0/gems/ruby-progressbar-1.10.0/lib/ruby-progressbar.rb line 14 (1 samples, 2.63%)</title><rect x="10.0" y="148" width="31.1" height="15.0" fill="rgb(227,24,37)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="158.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;t..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>block in work - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb line 123 (7 samples, 18.42%)</title><rect x="196.3" y="100" width="217.4" height="15.0" fill="rgb(217,225,38)" rx="2" ry="2" />
+<text text-anchor="" x="199.32" y="110.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >block in work - /Users/maryn..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;top (required)&gt; - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/json.rb line 55 (1 samples, 2.63%)</title><rect x="134.2" y="132" width="31.1" height="15.0" fill="rgb(231,186,1)" rx="2" ry="2" />
+<text text-anchor="" x="137.21" y="142.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;t..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (1 samples, 2.63%)</title><rect x="41.1" y="180" width="31.0" height="15.0" fill="rgb(253,208,11)" rx="2" ry="2" />
+<text text-anchor="" x="44.05" y="190.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (2 samples, 5.26%)</title><rect x="72.1" y="276" width="62.1" height="15.0" fill="rgb(215,32,53)" rx="2" ry="2" />
+<text text-anchor="" x="75.11" y="286.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c fun..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (5 samples, 13.16%)</title><rect x="10.0" y="68" width="155.3" height="15.0" fill="rgb(254,55,11)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="78.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c function&gt; - unkn..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (1 samples, 2.63%)</title><rect x="10.0" y="276" width="31.1" height="15.0" fill="rgb(233,188,28)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="286.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>collect_stats_from_users - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb line 68 (21 samples, 55.26%)</title><rect x="537.9" y="84" width="652.1" height="15.0" fill="rgb(252,199,44)" rx="2" ry="2" />
+<text text-anchor="" x="540.89" y="94.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >collect_stats_from_users - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (1 samples, 2.63%)</title><rect x="165.3" y="84" width="31.0" height="15.0" fill="rgb(213,29,45)" rx="2" ry="2" />
+<text text-anchor="" x="168.26" y="94.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>require - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems/core_ext/kernel_require.rb line 138 (1 samples, 2.63%)</title><rect x="134.2" y="164" width="31.1" height="15.0" fill="rgb(247,66,44)" rx="2" ry="2" />
+<text text-anchor="" x="137.21" y="174.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >re..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;module:JSON&gt; - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/json/ext.rb line 15 (1 samples, 2.63%)</title><rect x="134.2" y="212" width="31.1" height="15.0" fill="rgb(235,140,19)" rx="2" ry="2" />
+<text text-anchor="" x="137.21" y="222.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;m..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (1 samples, 2.63%)</title><rect x="41.1" y="164" width="31.0" height="15.0" fill="rgb(212,45,35)" rx="2" ry="2" />
+<text text-anchor="" x="44.05" y="174.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (1 samples, 2.63%)</title><rect x="41.1" y="276" width="31.0" height="15.0" fill="rgb(229,117,23)" rx="2" ry="2" />
+<text text-anchor="" x="44.05" y="286.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>require - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems/core_ext/kernel_require.rb line 138 (4 samples, 10.53%)</title><rect x="10.0" y="100" width="124.2" height="15.0" fill="rgb(232,135,31)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="110.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >require - /User..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (1 samples, 2.63%)</title><rect x="227.4" y="132" width="31.0" height="15.0" fill="rgb(221,12,9)" rx="2" ry="2" />
+<text text-anchor="" x="230.37" y="142.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>try_activate - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems.rb line 229 (3 samples, 7.89%)</title><rect x="41.1" y="132" width="93.1" height="15.0" fill="rgb(221,161,43)" rx="2" ry="2" />
+<text text-anchor="" x="44.05" y="142.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >try_activat..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;top (required)&gt; - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/gems/2.5.0/gems/ruby-progressbar-1.10.0/lib/ruby-progressbar/calculators/length.rb line 1 (1 samples, 2.63%)</title><rect x="10.0" y="196" width="31.1" height="15.0" fill="rgb(252,207,4)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="206.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;t..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;top (required)&gt; - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb line 19 (1 samples, 2.63%)</title><rect x="134.2" y="84" width="31.1" height="15.0" fill="rgb(248,96,15)" rx="2" ry="2" />
+<text text-anchor="" x="137.21" y="94.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;t..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;class:Length&gt; - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/gems/2.5.0/gems/ruby-progressbar-1.10.0/lib/ruby-progressbar/calculators/length.rb line 98 (1 samples, 2.63%)</title><rect x="10.0" y="244" width="31.1" height="15.0" fill="rgb(232,143,6)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="254.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>require - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems/core_ext/kernel_require.rb line 138 (1 samples, 2.63%)</title><rect x="134.2" y="244" width="31.1" height="15.0" fill="rgb(246,101,27)" rx="2" ry="2" />
+<text text-anchor="" x="137.21" y="254.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >re..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (1 samples, 2.63%)</title><rect x="134.2" y="260" width="31.1" height="15.0" fill="rgb(254,10,40)" rx="2" ry="2" />
+<text text-anchor="" x="137.21" y="270.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>block in work - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb line 154 (1 samples, 2.63%)</title><rect x="413.7" y="100" width="31.0" height="15.0" fill="rgb(248,224,5)" rx="2" ry="2" />
+<text text-anchor="" x="416.68" y="110.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >bl..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>work - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb line 146 (1 samples, 2.63%)</title><rect x="165.3" y="68" width="31.0" height="15.0" fill="rgb(242,177,4)" rx="2" ry="2" />
+<text text-anchor="" x="168.26" y="78.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >wo..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (1 samples, 2.63%)</title><rect x="600.0" y="148" width="31.1" height="15.0" fill="rgb(211,26,4)" rx="2" ry="2" />
+<text text-anchor="" x="603.00" y="158.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>find_by_path - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems/specification.rb line 1068 (3 samples, 7.89%)</title><rect x="41.1" y="148" width="93.1" height="15.0" fill="rgb(254,103,4)" rx="2" ry="2" />
+<text text-anchor="" x="44.05" y="158.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >find_by_pat..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>rescue in require - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems/core_ext/kernel_require.rb line 0 (4 samples, 10.53%)</title><rect x="10.0" y="116" width="124.2" height="15.0" fill="rgb(241,130,41)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="126.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >rescue in requi..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>user_longest_session - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb line 80 (2 samples, 5.26%)</title><rect x="662.1" y="132" width="62.1" height="15.0" fill="rgb(209,95,2)" rx="2" ry="2" />
+<text text-anchor="" x="665.11" y="142.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >user_l..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (1 samples, 2.63%)</title><rect x="10.0" y="180" width="31.1" height="15.0" fill="rgb(241,9,46)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="190.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (1 samples, 2.63%)</title><rect x="631.1" y="180" width="31.0" height="15.0" fill="rgb(231,163,29)" rx="2" ry="2" />
+<text text-anchor="" x="634.05" y="190.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;module:Calculators&gt; - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/gems/2.5.0/gems/ruby-progressbar-1.10.0/lib/ruby-progressbar/calculators/length.rb line 99 (1 samples, 2.63%)</title><rect x="10.0" y="228" width="31.1" height="15.0" fill="rgb(235,135,26)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="238.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;m..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (1 samples, 2.63%)</title><rect x="10.0" y="132" width="31.1" height="15.0" fill="rgb(231,49,17)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="142.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (2 samples, 5.26%)</title><rect x="72.1" y="212" width="62.1" height="15.0" fill="rgb(242,167,49)" rx="2" ry="2" />
+<text text-anchor="" x="75.11" y="222.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c fun..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>block in session_time - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb line 75 (1 samples, 2.63%)</title><rect x="693.2" y="164" width="31.0" height="15.0" fill="rgb(209,40,6)" rx="2" ry="2" />
+<text text-anchor="" x="696.16" y="174.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >bl..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;main&gt; - /Users/maryna.nogtieva/learning/rails_projects/task-2/scripts/rbspy_prof.rb line 11 (38 samples, 100.00%)</title><rect x="10.0" y="52" width="1180.0" height="15.0" fill="rgb(221,167,35)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="62.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;main&gt; - /Users/maryna.nogtieva/learning/rails_projects/task-2/scripts/rbspy_prof.rb line 11</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>block in have_file? - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems/basic_specification.rb line 323 (1 samples, 2.63%)</title><rect x="41.1" y="260" width="31.0" height="15.0" fill="rgb(215,78,54)" rx="2" ry="2" />
+<text text-anchor="" x="44.05" y="270.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >bl..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>gemspec_stubs_in - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems/specification.rb line 769 (2 samples, 5.26%)</title><rect x="72.1" y="260" width="62.1" height="15.0" fill="rgb(207,70,21)" rx="2" ry="2" />
+<text text-anchor="" x="75.11" y="270.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >gemspe..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>session_time - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb line 76 (1 samples, 2.63%)</title><rect x="600.0" y="132" width="31.1" height="15.0" fill="rgb(222,222,34)" rx="2" ry="2" />
+<text text-anchor="" x="603.00" y="142.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >se..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (10 samples, 26.32%)</title><rect x="879.5" y="180" width="310.5" height="15.0" fill="rgb(253,216,15)" rx="2" ry="2" />
+<text text-anchor="" x="882.47" y="190.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c function&gt; - unknown line 0</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;top (required)&gt; - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/json/ext.rb line 3 (1 samples, 2.63%)</title><rect x="134.2" y="196" width="31.1" height="15.0" fill="rgb(235,98,39)" rx="2" ry="2" />
+<text text-anchor="" x="137.21" y="206.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;t..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;class:ProgressBar&gt; - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/gems/2.5.0/gems/ruby-progressbar-1.10.0/lib/ruby-progressbar/calculators/length.rb line 100 (1 samples, 2.63%)</title><rect x="10.0" y="212" width="31.1" height="15.0" fill="rgb(206,207,29)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="222.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>user_sessions_dates - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb line 96 (15 samples, 39.47%)</title><rect x="724.2" y="132" width="465.8" height="15.0" fill="rgb(245,25,47)" rx="2" ry="2" />
+<text text-anchor="" x="727.21" y="142.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >user_sessions_dates - /Users/maryna.nogtieva/learning/rails_pro..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (1 samples, 2.63%)</title><rect x="134.2" y="116" width="31.1" height="15.0" fill="rgb(234,166,19)" rx="2" ry="2" />
+<text text-anchor="" x="137.21" y="126.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>block in user_sessions_dates - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb line 95 (11 samples, 28.95%)</title><rect x="848.4" y="164" width="341.6" height="15.0" fill="rgb(244,146,41)" rx="2" ry="2" />
+<text text-anchor="" x="851.42" y="174.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >block in user_sessions_dates - /Users/maryna.n..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>data - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems/stub_specification.rb line 140 (2 samples, 5.26%)</title><rect x="72.1" y="308" width="62.1" height="15.0" fill="rgb(254,103,40)" rx="2" ry="2" />
+<text text-anchor="" x="75.11" y="318.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >data -..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>stubs - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems/specification.rb line 857 (2 samples, 5.26%)</title><rect x="72.1" y="164" width="62.1" height="15.0" fill="rgb(208,206,20)" rx="2" ry="2" />
+<text text-anchor="" x="75.11" y="174.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >stubs ..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (21 samples, 55.26%)</title><rect x="537.9" y="100" width="652.1" height="15.0" fill="rgb(227,160,36)" rx="2" ry="2" />
+<text text-anchor="" x="540.89" y="110.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c function&gt; - unknown line 0</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>require - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems/core_ext/kernel_require.rb line 138 (1 samples, 2.63%)</title><rect x="10.0" y="260" width="31.1" height="15.0" fill="rgb(233,185,37)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="270.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >re..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (11 samples, 28.95%)</title><rect x="196.3" y="84" width="341.6" height="15.0" fill="rgb(210,170,36)" rx="2" ry="2" />
+<text text-anchor="" x="199.32" y="94.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c function&gt; - unknown line 0</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>block in used_ie? - /Users/maryna.nogtieva/learning/rails_projects/task-2/task-2.rb line 87 (1 samples, 2.63%)</title><rect x="631.1" y="164" width="31.0" height="15.0" fill="rgb(239,110,32)" rx="2" ry="2" />
+<text text-anchor="" x="634.05" y="174.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >bl..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (1 samples, 2.63%)</title><rect x="72.1" y="340" width="31.1" height="15.0" fill="rgb(227,71,20)" rx="2" ry="2" />
+<text text-anchor="" x="75.11" y="350.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>require - /Users/maryna.nogtieva/.rbenv/versions/2.5.3/lib/ruby/2.5.0/rubygems/core_ext/kernel_require.rb line 138 (1 samples, 2.63%)</title><rect x="10.0" y="164" width="31.1" height="15.0" fill="rgb(253,170,25)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="174.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >re..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>&lt;c function&gt; - unknown line 0 (2 samples, 5.26%)</title><rect x="72.1" y="324" width="62.1" height="15.0" fill="rgb(251,171,50)" rx="2" ry="2" />
+<text text-anchor="" x="75.11" y="334.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >&lt;c fun..</text>
+</g>
+</svg>
