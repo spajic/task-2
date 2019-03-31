@@ -21,7 +21,7 @@ class TaskClass
     {
       'user_id' => fields[1],
       'session_id' => fields[2],
-      'browser' => fields[3],
+      'browser' => fields[3].upcase,
       'time' => fields[4],
       'date' => fields[5],
     }
@@ -32,12 +32,15 @@ class TaskClass
     users_objects.each do |user|
       user_key = "#{user['first_name']}" + ' ' + "#{user['last_name']}"
       report['usersStats'][user_key] ||= {}
+      mapped_time = map_time(user['sessions'])
       report['usersStats'][user_key]['sessionsCount'] = collect_session_count(user['sessions'])
-      report['usersStats'][user_key]['totalTime'] = collect_session_time(user['sessions'])
-      report['usersStats'][user_key]['longestSession'] = collect_session_longest(user['sessions'])
-      report['usersStats'][user_key]['browsers'] = collect_browsers(user['sessions'])
-      report['usersStats'][user_key]['usedIE'] = collect_ie_usage(user['sessions'])
-      report['usersStats'][user_key]['alwaysUsedChrome'] = collect_if_only_chrome_used(user['sessions'])
+      report['usersStats'][user_key]['totalTime'] = collect_session_time(mapped_time)
+      report['usersStats'][user_key]['longestSession'] = collect_session_longest(mapped_time)
+      mapped_browsers = map_browsers(user['sessions'])
+      browsers_as_string = collect_browsers(mapped_browsers)
+      report['usersStats'][user_key]['browsers'] = browsers_as_string
+      report['usersStats'][user_key]['usedIE'] = collect_ie_usage(browsers_as_string)
+      report['usersStats'][user_key]['alwaysUsedChrome'] = collect_if_only_chrome_used(browsers_as_string)
       report['usersStats'][user_key]['dates'] = collect_session_dates(user['sessions'])
     end
   end
@@ -47,35 +50,42 @@ class TaskClass
     sessions.count
   end
 
+  def map_time(sessions)
+    sessions.map {|s| s['time'].to_i }
+  end
+
+  def map_browsers(sessions)
+    sessions.map {|s| s['browser']}
+  end
+
   # Собираем количество времени по пользователям
-  def collect_session_time(sessions)
-    sessions.sum {|s| s['time'].to_i }.to_s + ' min.'
+  def collect_session_time(mapped_time)
+    mapped_time.sum.to_s + ' min.'
   end
 
   # Выбираем самую длинную сессию пользователя
-  def collect_session_longest(sessions)
-    sessions.map {|s| s['time'].to_i}.max.to_s + ' min.'
+  def collect_session_longest(mapped_time)
+    mapped_time.max.to_s + ' min.'
   end
 
   # Браузеры пользователя через запятую
-  def collect_browsers(sessions)
-    sessions.map {|s| s['browser'].upcase}.sort.join(', ')
+  def collect_browsers(mapped_browsers)
+    mapped_browsers.sort.join(', ')
   end
 
   # Хоть раз использовал IE?
-  def collect_ie_usage(sessions)
-    !!sessions.find {|s| s['browser'] =~ /INTERNET EXPLORER/i }
+  def collect_ie_usage(browsers_as_string)
+    !!(browsers_as_string =~ /INTERNET EXPLORER/i)
   end
 
   # Всегда использовал только Chrome?
-  def collect_if_only_chrome_used(sessions)
-    browsers = sessions.map {|s| s['browser']}.uniq
-    browsers.count == 1 && browsers.first =~ /CHROME/i
+  def collect_if_only_chrome_used(browsers_as_string)
+    browsers_as_string == 'CHROME'
   end
 
   # Даты сессий через запятую в обратном порядке в формате iso8601
   def collect_session_dates(sessions)
-    sessions.map{|s| s['date']}.sort {|a,b| b <=> a}
+    sessions.map{|s| s['date']}.sort.reverse# {|a,b| b <=> a}
   end
 
   def prepare_data(filename, users, sessions)
@@ -128,9 +138,9 @@ class TaskClass
 
     report['allBrowsers'] =
       sessions
-        .map { |s| s['browser'].upcase }
-        .sort
+        .map { |s| s['browser'] }
         .uniq
+        .sort
         .join(',')
 
     collect_stats_from_users(report, users)
