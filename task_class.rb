@@ -4,7 +4,6 @@
 require 'json'
 require 'date'
 #require 'pry'
-require 'csv'
 
 class TaskClass
   def parse_user(fields)
@@ -117,11 +116,10 @@ class TaskClass
     report[:totalUsers] = users.count
 
     # Подсчёт количества уникальных браузеров
-    uniqueBrowsers = []
-    sessions.each do |session|
+    uniqueBrowsers = sessions.each_with_object({}) do |session, result|
       browser = session['browser']
-      uniqueBrowsers << browser unless uniqueBrowsers.include?(browser)
-    end
+      result[browser] = true unless result[browser]
+    end.keys
 
     report['uniqueBrowsersCount'] = uniqueBrowsers.count
 
