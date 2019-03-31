@@ -4,6 +4,7 @@
 require 'json'
 require 'date'
 #require 'pry'
+require 'oj'
 
 class TaskClass
   def parse_user(fields)
@@ -113,7 +114,7 @@ class TaskClass
 
     report = {}
 
-    report[:totalUsers] = users.count
+    report['totalUsers'] = users.count
 
     # Подсчёт количества уникальных браузеров
     uniqueBrowsers = sessions.each_with_object({}) do |session, result|
@@ -134,6 +135,6 @@ class TaskClass
 
     collect_stats_from_users(report, users)
 
-    File.write('result.json', "#{report.to_json}\n")
+    File.write('result.json', "#{Oj.dump(report)}\n")
   end
 end

@@ -22,9 +22,9 @@ puts "Finish in #{time.round(2)}"
 
 # printer2 = RubyProf::GraphHtmlPrinter.new(result)
 # printer2.print(File.open("tmp/ruby_prof_graph.html", "w+"))
+#
+# printer3 = RubyProf::CallStackPrinter.new(result)
+# printer3.print(File.open("tmp/ruby_prof_callstack.html", "w+"))
 
-printer3 = RubyProf::CallStackPrinter.new(result)
-printer3.print(File.open("tmp/ruby_prof_callstack.html", "w+"))
-
-# printer4 = RubyProf::CallTreePrinter.new(result)
-# printer4.print(:path => "tmp/", :profile => 'callgrind')
+printer4 = RubyProf::CallTreePrinter.new(result)
+printer4.print(:path => "tmp/", :profile => 'callgrind')
