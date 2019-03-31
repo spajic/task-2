@@ -668,6 +668,13 @@ processing except `#parse_session` method which takes around 21%
 
 As per the screenshot below it's notable that that process would take around 11 seconds for the whole file. This is huge improvement comparing to 50 seconds from previous optimization.
 
+### Valgrind Massif & Massif Visualizer
+
+From the graph we can see linear growth of memoty consumption.
+Half of it is allocated for `objspace` and `heap_assign_page`
+
+![valgrind](screenshots/valgrind.png)
+
 ## Results
 As a result of this optimization, we finally managed to process the data file.
 It was possible to improve the system metric and run 1Mb-sized file in 0.18 seconds and 128Mb-sized file in 11 seconds
