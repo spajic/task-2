@@ -3,7 +3,6 @@
 
 require 'json'
 require 'date'
-require 'csv'
 require 'oj'
 
 class TaskClass
@@ -19,12 +18,25 @@ class TaskClass
 
   def parse_session(fields)
     {
-      'user_id' => fields[1],
       'session_id' => fields[2],
-      'browser' => fields[3].upcase,
+      'browser' => fields[3],
       'time' => fields[4],
       'date' => fields[5].strip,
     }
+  end
+
+  def prepare_data(filename, users, sessions)
+    file_lines = File.open(filename, "r")
+    file_lines.each_line do |line|
+      cols = line.split(',')
+      if cols[0] == 'session'
+        session = parse_session(cols)
+        sessions << session
+        users[cols[1].to_i]['sessions'] << session
+      else
+        users << parse_user(cols)
+      end
+    end
   end
 
   def collect_stats_from_users(report, users_objects)
@@ -38,7 +50,7 @@ class TaskClass
       report['usersStats'][user_key]['longestSession'] = collect_session_longest(mapped_time)
       mapped_browsers = map_browsers(user['sessions'])
       browsers_as_string = collect_browsers(mapped_browsers)
-      report['usersStats'][user_key]['browsers'] = browsers_as_string
+      report['usersStats'][user_key]['browsers'] = browsers_as_string.upcase
       report['usersStats'][user_key]['usedIE'] = collect_ie_usage(browsers_as_string)
       report['usersStats'][user_key]['alwaysUsedChrome'] = collect_if_only_chrome_used(browsers_as_string)
       report['usersStats'][user_key]['dates'] = collect_session_dates(user['sessions'])
@@ -80,26 +92,12 @@ class TaskClass
 
   # Всегда использовал только Chrome?
   def collect_if_only_chrome_used(browsers_as_string)
-    browsers_as_string == 'CHROME'
+    !!(browsers_as_string =~ /^CHROME$/i)
   end
 
   # Даты сессий через запятую в обратном порядке в формате iso8601
   def collect_session_dates(sessions)
-    sessions.map{|s| s['date']}.sort.reverse# {|a,b| b <=> a}
-  end
-
-  def prepare_data(filename, users, sessions)
-    file_lines = File.open(filename, "r")
-    file_lines.each_line do |line|
-      cols = line.split(',')
-      if cols[0] == 'session'
-        session = parse_session(cols)
-        sessions << session
-        users[session['user_id'].to_i]['sessions'] << session
-      else
-        users << parse_user(cols)
-      end
-    end
+    sessions.map{|s| s['date']}.sort.reverse
   end
 
   def work(filename:)
@@ -135,13 +133,7 @@ class TaskClass
     report['uniqueBrowsersCount'] = uniqueBrowsers.count
 
     report['totalSessions'] = sessions.count
-
-    report['allBrowsers'] =
-      sessions
-        .map { |s| s['browser'] }
-        .uniq
-        .sort
-        .join(',')
+    report['allBrowsers'] = uniqueBrowsers.sort.join(',').upcase
 
     collect_stats_from_users(report, users)
 

@@ -36,10 +36,11 @@ session,2,3,Chrome 20,84,2016-11-25
   end
 
   def test_performance_degradation
-    time_to_process = 1
+    time_to_process = 0.8
 
     assert_nothing_raised Timeout::Error do
-      Timeout::timeout(time_to_process * 2) do
+      # let's assume 20% is ok
+      Timeout::timeout(time_to_process * 1.2) do
         TaskClass.new.work(filename: 'data_large_100k.txt')
       end
     end

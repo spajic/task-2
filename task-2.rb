@@ -17,8 +17,8 @@ time = Benchmark.realtime do
 end
 puts "Finish in #{time.round(2)}"
 
-# printer = RubyProf::FlatPrinter.new(result)
-# printer.print(File.open("tmp/ruby_prof_flat.txt", "w+"))
+printer = RubyProf::FlatPrinter.new(result)
+printer.print(File.open("tmp/ruby_prof_flat.txt", "w+"))
 
 # printer2 = RubyProf::GraphHtmlPrinter.new(result)
 # printer2.print(File.open("tmp/ruby_prof_graph.html", "w+"))
