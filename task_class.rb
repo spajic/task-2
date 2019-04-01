@@ -3,7 +3,7 @@
 
 require 'json'
 require 'date'
-#require 'pry'
+require 'csv'
 require 'oj'
 
 class TaskClass
@@ -23,7 +23,7 @@ class TaskClass
       'session_id' => fields[2],
       'browser' => fields[3].upcase,
       'time' => fields[4],
-      'date' => fields[5],
+      'date' => fields[5].strip,
     }
   end
 
@@ -91,7 +91,7 @@ class TaskClass
   def prepare_data(filename, users, sessions)
     file_lines = File.open(filename, "r")
     file_lines.each_line do |line|
-      cols = line.chomp("\n").split(',')
+      cols = line.split(',')
       if cols[0] == 'session'
         session = parse_session(cols)
         sessions << session

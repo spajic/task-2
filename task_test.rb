@@ -36,7 +36,7 @@ session,2,3,Chrome 20,84,2016-11-25
   end
 
   def test_performance_degradation
-    time_to_process = 2
+    time_to_process = 1
 
     assert_nothing_raised Timeout::Error do
       Timeout::timeout(time_to_process * 2) do
