@@ -1,0 +1,518 @@
+events: wall_time
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=IO::write
+0 5595
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=String::to_s
+0 6868
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=String::encode
+0 226934
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=Symbol::to_s
+0 72009
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=JSON/Ext/Generator/State::generate
+0 278714
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Hash::keys
+calls=42483 224
+224 12460
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Symbol::to_s
+calls=297372 224
+224 72009
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=String::encode
+calls=701759 224
+224 226934
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=String::to_s
+calls=42481 224
+224 6868
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=JSON/Ext/Generator/State::configure
+0 4
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Hash::key?
+calls=3 222
+222 0
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=Hash::to_hash
+0 1
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=JSON/Ext/Generator/State::initialize_copy
+0 3
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=Kernel::initialize_dup
+0 1
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=JSON/Ext/Generator/State::initialize_copy
+calls=1 212
+212 3
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=Kernel::dup
+0 5
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Kernel::initialize_dup
+calls=1 212
+212 4
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=Module::===
+0 1
+
+fl=/Users/alexg/.rvm/rubies/ruby-2.6.0/lib/ruby/2.6.0/json/common.rb
+fn=JSON::^generate
+209 10
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Module::===
+calls=1 209
+209 1
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Kernel::dup
+calls=1 212
+212 9
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Kernel::respond_to?
+calls=1 215
+215 1
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Hash::to_hash
+calls=1 216
+216 1
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=JSON/Ext/Generator/State::configure
+calls=1 222
+222 4
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=JSON/Ext/Generator/State::generate
+calls=1 224
+224 596985
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=IO::to_io
+0 5
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=Kernel::respond_to?
+0 4
+
+fl=/Users/alexg/.rvm/rubies/ruby-2.6.0/lib/ruby/2.6.0/json/common.rb
+fn=JSON::^dump
+385 23
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=NilClass::nil?
+calls=1 385
+385 1
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Kernel::respond_to?
+calls=2 387
+387 3
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=IO::to_io
+calls=1 386
+386 5
+cfl=/Users/alexg/.rvm/rubies/ruby-2.6.0/lib/ruby/2.6.0/json/common.rb
+cfn=JSON::^generate
+calls=1 394
+394 597011
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=IO::write
+calls=2 115
+115 5595
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=IO::closed?
+calls=1 115
+115 3
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=IO::close
+calls=1 115
+115 619
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+fn=Object::write_json
+113 5
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=IO::^open
+calls=1 113
+113 604746
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=Hash::keys
+0 12462
+
+fl=/Users/alexg/.rvm/rubies/ruby-2.6.0/lib/ruby/2.6.0/set.rb
+fn=Set::to_a
+203 2
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Hash::keys
+calls=1 203
+203 2
+
+fl=/Users/alexg/.rvm/rubies/ruby-2.6.0/lib/ruby/2.6.0/set.rb
+fn=Set::size
+162 3
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+fn=Object::set_unique_browser_stat
+108 9
+cfl=/Users/alexg/.rvm/rubies/ruby-2.6.0/lib/ruby/2.6.0/set.rb
+cfn=Set::size
+calls=1 108
+108 3
+cfl=/Users/alexg/.rvm/rubies/ruby-2.6.0/lib/ruby/2.6.0/set.rb
+cfn=Set::to_a
+calls=1 109
+109 4
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Array::sort!
+calls=1 109
+109 55
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Array::join
+calls=1 109
+109 25
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=Array::reverse!
+0 7369
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=Integer::to_s
+0 46066
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+fn=Object::format_user_stats
+94 6
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Hash::each
+calls=1 94
+94 173118
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=Array::join
+0 33488
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=Array::sort!
+0 77564
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=Hash::each
+0 103069
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Array::sort!
+calls=42481 103
+103 36817
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Array::join
+calls=42481 103
+103 33463
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Integer::to_s
+calls=84962 96
+96 46066
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Array::sort!
+calls=42481 97
+97 40692
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Array::reverse!
+calls=42481 97
+97 7369
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+fn=Object::format_user_browsers
+102 2
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Hash::each
+calls=1 102
+102 94358
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=IO::close
+0 635
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=IO::closed?
+0 5
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+fn=Object::add_user_date
+63 115738
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=Hash::key?
+0 35672
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+fn=Object::set_always_chrome
+57 137164
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Hash::key?
+calls=234462 57
+57 35672
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=String::include?
+calls=54859 58
+58 14693
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=String::include?
+0 69038
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+fn=Object::set_used_ie
+52 129909
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=String::include?
+calls=234462 53
+53 54345
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+fn=Object::add_user_browser
+47 111960
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+fn=Object::add_longest_session
+42 107068
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+fn=Object::add_total_time
+37 102662
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+fn=Object::increase_user_sessions
+32 105850
+
+fl=/Users/alexg/.rvm/rubies/ruby-2.6.0/lib/ruby/2.6.0/set.rb
+fn=Set::add
+349 106400
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+fn=Object::increase_total_sessions
+78 73841
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=String::to_i
+0 46093
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=String::upcase
+0 63922
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+fn=Object::parse_session
+24 155260
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=String::upcase
+calls=234462 24
+24 63922
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=String::to_i
+calls=234462 24
+24 46093
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+fn=Object::prepare_user_mappings
+86 69557
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+fn=Object::increase_total_users
+82 13192
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+fn=Object::parse_user
+16 17289
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=String::split
+0 341555
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=String::chop
+0 104251
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=IO::each
+0 1268437
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=String::chop
+calls=277000 126
+126 104251
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=String::split
+calls=277000 126
+126 341555
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+cfn=Object::parse_user
+calls=42538 149
+149 17289
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+cfn=Object::increase_total_users
+calls=42538 151
+151 13192
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+cfn=Object::prepare_user_mappings
+calls=42538 152
+152 69557
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+cfn=Object::parse_session
+calls=234462 131
+131 265275
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+cfn=Object::increase_total_sessions
+calls=234462 132
+132 73841
+cfl=/Users/alexg/.rvm/rubies/ruby-2.6.0/lib/ruby/2.6.0/set.rb
+cfn=Set::add
+calls=234462 134
+134 106400
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+cfn=Object::increase_user_sessions
+calls=234462 141
+141 105850
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+cfn=Object::add_total_time
+calls=234462 142
+142 102662
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+cfn=Object::add_longest_session
+calls=234462 143
+143 107068
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+cfn=Object::add_user_browser
+calls=234462 144
+144 111960
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+cfn=Object::set_used_ie
+calls=234462 145
+145 184254
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+cfn=Object::set_always_chrome
+calls=234462 146
+146 187529
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+cfn=Object::add_user_date
+calls=234462 147
+147 115738
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=File::initialize
+0 1509
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=IO::^open
+0 20
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=File::initialize
+calls=1 124
+124 31
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=IO::each
+calls=1 125
+125 3174857
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=IO::closed?
+calls=1 125
+125 2
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=IO::close
+calls=1 125
+125 16
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=File::initialize
+calls=1 113
+113 1478
+cfl=/Users/alexg/.rvm/rubies/ruby-2.6.0/lib/ruby/2.6.0/json/common.rb
+cfn=JSON::^dump
+calls=1 114
+114 603260
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=NilClass::nil?
+0 2
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=Hash::initialize
+0 1
+
+fl=/Users/alexg/.rvm/rubies/ruby-2.6.0/lib/ruby/2.6.0/set.rb
+fn=Set::initialize
+94 3
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 3
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=NilClass::nil?
+calls=1 96
+96 1
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+fn=Class::new
+0 2
+cfl=/Users/alexg/.rvm/rubies/ruby-2.6.0/lib/ruby/2.6.0/set.rb
+cfn=Set::initialize
+calls=1 121
+121 7
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Hash::initialize
+calls=1 94
+94 1
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+fn=Object::produce_initial_report
+69 2
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+fn=Object::work
+120 24
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+cfn=Object::produce_initial_report
+calls=1 120
+120 2
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=Class::new
+calls=1 121
+121 9
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/ruby_runtime
+cfn=IO::^open
+calls=1 124
+124 3174918
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+cfn=Object::format_user_browsers
+calls=1 157
+157 94360
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+cfn=Object::format_user_stats
+calls=1 158
+158 173124
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+cfn=Object::set_unique_browser_stat
+calls=1 159
+159 96
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+cfn=Object::write_json
+calls=1 161
+161 604751
+
+fl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+fn=Object::ruby_prof_profiler
+172 21
+cfl=/Users/alexg/Projects/learning/ruby_opt/task-2/task_1_result.rb
+cfn=Object::work
+calls=1 215
+215 4047283
+
