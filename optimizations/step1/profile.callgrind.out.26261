@@ -1,0 +1,458 @@
+events: memory
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=IO::close
+0 0
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=IO::closed?
+0 0
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=String::tr!
+0 0
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=String::encode
+0 0
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=Symbol::to_s
+0 0
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=Hash::keys
+0 0
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=JSON/Ext/Generator/State::initialize_copy
+0 0
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=Kernel::initialize_dup
+0 0
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=JSON/Ext/Generator/State::initialize_copy
+calls=1 42
+42 0
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=Kernel::dup
+0 1
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Kernel::initialize_dup
+calls=1 42
+42 1
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=JSON/Ext/Generator/GeneratorMethods/Hash::to_json
+0 8
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Kernel::dup
+calls=1 42
+42 1
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Hash::keys
+calls=1 42
+42 0
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Symbol::to_s
+calls=4 42
+42 0
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=String::encode
+calls=5 42
+42 0
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=Hash::each_key
+0 3
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/set.rb
+fn=Set::each
+337 1
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Hash::each_key
+calls=1 338
+338 3
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=Enumerable::sort
+0 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/set.rb
+cfn=Set::each
+calls=1 41
+41 3
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/set.rb
+fn=Set::size
+162 0
+
+fl=/Users/donasktello/Projects/task-2/lib/report.rb
+fn=Report::^add_analyse
+38 3
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/set.rb
+cfn=Set::size
+calls=1 38
+38 0
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Enumerable::sort
+calls=1 38
+38 4
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Array::join
+calls=1 38
+38 3
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=String::upcase!
+calls=1 38
+38 0
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=JSON/Ext/Generator/GeneratorMethods/Hash::to_json
+calls=1 38
+38 10
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=String::tr!
+calls=1 38
+38 0
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=IO::write
+calls=1 44
+44 0
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=Array::clear
+0 0
+
+fl=/Users/donasktello/Projects/task-2/lib/user.rb
+fn=User::nullify
+32 2
+
+fl=/Users/donasktello/Projects/task-2/lib/user.rb
+fn=User::reset
+24 0
+cfl=/Users/donasktello/Projects/task-2/lib/user.rb
+cfn=User::nullify
+calls=263 24
+24 2
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Array::clear
+calls=526 27
+27 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/forwardable.rb
+fn=Parser::^clear_cache
+224 1
+cfl=/Users/donasktello/Projects/task-2/lib/user.rb
+cfn=User::reset
+calls=263 230
+230 3
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=Hash::has_key?
+0 1
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=Oj::^dump
+0 73
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Hash::has_key?
+calls=7101 33
+33 0
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Hash::has_key?
+calls=27 33
+33 0
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=Integer::to_s
+0 1
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=String::include?
+0 1
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=String::end_with?
+0 1
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=String::upcase!
+0 1
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=Array::join
+0 37
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=Array::reverse!
+0 1
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=Array::sort!
+0 21
+
+fl=/Users/donasktello/Projects/task-2/lib/user.rb
+fn=User::prepare
+13 1
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Array::sort!
+calls=526 15
+15 20
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Array::reverse!
+calls=263 13
+13 0
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Array::join
+calls=263 15
+15 34
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=String::upcase!
+calls=263 15
+15 0
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=String::end_with?
+calls=263 17
+17 1
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=String::include?
+calls=263 18
+18 0
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Array::sort!
+calls=2 15
+15 0
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Array::reverse!
+calls=1 13
+13 0
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Array::join
+calls=1 15
+15 0
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=String::upcase!
+calls=1 15
+15 0
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=String::end_with?
+calls=1 17
+17 0
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=String::include?
+calls=1 18
+18 0
+
+fl=/Users/donasktello/Projects/task-2/lib/report.rb
+fn=Report::^add_parsed
+18 77
+cfl=/Users/donasktello/Projects/task-2/lib/user.rb
+cfn=User::prepare
+calls=263 18
+18 56
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Integer::to_s
+calls=526 24
+24 0
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Oj::^dump
+calls=263 33
+33 73
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=IO::write
+calls=263 33
+33 0
+cfl=/Users/donasktello/Projects/task-2/lib/user.rb
+cfn=User::prepare
+calls=1 18
+18 2
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Integer::to_s
+calls=2 24
+24 0
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Oj::^dump
+calls=1 33
+33 1
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=IO::write
+calls=1 33
+33 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/set.rb
+fn=Set::add
+349 13
+
+fl=/Users/donasktello/Projects/task-2/lib/_parser.rb
+fn=Parser::^parse_session
+18 1
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/set.rb
+cfn=Set::add
+calls=1382 23
+23 13
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=String::strip
+0 1
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=String::to_i
+0 1
+
+fl=/Users/donasktello/Projects/task-2/lib/_parser.rb
+fn=Parser::^parse_user
+14 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/forwardable.rb
+fn=Parser::^parsed_exists?
+224 0
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=String::start_with?
+0 0
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=String::split
+0 0
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=IO::^foreach
+0 85
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=String::split
+calls=1646 13
+13 0
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=String::start_with?
+calls=1646 15
+15 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/forwardable.rb
+cfn=Parser::^parsed_exists?
+calls=264 16
+16 0
+cfl=/Users/donasktello/Projects/task-2/lib/_parser.rb
+cfn=Parser::^parse_user
+calls=264 22
+22 0
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=String::to_i
+calls=1382 24
+24 1
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=String::strip
+calls=1382 24
+24 1
+cfl=/Users/donasktello/Projects/task-2/lib/_parser.rb
+cfn=Parser::^parse_session
+calls=1382 24
+24 14
+cfl=/Users/donasktello/Projects/task-2/lib/report.rb
+cfn=Report::^add_parsed
+calls=263 17
+17 206
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/forwardable.rb
+cfn=Parser::^clear_cache
+calls=263 19
+19 4
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=IO::write
+0 9
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=NilClass::nil?
+0 1
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=Hash::initialize
+0 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/set.rb
+fn=Set::initialize
+94 1
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 1
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=NilClass::nil?
+calls=1 96
+96 1
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=Class::new
+0 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/set.rb
+cfn=Set::initialize
+calls=1 11
+11 2
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Hash::initialize
+calls=1 94
+94 0
+
+fl=/Users/donasktello/Projects/task-2/lib/report.rb
+fn=Report::^prepare
+10 1
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=Class::new
+calls=1 11
+11 2
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=IO::write
+calls=1 14
+14 8
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=File::initialize
+0 1
+
+fl=/Users/donasktello/Projects/task-2/ruby_runtime
+fn=IO::^open
+0 1
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=File::initialize
+calls=1 9
+9 1
+cfl=/Users/donasktello/Projects/task-2/lib/report.rb
+cfn=Report::^prepare
+calls=1 10
+10 12
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=IO::^foreach
+calls=1 12
+12 313
+cfl=/Users/donasktello/Projects/task-2/lib/report.rb
+cfn=Report::^add_parsed
+calls=1 28
+28 4
+cfl=/Users/donasktello/Projects/task-2/lib/report.rb
+cfn=Report::^add_analyse
+calls=1 30
+30 22
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=IO::closed?
+calls=1 30
+30 0
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=IO::close
+calls=1 30
+30 0
+
+fl=/Users/donasktello/Projects/task-2/lib/parser.rb
+fn=Object::work
+9 1
+cfl=/Users/donasktello/Projects/task-2/ruby_runtime
+cfn=IO::^open
+calls=1 9
+9 352
+
+fl=/Users/donasktello/Projects/task-2/optimizations/rubyprof_patched.rb
+fn=[global]::[no method]
+7 1
+cfl=/Users/donasktello/Projects/task-2/lib/parser.rb
+cfn=Object::work
+calls=1 7
+7 352
+
