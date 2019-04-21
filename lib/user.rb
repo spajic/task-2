@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User
   attr_accessor :name, :sessions_count, :total_time, :longest_session,
                 :browsers, :dates, :used_ie, :used_only_chrome

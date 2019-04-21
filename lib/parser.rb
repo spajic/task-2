@@ -1,4 +1,5 @@
-# Deoptimized version of homework task
+# frozen_string_literal: true
+
 require_relative '_parser'
 require 'pry-byebug'
 
