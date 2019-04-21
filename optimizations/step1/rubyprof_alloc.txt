@@ -1,0 +1,58 @@
+Measure Mode: allocations
+Thread ID: 70206089248720
+Fiber ID: 70206086642280
+Total: 26290.000000
+Sort by: self_time
+
+ %self      total      self      wait     child     calls  name
+ 42.82  11258.000 11258.000     0.000     0.000     1646   String#split
+ 20.80  26226.000  5469.000     0.000 20757.000        1   <Class::IO>#foreach
+ 15.35   4036.000  4036.000     0.000     0.000      265   <Module::Oj>#dump
+  5.26   1382.000  1382.000     0.000     0.000     1382   String#strip
+  5.04   7680.000  1325.000     0.000  6355.000      265   <Class::Report>#add_parsed
+  3.02   1524.000   795.000     0.000   729.000      265   User#prepare
+  2.02    530.000   530.000     0.000     0.000      530   Integer#to_s
+  1.76    464.000   464.000     0.000     0.000      530   Array#sort!
+  1.02    268.000   268.000     0.000     0.000      267   IO#write
+  1.01    266.000   266.000     0.000     0.000      266   Array#join
+  1.00    264.000   264.000     0.000     0.000      264   <Class::Parser>#parse_user
+  0.76    201.000   201.000     0.000     0.000     1382   Set#add
+  0.02      6.000     6.000     0.000     0.000        5   String#encode
+  0.02     25.000     5.000     0.000    20.000        1   <Class::Report>#add_analyse
+  0.02      4.000     4.000     0.000     0.000        4   Symbol#to_s
+  0.01      5.000     3.000     0.000     2.000        1   Enumerable#sort
+  0.01  26287.000     2.000     0.000 26285.000        1   <Class::IO>#open
+  0.01  26289.000     2.000     0.000 26287.000        1   Object#work
+  0.01      2.000     2.000     0.000     0.000        1   Set#each
+  0.00  26290.000     1.000     0.000 26289.000        1   [global]#[no method]
+  0.00      1.000     1.000     0.000     0.000        1   Kernel#dup
+  0.00     13.000     1.000     0.000    12.000        1   JSON::Ext::Generator::GeneratorMethods::Hash#to_json
+  0.00      2.000     1.000     0.000     1.000        2  *Class#new
+  0.00      5.000     1.000     0.000     4.000        1   <Class::Report>#prepare
+  0.00      1.000     1.000     0.000     0.000        1   File#initialize
+  0.00      1.000     1.000     0.000     0.000        1   Hash#keys
+  0.00      0.000     0.000     0.000     0.000        1   IO#closed?
+  0.00      0.000     0.000     0.000     0.000        1   String#tr!
+  0.00      0.000     0.000     0.000     0.000        1   JSON::Ext::Generator::State#initialize_copy
+  0.00      0.000     0.000     0.000     0.000        1   Kernel#initialize_dup
+  0.00      0.000     0.000     0.000     0.000        1   Hash#each_key
+  0.00      0.000     0.000     0.000     0.000        1   Set#size
+  0.00    201.000     0.000     0.000   201.000     1382   <Class::Parser>#parse_session
+  0.00      0.000     0.000     0.000     0.000     1382   String#to_i
+  0.00      0.000     0.000     0.000     0.000      528   Array#clear
+  0.00      0.000     0.000     0.000     0.000      264   User#nullify
+  0.00      0.000     0.000     0.000     0.000      264   User#reset
+  0.00      0.000     0.000     0.000     0.000      264   <Class::Parser>#clear_cache
+  0.00      0.000     0.000     0.000     0.000     7155   Hash#has_key?
+  0.00      0.000     0.000     0.000     0.000      265   String#include?
+  0.00      0.000     0.000     0.000     0.000      265   String#end_with?
+  0.00      0.000     0.000     0.000     0.000      266   String#upcase!
+  0.00      0.000     0.000     0.000     0.000      265   Array#reverse!
+  0.00      0.000     0.000     0.000     0.000      264   <Class::Parser>#parsed_exists?
+  0.00      0.000     0.000     0.000     0.000     1646   String#start_with?
+  0.00      0.000     0.000     0.000     0.000        1   NilClass#nil?
+  0.00      0.000     0.000     0.000     0.000        1   Hash#initialize
+  0.00      1.000     0.000     0.000     1.000        1   Set#initialize
+  0.00      0.000     0.000     0.000     0.000        1   IO#close
+
+* indicates recursively called methods
